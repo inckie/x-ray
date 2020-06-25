@@ -48,10 +48,26 @@ It leads to a number of issues:
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | ? | comes out best (see below)].
+What our library will do is provide a way to construct structured data in a convenient way.
+This is achieved by flexible syntax and context providers.
+
+Also, we provide a number of default transformation options to collapse this information into limited output formats, like plain text.
+This is achieved by providing message and event formatters.
 
 ![Diagram](./001-logger/logger_diagram.png)
 
+## Generic Event format:
+
+* UTC timestamp
+* Logging level (verbose, debug, info, warning, error, fatal)
+* Full logger name in hierarchy (“applicaster.ui.composite”)
+* Tag (optional, will be generated from top of the call stack otherwise)
+* Simple text formatted message
+* Hierarchical data that can be serialized as JSON, provided by user and context providers:
+  * Default context information: thread (with a name), process id
+  * Android specific context: application bundle id
+  * Custom context information from context provider attached to the log
+  * Optional java/JS context information: call stack with source code file name
 
 
 ### Positive Consequences <!-- optional -->
@@ -65,6 +81,11 @@ Chosen option: "[option 1]", because [justification. e.g., only option, which me
 * ?
 
 ## Pros and Cons of the Options <!-- optional -->
+
+### Additional data format:
+* As original object (bad and risky: objects can change, fail to serialize, etc), definitely no-no
+* As json-like object, convert on the fly (maybe a bit expensive)
+* As json string, convert on the fly (still expensive for java. easy to obtain from RN and locally, but lacks flexibility, possibly problematic for some sinks ('json in json' problem))
 
 ### [option 1]
 
