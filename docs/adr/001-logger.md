@@ -51,6 +51,11 @@ It leads to a number of issues:
 What our library will do is provide a way to construct structured data in a convenient way.
 This is achieved by flexible syntax and context providers.
 
+* EventBuilder is responsible for creating an Event object.
+* Logger is a convenient way to configure EventBuidler
+* Mapper is a way to route events to sinks, and provide some ahead of time optimizations for event builders (early discard)
+* Sink is a way to output the event
+
 Also, we provide a number of default transformation options to collapse this information into limited output formats, like plain text.
 This is achieved by providing message and event formatters.
 
