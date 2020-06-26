@@ -1,4 +1,4 @@
-package com.applicaster.xray.example
+package com.applicaster.xray.example.sinks
 
 import android.os.Handler
 import android.os.Looper

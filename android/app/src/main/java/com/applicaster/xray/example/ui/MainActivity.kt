@@ -7,13 +7,14 @@ import com.applicaster.xray.Core
 import com.applicaster.xray.LogContext
 import com.applicaster.xray.Logger
 import com.applicaster.xray.android.contexts.ThreadContext
-import com.applicaster.xray.example.JavaTestClass
-import com.applicaster.xray.example.KotlinTestClass
+import com.applicaster.xray.example.model.JavaTestClass
+import com.applicaster.xray.example.model.KotlinTestClass
 import com.applicaster.xray.example.R
 import com.applicaster.xray.formatting.message.ReflectionMessageFormatter
 import com.applicaster.xray.formatting.message.NamedReflectionMessageFormatter
 import com.applicaster.xray.android.sinks.ADBSink
 import com.applicaster.xray.android.sinks.FileLogSink
+import com.applicaster.xray.example.sinks.InMemoryLogSink
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         Core.get()
             .addSink("adb_sink", ADBSink())
+            .addSink("memory_sink",
+                InMemoryLogSink()
+            )
             .addSink("default_log_sink", fileLogSink)
 
         val rootLogger = Logger.get()

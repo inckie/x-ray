@@ -1,4 +1,4 @@
-package com.applicaster.xray.example;
+package com.applicaster.xray.example.model;
 
 public class JavaTestClass {
     public String fieldString;

@@ -1,4 +1,4 @@
-package com.applicaster.xray.example
+package com.applicaster.xray.example.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
