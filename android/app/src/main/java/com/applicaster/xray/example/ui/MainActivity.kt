@@ -1,4 +1,4 @@
-package com.applicaster.xray.example
+package com.applicaster.xray.example.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,9 @@ import android.widget.Toast
 import com.applicaster.xray.Core
 import com.applicaster.xray.LogContext
 import com.applicaster.xray.Logger
+import com.applicaster.xray.example.JavaTestClass
+import com.applicaster.xray.example.KotlinTestClass
+import com.applicaster.xray.example.R
 import com.applicaster.xray.formatting.message.ReflectionMessageFormatter
 import com.applicaster.xray.formatting.message.NamedReflectionMessageFormatter
 import com.applicaster.xray.sinks.android.ADBSink
@@ -25,27 +28,34 @@ class MainActivity : AppCompatActivity() {
             .addSink("adb_sink", ADBSink())
             .addSink("default_log_sink", fileLogSink)
 
-        val rootLogger = Logger.get();
+        val rootLogger = Logger.get()
         rootLogger.setFormatter(ReflectionMessageFormatter())
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<Button>(R.id.button)?.setOnClickListener {
-            Toast.makeText(this, "Connect the debugger", Toast.LENGTH_SHORT).show()
-            android.os.Debug.waitForDebugger()
-            Toast.makeText(this, "Debugger is connected", Toast.LENGTH_SHORT).show()
-            Log.i("Logger", "connected")
-        }
+        findViewById<Button>(R.id.btn_log_some).setOnClickListener { logSomeEvents() }
+    }
 
-        val kotlinTestClass = KotlinTestClass("String field", 0xff, 0.1f)
-        val javaTestClass = JavaTestClass("String field", 0xff, 0.1f)
+    private fun logSomeEvents() {
+        val rootLogger = Logger.get()
+        val kotlinTestClass = KotlinTestClass(
+            "String field",
+            0xff,
+            0.1f
+        )
+        val javaTestClass = JavaTestClass(
+            "String field",
+            0xff,
+            0.1f
+        )
 
         rootLogger
             .d() // auto tag with enclosing class name
             .putData(mapOf("object" to kotlinTestClass))
             .message(
                 "Formatter test for Kotlin class %s&object_contents",
-                kotlinTestClass)
+                kotlinTestClass
+            )
 
         rootLogger
             .d("Test")
@@ -56,26 +66,30 @@ class MainActivity : AppCompatActivity() {
             .putData(mapOf("object" to kotlinTestClass))
             .message(
                 "Formatter test for Kotlin class %s",
-                kotlinTestClass)
+                kotlinTestClass
+            )
 
         rootLogger
             .d("Test")
             .message(
                 "Formatter test for Kotlin class %s",
-                kotlinTestClass)
+                kotlinTestClass
+            )
 
         rootLogger
             .d("Test")
             .message(
                 "Formatter test for Java class %s",
-                javaTestClass)
+                javaTestClass
+            )
 
         rootLogger
             .d("Test")
             .message(
                 "Formatter test for Java and Kotlin classes with positional args. Java: %1\$s, Kotlin: %2\$s",
                 javaTestClass,
-                kotlinTestClass)
+                kotlinTestClass
+            )
 
         // create a child logger
         val childLogger = rootLogger.getChild("childLogger");
@@ -92,6 +106,7 @@ class MainActivity : AppCompatActivity() {
             .message(
                 "Formatter test for Java and Kotlin classes with extracted positional args. Java: %1\$s&java_object, Kotlin: %2\$s&kotlin_object",
                 javaTestClass,
-                kotlinTestClass)
+                kotlinTestClass
+            )
     }
 }
