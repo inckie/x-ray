@@ -13,8 +13,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-// ToDo: must be abstract so we can return dummy
-public class EventBuilder {
+
+public class EventBuilder implements IEventBuilder {
     private final Logger logger;
     private final String tag;
     private final Date timestamp;
@@ -35,34 +35,41 @@ public class EventBuilder {
         this.context = context;
     }
 
+    @Override
     public Event build() {
         // todo: handle expandData
         return new Event(tag, timestamp, level, message, data, context);
     }
 
-    public EventBuilder setLevel(int level) {
+    @Override
+    @NotNull
+    public IEventBuilder setLevel(int level) {
         this.level = level;
         return this;
     }
 
+    @Override
     @NotNull
-    public EventBuilder putData(@NotNull Map<String, ?> data) {
+    public IEventBuilder putData(@NotNull Map<String, ?> data) {
         this.data.putAll(data);
         return this;
     }
 
     // Expand data to primitive classes. toString will be used otherwise
+    @Override
     @NonNull
-    public EventBuilder expandData() {
+    public IEventBuilder expandData() {
         this.expandData = true;
         return this;
     }
 
+    @Override
     public void message(@NonNull String message) {
         this.message = message;
         submit();
     }
 
+    @Override
     public void message(@NonNull String message,
                         @Nullable Object... args) {
         this.message = logger.getFormattedMessage(message, data, args);
@@ -78,8 +85,9 @@ public class EventBuilder {
 
     }
 
+    @Override
     @NotNull
-    public EventBuilder withCallStack() {
+    public IEventBuilder withCallStack() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         int frameOffset = Stack.getClientCodeFrameOffset(stackTrace);
         List<String> stack = new ArrayList<>();

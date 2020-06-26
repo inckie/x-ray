@@ -26,18 +26,18 @@ public class Logger {
 
     private static final Logger sRoot = new Logger("", null);
 
-    public EventBuilder tag(String tag){
+    public IEventBuilder tag(String tag){
         return new EventBuilder(this, tag, getFullContext());
     }
 
-    public EventBuilder d() {
+    public IEventBuilder d() {
         // maybe return dummy builder if logging level is disabled?
         // todo: check if logger is enabled
         return tag(getStackTag())
                 .setLevel(Log.DEBUG);
     }
 
-    public EventBuilder d(@NonNull String tag) {
+    public IEventBuilder d(@NonNull String tag) {
         // maybe return dummy builder if logging level is disabled?
         // todo: check if logger is enabled
         return tag(tag)
