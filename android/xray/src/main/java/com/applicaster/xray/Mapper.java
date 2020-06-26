@@ -29,7 +29,9 @@ public class Mapper {
                                        @NonNull Event event) {
         ArrayList<ISink> mappedSinks = loggerMapping.get(logger.getName());
         if (mappedSinks == null) {
-            return filter(this.sinks.values(), event);
+            synchronized (sinks) {
+                return filter(this.sinks.values(), event);
+            }
         }
         return filter(mappedSinks, event);
     }

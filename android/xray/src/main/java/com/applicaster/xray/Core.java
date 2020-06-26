@@ -1,8 +1,11 @@
 package com.applicaster.xray;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.applicaster.xray.sinks.ISink;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -20,6 +23,19 @@ public class Core {
             sinks.put(name, sink);
         }
         return this;
+    }
+
+    @Nullable
+    public ISink getSink(String name) {
+        synchronized (sinks) {
+            return sinks.get(name);
+        }
+    }
+
+    public void removeSink(@NotNull ISink sink) {
+        synchronized(sinks) {
+            sinks.values().remove(sink);
+        }
     }
 
     @NonNull
