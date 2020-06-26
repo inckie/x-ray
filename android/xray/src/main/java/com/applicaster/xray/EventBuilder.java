@@ -38,7 +38,7 @@ public class EventBuilder implements IEventBuilder {
     @Override
     public Event build() {
         // todo: handle expandData
-        return new Event(tag, timestamp, level, message, data, context);
+        return new Event(tag, logger.getName(), timestamp.getTime(), level, message, data, context);
     }
 
     @Override
