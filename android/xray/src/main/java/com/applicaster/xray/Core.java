@@ -18,12 +18,20 @@ public class Core {
 
     private final Mapper mapper = new Mapper(sinks);
 
+    // are any logging classes allowed to throw exceptions to client
+    private boolean neverThrow = false;
+
     // region Sinks management
 
     @NotNull
     public Core addSink(String name, ISink sink) {
         synchronized(sinks) {
-            sinks.put(name, sink);
+            if(null != sinks.put(name, sink)) {
+                // todo: log error
+                if(!neverThrow) {
+                    throw new IllegalStateException("Sink " + name + " already exists!");
+                }
+            }
         }
         return this;
     }
