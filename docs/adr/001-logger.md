@@ -82,11 +82,6 @@ This is achieved by providing message and event formatters.
 
 ## Pros and Cons of the Options <!-- optional -->
 
-### Additional data format:
-* As original object (bad and risky: objects can change, fail to serialize, etc), definitely no-no
-* As json-like object, convert on the fly (maybe a bit expensive)
-* As json string, convert on the fly (still expensive for java. easy to obtain from RN and locally, but lacks flexibility, possibly problematic for some sinks ('json in json' problem))
-
 ### [option 1]
 
 [example | description | pointer to more information | ?] <!-- optional -->
