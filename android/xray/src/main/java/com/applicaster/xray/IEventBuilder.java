@@ -9,7 +9,10 @@ import java.util.Map;
 
 public interface IEventBuilder {
 
-    Event build(); // todo: think what dummy EventBuilder will do. Can it be null?
+    // DummyEventBuilder will return null here
+    // Maybe method should be protected or even private (i.e. not in the interface)
+    // its only called from message()
+    Event build();
 
     @NotNull
     IEventBuilder setLevel(int level);

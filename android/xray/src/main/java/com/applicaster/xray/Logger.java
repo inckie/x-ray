@@ -26,25 +26,32 @@ public class Logger {
 
     private static final Logger sRoot = new Logger("", null);
 
-    public IEventBuilder tag(String tag){
-        return new EventBuilder(this, tag, getFullContext());
-    }
+    // todo: fail, info, warn levels
 
     public IEventBuilder d() {
-        // maybe return dummy builder if logging level is disabled?
-        // todo: check if logger is enabled
-        return tag(getStackTag())
-                .setLevel(Log.DEBUG);
+        return d(getStackTag());
+    }
+
+    public IEventBuilder e() {
+        return e(getStackTag());
     }
 
     public IEventBuilder d(@NonNull String tag) {
-        // maybe return dummy builder if logging level is disabled?
-        // todo: check if logger is enabled
-        return tag(tag)
-                .setLevel(Log.DEBUG);
+        return makeBuilder(tag, Log.DEBUG);
     }
 
-    // todo: fail, error, info, warn levels
+    public IEventBuilder e(@NonNull String tag) {
+        return makeBuilder(tag, Log.ERROR);
+    }
+
+    @NotNull
+    private IEventBuilder makeBuilder(@NonNull String tag, int level) {
+        if(!Core.get().hasSinks(tag, level, this)) {
+            return new NullEventBuilder();
+        }
+        return new EventBuilder(this, tag, getFullContext())
+                .setLevel(level);
+    }
 
     @NotNull
     public synchronized Map<String, Object> getFullContext() {
@@ -64,14 +71,12 @@ public class Logger {
     }
 
     void submit(Event event) {
+        // todo: this should be extracted since logger is not the only source of Events
         ArrayList<ISink> mapping = Core.get().getMapping(this, event);
         if(!mapping.isEmpty()) {
             for(ISink sink : mapping)
                 sink.log(event);
         }
-        // todo: not sure if we want to propagate, most likely, no
-        if(null != parent)
-            parent.submit(event);
     }
 
     @NonNull

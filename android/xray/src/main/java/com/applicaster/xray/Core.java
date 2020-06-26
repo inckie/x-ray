@@ -18,6 +18,9 @@ public class Core {
 
     private final Mapper mapper = new Mapper(sinks);
 
+    // region Sinks management
+
+    @NotNull
     public Core addSink(String name, ISink sink) {
         synchronized(sinks) {
             sinks.put(name, sink);
@@ -38,6 +41,16 @@ public class Core {
         }
     }
 
+    // early-exit filter
+    public boolean hasSinks(@NonNull String tag,
+                            int level,
+                            @NonNull Logger logger) { // should use logger name only
+        // todo: ask mapper if any sink exist
+        return true;
+    }
+
+    //endregion
+
     @NonNull
     public static Core get() {
         if (null == instance) {
@@ -51,10 +64,11 @@ public class Core {
     }
 
     @NonNull
-    public ArrayList<ISink> getMapping(@NonNull Logger logger,
+    public ArrayList<ISink> getMapping(@NonNull Logger logger, // should use logger name only
                                        @NonNull Event event) {
         synchronized (mapper) {
             return mapper.getMapping(logger, event);
         }
     }
+
 }
