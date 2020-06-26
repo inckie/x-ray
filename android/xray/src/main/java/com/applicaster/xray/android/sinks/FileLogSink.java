@@ -1,4 +1,4 @@
-package com.applicaster.xray.sinks.android;
+package com.applicaster.xray.android.sinks;
 
 import android.content.Context;
 import android.util.Log;

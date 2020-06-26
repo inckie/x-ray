@@ -18,7 +18,7 @@ public class EventBuilder implements IEventBuilder {
     private final Logger logger;
     private final String tag;
     private final Date timestamp;
-    private final LogContext context;
+    private final Map<String, Object> context;
     private LinkedHashMap<String, Object> data = new LinkedHashMap<>();
     private int level;
     private String message;
@@ -28,7 +28,7 @@ public class EventBuilder implements IEventBuilder {
 
     public EventBuilder(@NonNull Logger logger,
                         @NonNull String tag,
-                        @NonNull LogContext context) {
+                        @NonNull Map<String, Object> context) {
         this.tag = tag;
         this.logger = logger;
         this.timestamp = new Date();
@@ -38,7 +38,14 @@ public class EventBuilder implements IEventBuilder {
     @Override
     public Event build() {
         // todo: handle expandData
-        return new Event(tag, logger.getName(), timestamp.getTime(), level, message, data, context);
+        return new Event(
+                tag,
+                logger.getName(),
+                timestamp.getTime(),
+                level,
+                message,
+                data,
+                context);
     }
 
     @Override

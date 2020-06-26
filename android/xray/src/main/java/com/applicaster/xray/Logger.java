@@ -47,11 +47,13 @@ public class Logger {
     // todo: fail, error, info, warn levels
 
     @NotNull
-    public synchronized LogContext getFullContext() {
-        LogContext mergedContext = new LogContext(context);
+    public synchronized Map<String, Object> getFullContext() {
+        Map<String, Object> mergedContext = new HashMap<>();
         if (parent != null) {
             mergedContext.putAll(parent.getFullContext());
         }
+        // override parent values on conflict
+        mergedContext.putAll(context.retrieve());
         return mergedContext;
     }
 
