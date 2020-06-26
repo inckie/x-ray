@@ -1,6 +1,6 @@
 package com.applicaster.xray
 
-import com.applicaster.xray.formatting.message.SubstitutionReflectionMessageFormatter
+import com.applicaster.xray.formatting.message.NamedReflectionMessageFormatter
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -10,14 +10,14 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class SubstitutionReflectionMessageFormatterUnitTest {
+class NamedReflectionMessageFormatterUnitTest {
     @Test
     fun testAnchorsMessageFormatter() {
 
         val kotlinTestClass = KotlinTestClass("Kotlin String field", 0xff, 0.1f)
         val javaTestClass = JavaTestClass("Java String field", 0xff, 0.1f)
 
-        val formatter = SubstitutionReflectionMessageFormatter()
+        val formatter = NamedReflectionMessageFormatter()
 
         val anchorA = mutableMapOf<String, Any?>()
         val resultA = formatter.format(

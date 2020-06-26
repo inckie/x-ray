@@ -93,6 +93,7 @@ public class Logger {
         return sRoot;
     }
 
+    @NotNull
     public synchronized Logger getChild(@NonNull String childName) {
         Logger logger = children.get(childName);
         if(null != logger) {

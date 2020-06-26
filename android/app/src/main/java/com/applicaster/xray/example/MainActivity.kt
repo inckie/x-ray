@@ -9,16 +9,21 @@ import com.applicaster.xray.Core
 import com.applicaster.xray.LogContext
 import com.applicaster.xray.Logger
 import com.applicaster.xray.formatting.message.ReflectionMessageFormatter
-import com.applicaster.xray.formatting.message.SubstitutionReflectionMessageFormatter
+import com.applicaster.xray.formatting.message.NamedReflectionMessageFormatter
 import com.applicaster.xray.sinks.android.ADBSink
 import com.applicaster.xray.sinks.android.FileLogSink
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        val fileLogSink = FileLogSink(this, "default.log");
+        // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
+        // CrashReporter.setLogFile(fileLogSink.getFile());
+        // most likely you'll need to implement content provider to pass the file to share intent
+
         Core.get()
             .addSink("adb_sink", ADBSink())
-            .addSink("default_log_sink", FileLogSink(this, "default.log"))
+            .addSink("default_log_sink", fileLogSink)
 
         val rootLogger = Logger.get();
         rootLogger.setFormatter(ReflectionMessageFormatter())
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val javaTestClass = JavaTestClass("String field", 0xff, 0.1f)
 
         rootLogger
-            .d()
+            .d() // auto tag with enclosing class name
             .putData(mapOf("object" to kotlinTestClass))
             .message(
                 "Formatter test for Kotlin class %s&object_contents",
@@ -47,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             .message("Basic message")
 
         rootLogger
-            .d()
+            .d() // auto tag with enclosing class name
             .putData(mapOf("object" to kotlinTestClass))
             .message(
                 "Formatter test for Kotlin class %s",
@@ -72,10 +77,16 @@ class MainActivity : AppCompatActivity() {
                 javaTestClass,
                 kotlinTestClass)
 
-        rootLogger
-            .getChild("childLogger")
-            .setFormatter(SubstitutionReflectionMessageFormatter())
-            .setContext(LogContext(mapOf("loggerContext" to "loggerContextValue")))
+        // create a child logger
+        val childLogger = rootLogger.getChild("childLogger");
+
+        // configure child logger: set custom formatter and append context
+        childLogger
+            .setFormatter(NamedReflectionMessageFormatter()) // this will extract log arguments as a named key value pairs to the event
+            .setContext(LogContext(mapOf("loggerContext" to "loggerContextValue")));
+
+        // use child logger
+        childLogger
             .d("Test")
             .withCallStack()
             .message(

@@ -5,7 +5,7 @@ import java.util.regex.Pattern
 /*
  High cost object unpacking adapter
  */
-class SubstitutionReflectionMessageFormatter : ReflectionMessageFormatter() {
+class NamedReflectionMessageFormatter : ReflectionMessageFormatter() {
 
     companion object {
         const val namedPlaceholder = "%(?<idx>\\d\\\$)?([a-z])*\\d*(.\\d+)*[bhsdoxefgatn%](?<name>(&[a-zA-Z0-9_]*)?)"
