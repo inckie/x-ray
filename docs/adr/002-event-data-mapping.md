@@ -24,7 +24,7 @@ As of now, any type of object can be attached, but not all sinks will be able to
 
 ## Considered Options
 
-1. As original object (bad and risky: objects can change, fail to serialize, etc), definitely no-no
+1. As original object
 2. As json-like object (i.e. HashMaps and Lists, or some Json type), with conversion on the fly (maybe a bit expensive)
 3. As json string, convert on the fly (still expensive for java. easy to obtain from RN and locally, but lacks flexibility, possibly problematic for some sinks ('json in json' problem))
 4. Limit attachment options to HashMaps and Lists initially, and let user decide how to do the conversion
@@ -45,37 +45,38 @@ As of now, any type of object can be attached, but not all sinks will be able to
 
 ## Pros and Cons of the Options <!-- optional -->
 
-### Additional data format:
-* As original object (bad and risky: objects can change, fail to serialize, etc), definitely no-no
-* As json-like object, convert on the fly (maybe a bit expensive)
-* As json string, convert on the fly (still expensive for java. easy to obtain from RN and locally, but lacks flexibility, possibly problematic for some sinks ('json in json' problem))
+### option 1 As original object
 
-### [option 1]
+* Good, because easy to implement
+* Bad, because objects can change
+* Bad because objects can  fail to serialize
 
-[example | description | pointer to more information | ?] <!-- optional -->
+Definitely no-go
 
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* ? <!-- numbers of pros and cons can vary -->
-
-### [option 2]
-
-[example | description | pointer to more information | ?] <!-- optional -->
+### option 2 As json-like object
 
 * Good, because [argument a]
 * Good, because [argument b]
 * Bad, because [argument c]
-* ? <!-- numbers of pros and cons can vary -->
 
-### [option 3]
+Need to pick actual format: Standard containers (variation of option #4), java.Json, gson.Json, some other implementation.
+
+### option 3 As json string, convert on the fly
 
 [example | description | pointer to more information | ?] <!-- optional -->
 
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* ? <!-- numbers of pros and cons can vary -->
+* Good, because RN can return data that way
+* Bad, because maybe a bit expensive
+* Bad, because can cause troubles in sinks ('json in json' problem)
+
+### option 4 Limit attachment options to HashMaps and Lists initially, and let user decide how to do the conversion
+
+* Good since easy to support in the library
+* Bad due to lack of type information for values (thats why JSON types and RN Maps exist)
+
+### option 5 Extract conversion options to some transformer strategy
+
+Not sure how to handle it in sinks, but if we agree that end format must be primitive data containers, we are good.
 
 ## Links <!-- optional -->
 
