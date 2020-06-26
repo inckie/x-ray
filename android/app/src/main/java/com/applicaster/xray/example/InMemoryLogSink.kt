@@ -8,7 +8,7 @@ import com.applicaster.xray.Event
 import com.applicaster.xray.sinks.ISink
 import java.util.*
 
-class UILogSink : ISink {
+class InMemoryLogSink : ISink {
     private val events: MutableList<Event> = ArrayList()
     private val handler = Handler(Looper.getMainLooper())
     private val liveData: MutableLiveData<List<Event>> =

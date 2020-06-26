@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.applicaster.xray.Core
 import com.applicaster.xray.example.EventRecyclerViewAdapter
 import com.applicaster.xray.example.R
-import com.applicaster.xray.example.UILogSink
+import com.applicaster.xray.example.InMemoryLogSink
 
 /**
  * A fragment representing a list of Items.
  */
 class EventLogFragment : Fragment() {
 
-    private lateinit var sink: UILogSink
+    private lateinit var sink: InMemoryLogSink
     private var columnCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class EventLogFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
-        sink = UILogSink() // should be persistent shared object, if we want to see all log events
+        sink = InMemoryLogSink() // should be persistent shared object, if we want to see all log events
         Core.get().addSink("ui_log", sink)
     }
 
