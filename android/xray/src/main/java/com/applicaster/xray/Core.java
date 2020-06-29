@@ -3,12 +3,16 @@ package com.applicaster.xray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.applicaster.xray.routing.ISinkFilter;
+import com.applicaster.xray.routing.Mapper;
 import com.applicaster.xray.sinks.ISink;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Core {
 
@@ -29,7 +33,7 @@ public class Core {
             if(null != sinks.put(name, sink)) {
                 // todo: log error
                 if(!neverThrow) {
-                    throw new IllegalStateException("Sink " + name + " already exists!");
+                    throw new IllegalStateException("Sink with name '" + name + "' is already registered!");
                 }
             }
         }
@@ -50,11 +54,40 @@ public class Core {
     }
 
     // early-exit filter
-    public boolean hasSinks(@NonNull String tag,
-                            int level,
-                            @NonNull Logger logger) { // should use logger name only
-        // todo: ask mapper if any sink exist
-        return true;
+    public boolean hasSinks(@NonNull String loggerName,
+                            @NonNull String tag,
+                            int level) {
+        synchronized (mapper) {
+            return mapper.hasSinks(loggerName, tag, level);
+        }
+    }
+
+    @NonNull
+    public ArrayList<ISink> getMapping(@NonNull Event event) {
+        ArrayList<ISink> result = new ArrayList<>();
+        Set<String> enabledSinks;
+        synchronized (mapper) {
+            enabledSinks = mapper.getMapping(event.getSubsystem(), event.getTag(), event.getLevel());
+        }
+        synchronized(sinks) {
+            // keeping the sink order
+            for (Map.Entry<String, ISink> namedSink : sinks.entrySet()) {
+                if(enabledSinks.contains(namedSink.getKey())) {
+                    result.add(namedSink.getValue());
+                }
+            }
+        }
+        return result;
+    }
+
+    public Core setFilter(@NotNull String sinkName,
+                          @NotNull String loggerName,
+                          @NotNull ISinkFilter filter) {
+        // do not care if the sink already/still exists
+        synchronized (mapper) {
+            mapper.setFilter(loggerName, sinkName, filter);
+        }
+        return this;
     }
 
     //endregion
@@ -70,13 +103,4 @@ public class Core {
         }
         return instance;
     }
-
-    @NonNull
-    public ArrayList<ISink> getMapping(@NonNull Logger logger, // should use logger name only
-                                       @NonNull Event event) {
-        synchronized (mapper) {
-            return mapper.getMapping(logger, event);
-        }
-    }
-
 }

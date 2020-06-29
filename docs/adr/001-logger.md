@@ -61,6 +61,9 @@ This is achieved by providing message and event formatters.
 
 ![Diagram](./001-logger/logger_diagram.png)
 
+
+**Logger hierarchy separator is /**
+**
 ## Generic Event format:
 
 * UTC timestamp

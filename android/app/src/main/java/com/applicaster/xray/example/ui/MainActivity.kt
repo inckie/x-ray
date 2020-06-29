@@ -2,11 +2,13 @@ package com.applicaster.xray.example.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import com.applicaster.xray.Core
 import com.applicaster.xray.LogContext
 import com.applicaster.xray.Logger
 import com.applicaster.xray.android.contexts.ThreadContext
+import com.applicaster.xray.android.routing.DefaultSinkFilter
 import com.applicaster.xray.example.model.JavaTestClass
 import com.applicaster.xray.example.model.KotlinTestClass
 import com.applicaster.xray.example.R
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val fileLogSink = FileLogSink(this, "default.log");
-
+        val errorFileLogSink = FileLogSink(this, "errors.log");
         // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
         Reporting.init("crash@example.com", fileLogSink.file)
         Reporting.enableForCurrentThread(this) // todo: combine with init?
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
                 InMemoryLogSink()
             )
             .addSink("default_log_sink", fileLogSink)
+            .addSink("error_log_sink", errorFileLogSink)
+            .setFilter("error_log_sink", "", DefaultSinkFilter(Log.ERROR))
 
         val rootLogger = Logger.get()
         rootLogger.setContext(ThreadContext())
@@ -108,6 +112,33 @@ class MainActivity : AppCompatActivity() {
         childLogger
             .setFormatter(NamedReflectionMessageFormatter()) // this will extract log arguments as a named key value pairs to the event
             .setContext(LogContext(mapOf("loggerContext" to "loggerContextValue")));
+
+        Core.get()
+            .setFilter("error_log_sink", "childLogger", DefaultSinkFilter(Log.DEBUG))
+
+        rootLogger
+            .d("Test")
+            .withCallStack()
+            .message(
+                "Logging debug to root")
+
+        rootLogger
+            .e("Test")
+            .withCallStack()
+            .message(
+                "Logging error to root")
+
+        childLogger
+            .d("Test")
+            .withCallStack()
+            .message(
+                "Logging debug to child")
+
+        childLogger
+            .e("Test")
+            .withCallStack()
+            .message(
+                "Logging error to child")
 
         // use child logger
         childLogger

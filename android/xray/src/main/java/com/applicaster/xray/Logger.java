@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class Logger {
 
+    public static final char NameSeparator = '/';
+
     private final HashMap<String, Logger> children = new HashMap<>();
     private final String name;
     private final Logger parent;
@@ -46,7 +48,7 @@ public class Logger {
 
     @NotNull
     private IEventBuilder makeBuilder(@NonNull String tag, int level) {
-        if(!Core.get().hasSinks(tag, level, this)) {
+        if(!Core.get().hasSinks(this.getName(), tag, level)) {
             return new NullEventBuilder();
         }
         return new EventBuilder(this, tag, getFullContext())
@@ -72,7 +74,7 @@ public class Logger {
 
     void submit(Event event) {
         // todo: this should be extracted since logger is not the only source of Events
-        ArrayList<ISink> mapping = Core.get().getMapping(this, event);
+        ArrayList<ISink> mapping = Core.get().getMapping(event);
         if(!mapping.isEmpty()) {
             for(ISink sink : mapping)
                 sink.log(event);
@@ -106,7 +108,7 @@ public class Logger {
         if(null != logger) {
             return logger;
         }
-        logger = new Logger(name + "." + childName, null);
+        logger = new Logger(name.isEmpty() ? childName : name + NameSeparator + childName, null);
         // todo: decide what to copy to the child: formatter?
         logger.messageFormatter = this.messageFormatter;
         children.put(childName, logger);
