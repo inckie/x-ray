@@ -21,7 +21,7 @@ public class Mapper {
     // map Logger base name -> (sink name -> sink filter)
     private final Map<String, HashMap<String, ISinkFilter>> loggerMapping = new HashMap<>();
 
-    public Mapper(HashMap<String, ISink> sinks) {
+    public Mapper(Map<String, ISink> sinks) {
         this.sinks = sinks.keySet();
     }
 
@@ -91,5 +91,11 @@ public class Mapper {
                             int level) {
         // todo: optimize
         return !getMapping(loggerName, tag, level).isEmpty();
+    }
+
+    public void reset() {
+        synchronized (loggerMapping) {
+            loggerMapping.clear();
+        }
     }
 }

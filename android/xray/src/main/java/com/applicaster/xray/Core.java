@@ -103,4 +103,13 @@ public class Core {
         }
         return instance;
     }
+
+    public void reset() {
+        synchronized(sinks) {
+            sinks.clear();
+        }
+        synchronized (mapper) {
+            mapper.reset();
+        }
+    }
 }
