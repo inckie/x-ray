@@ -14,15 +14,17 @@ import com.applicaster.xray.formatting.message.ReflectionMessageFormatter
 import com.applicaster.xray.formatting.message.NamedReflectionMessageFormatter
 import com.applicaster.xray.android.sinks.ADBSink
 import com.applicaster.xray.android.sinks.FileLogSink
+import com.applicaster.xray.crashreporter.Reporting
 import com.applicaster.xray.example.sinks.InMemoryLogSink
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val fileLogSink = FileLogSink(this, "default.log");
+
         // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
-        // CrashReporter.setLogFile(fileLogSink.getFile());
-        // most likely you'll need to implement content provider to pass the file to share intent
+        Reporting.init("crash@example.com", fileLogSink.file)
+        Reporting.enableForCurrentThread(this) // todo: combine with init?
 
         Core.get()
             .addSink("adb_sink", ADBSink())
@@ -38,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn_log_some).setOnClickListener { logSomeEvents() }
+        findViewById<Button>(R.id.btn_crash).setOnClickListener { throw Exception("Test crash") }
+
+        // now when UI is ready, we can check for crash report
+        Reporting.checkCrashReport(this)
     }
 
     private fun logSomeEvents() {

@@ -1,0 +1,1 @@
+-keep class com.applicaster.xray.crashreporter.ReportingFileProvider

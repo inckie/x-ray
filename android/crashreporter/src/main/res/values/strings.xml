@@ -1,0 +1,4 @@
+<resources>
+    <string name="dlg_send_crash_report_title">Crash report</string>
+    <string name="dlg_send_crash_report_message">Send crash report?</string>
+</resources>

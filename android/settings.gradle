@@ -1,3 +1,4 @@
+include ':crashreporter'
 include ':xray'
 include ':app'
 rootProject.name = "Logging"
