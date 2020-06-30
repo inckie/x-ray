@@ -36,6 +36,37 @@ class MapperUnitTest {
         assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
         assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
 
+        // run same sat on child logger
+        val childLogger = Logger.get().getChild("childLogger")
+
+        testSinkDebug.addExpectedMessage(debugMessage)
+        childLogger.d().message(debugMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        testSinkDebug.addExpectedMessage(errorMessage)
+        testSinkError.addExpectedMessage(errorMessage)
+        childLogger.e().message(errorMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        // override error filter for child logger
+        Core.get()
+            .setFilter("test_sink_error", "childLogger", DefaultSinkFilter(Log.DEBUG))
+
+        // now both sinks should receive it
+        testSinkDebug.addExpectedMessage(debugMessage)
+        testSinkError.addExpectedMessage(debugMessage)
+        childLogger.d().message(debugMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        testSinkDebug.addExpectedMessage(errorMessage)
+        testSinkError.addExpectedMessage(errorMessage)
+        childLogger.e().message(errorMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
         Core.get().reset()
     }
 
@@ -76,7 +107,7 @@ class MapperUnitTest {
         mapping = Core.get().getMapping(testEvent)
         // validate mapping to contain both sinks
         assertTrue("Sink0 was added", mapping.contains(testSink0))
-        assertTrue("Sink1 was added",mapping.contains(testSink1))
+        assertTrue("Sink1 was added", mapping.contains(testSink1))
 
         Core.get().removeSink(testSink1)
         // validate mapping to contain only one sink
