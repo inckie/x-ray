@@ -67,6 +67,49 @@ class MapperUnitTest {
         assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
         assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
 
+        val grandChildLogger = childLogger.getChild("grandChildLogger")
+
+        // still both should receive the message
+        testSinkDebug.addExpectedMessage(debugMessage)
+        testSinkError.addExpectedMessage(debugMessage)
+        grandChildLogger.d().message(debugMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        testSinkDebug.addExpectedMessage(errorMessage)
+        testSinkError.addExpectedMessage(errorMessage)
+        grandChildLogger.e().message(errorMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        // remove filter override
+        Core.get()
+            .setFilter("test_sink_error", "childLogger", null)
+
+        // validate it removed
+        testSinkDebug.addExpectedMessage(debugMessage)
+        childLogger.d().message(debugMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        testSinkDebug.addExpectedMessage(errorMessage)
+        testSinkError.addExpectedMessage(errorMessage)
+        childLogger.e().message(errorMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        // same for grandchild
+        testSinkDebug.addExpectedMessage(debugMessage)
+        grandChildLogger.d().message(debugMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
+        testSinkDebug.addExpectedMessage(errorMessage)
+        testSinkError.addExpectedMessage(errorMessage)
+        grandChildLogger.e().message(errorMessage)
+        assertTrue("debug sink does not expects any messages", testSinkDebug.isEmpty())
+        assertTrue("error sink does not expects any messages", testSinkError.isEmpty())
+
         Core.get().reset()
     }
 

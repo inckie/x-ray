@@ -27,11 +27,22 @@ public class Mapper {
 
     public void setFilter(@NonNull final String loggerName,
                           @NonNull final String sinkName,
-                          @NonNull final ISinkFilter filter) {
+                          @Nullable final ISinkFilter filter) {
         synchronized (loggerMapping) {
             HashMap<String, ISinkFilter> mappedSinks = loggerMapping.get(loggerName);
             if (null != mappedSinks) {
-                mappedSinks.put(sinkName, filter);
+                if(null != filter) {
+                    mappedSinks.put(sinkName, filter);
+                }
+                else {
+                    mappedSinks.remove(sinkName);
+                    if(mappedSinks.isEmpty()) {
+                        loggerMapping.remove(loggerName);
+                    }
+                }
+                return;
+            }
+            if(null == filter) {
                 return;
             }
             loggerMapping.put(loggerName, new HashMap<String, ISinkFilter>() {{
@@ -48,6 +59,7 @@ public class Mapper {
         // exact match
         HashMap<String, ISinkFilter> mappedSinks = loggerMapping.get(logger);
         if(null != mappedSinks) {
+            // should not be empty
             return mappedSinks;
         }
         // look for any parent mapping

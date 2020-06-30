@@ -82,7 +82,7 @@ public class Core {
 
     public Core setFilter(@NotNull String sinkName,
                           @NotNull String loggerName,
-                          @NotNull ISinkFilter filter) {
+                          @Nullable ISinkFilter filter) {
         // do not care if the sink already/still exists
         synchronized (mapper) {
             mapper.setFilter(loggerName, sinkName, filter);
