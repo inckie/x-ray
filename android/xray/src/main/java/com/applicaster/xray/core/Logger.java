@@ -94,6 +94,10 @@ public class Logger {
                    @Nullable Logger parent) {
         this.name = name;
         this.parent = parent;
+        if(null != parent) {
+            // todo: decide what to copy to the child: formatter?
+            messageFormatter = parent.messageFormatter;
+        }
     }
 
     @NotNull
@@ -107,9 +111,8 @@ public class Logger {
         if(null != logger) {
             return logger;
         }
-        logger = new Logger(name.isEmpty() ? childName : name + NameSeparator + childName, null);
-        // todo: decide what to copy to the child: formatter?
-        logger.messageFormatter = this.messageFormatter;
+        // todo: handle situation when we are creating grandchild logger (use recursion)
+        logger = new Logger(name.isEmpty() ? childName : name + NameSeparator + childName, this);
         children.put(childName, logger);
         return logger;
     }
