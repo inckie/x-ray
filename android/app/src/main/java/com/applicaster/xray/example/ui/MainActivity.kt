@@ -22,24 +22,30 @@ import com.applicaster.xray.example.sinks.InMemoryLogSink
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val fileLogSink = FileLogSink(this, "default.log");
-        val errorFileLogSink = FileLogSink(this, "errors.log");
-        // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
-        Reporting.init("crash@example.com", fileLogSink.file)
-        Reporting.enableForCurrentThread(this) // todo: combine with init?
+        // check if we have already initialized x-ray
+        if (null == Core.get().getSink("adb_sink")) {
 
-        Core.get()
-            .addSink("adb_sink", ADBSink())
-            .addSink("memory_sink",
-                InMemoryLogSink()
-            )
-            .addSink("default_log_sink", fileLogSink)
-            .addSink("error_log_sink", errorFileLogSink)
-            .setFilter("error_log_sink", "", DefaultSinkFilter(Log.ERROR))
+            val fileLogSink = FileLogSink(this, "default.log");
+            val errorFileLogSink = FileLogSink(this, "errors.log");
 
-        val rootLogger = Logger.get()
-        rootLogger.setContext(ThreadContext())
-        rootLogger.setFormatter(ReflectionMessageFormatter())
+            // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
+            Reporting.init("crash@example.com", fileLogSink.file)
+            Reporting.enableForCurrentThread(this) // todo: combine with init?
+
+            Core.get()
+                .addSink("adb_sink", ADBSink())
+                .addSink(
+                    "memory_sink",
+                    InMemoryLogSink()
+                )
+                .addSink("default_log_sink", fileLogSink)
+                .addSink("error_log_sink", errorFileLogSink)
+                .setFilter("error_log_sink", "", DefaultSinkFilter(Log.ERROR))
+
+            val rootLogger = Logger.get()
+            rootLogger.setContext(ThreadContext())
+            rootLogger.setFormatter(ReflectionMessageFormatter())
+        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -120,25 +126,29 @@ class MainActivity : AppCompatActivity() {
             .d("Test")
             .withCallStack()
             .message(
-                "Logging debug to root")
+                "Logging debug to root"
+            )
 
         rootLogger
             .e("Test")
             .withCallStack()
             .message(
-                "Logging error to root")
+                "Logging error to root"
+            )
 
         childLogger
             .d("Test")
             .withCallStack()
             .message(
-                "Logging debug to child")
+                "Logging debug to child"
+            )
 
         childLogger
             .e("Test")
             .withCallStack()
             .message(
-                "Logging error to child")
+                "Logging error to child"
+            )
 
         // use child logger
         childLogger
