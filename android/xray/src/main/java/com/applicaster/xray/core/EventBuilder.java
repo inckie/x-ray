@@ -1,9 +1,9 @@
-package com.applicaster.xray;
+package com.applicaster.xray.core;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.utility.Stack;
+import com.applicaster.xray.core.utility.Stack;
 
 import org.jetbrains.annotations.NotNull;
 

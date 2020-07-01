@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.applicaster.xray.Core
+import com.applicaster.xray.core.Core
 import com.applicaster.xray.example.R
 import com.applicaster.xray.example.sinks.InMemoryLogSink
 

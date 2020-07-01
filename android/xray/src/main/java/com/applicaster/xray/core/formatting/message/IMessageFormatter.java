@@ -1,4 +1,4 @@
-package com.applicaster.xray.formatting.message;
+package com.applicaster.xray.core.formatting.message;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.applicaster.xray.Event
+import com.applicaster.xray.core.Event
 import com.applicaster.xray.example.databinding.FragmentEventLogBinding
 
 class EventRecyclerViewAdapter(

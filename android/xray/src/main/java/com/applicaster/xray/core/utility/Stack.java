@@ -1,6 +1,6 @@
-package com.applicaster.xray.utility;
+package com.applicaster.xray.core.utility;
 
-import com.applicaster.xray.Core;
+import com.applicaster.xray.core.Core;
 
 public class Stack {
 

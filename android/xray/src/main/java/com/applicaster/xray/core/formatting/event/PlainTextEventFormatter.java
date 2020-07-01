@@ -1,8 +1,8 @@
-package com.applicaster.xray.formatting.event;
+package com.applicaster.xray.core.formatting.event;
 
 import androidx.annotation.NonNull;
 
-import com.applicaster.xray.Event;
+import com.applicaster.xray.core.Event;
 
 public class PlainTextEventFormatter implements IEventFormatter {
 

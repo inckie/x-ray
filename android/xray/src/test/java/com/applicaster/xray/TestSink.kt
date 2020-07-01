@@ -1,6 +1,7 @@
 package com.applicaster.xray
 
-import com.applicaster.xray.sinks.ISink
+import com.applicaster.xray.core.Event
+import com.applicaster.xray.core.ISink
 import org.junit.Assert
 import java.util.ArrayDeque
 

@@ -1,4 +1,4 @@
-package com.applicaster.xray
+package com.applicaster.xray.core
 
 data class Event(
     val tag: String,

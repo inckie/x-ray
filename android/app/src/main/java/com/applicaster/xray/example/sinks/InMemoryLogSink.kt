@@ -4,8 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.applicaster.xray.Event
-import com.applicaster.xray.sinks.ISink
+import com.applicaster.xray.core.Event
+import com.applicaster.xray.core.ISink
 import java.util.*
 
 class InMemoryLogSink : ISink {

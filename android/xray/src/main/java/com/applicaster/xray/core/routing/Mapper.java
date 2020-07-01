@@ -1,10 +1,10 @@
-package com.applicaster.xray.routing;
+package com.applicaster.xray.core.routing;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.Logger;
-import com.applicaster.xray.sinks.ISink;
+import com.applicaster.xray.core.Logger;
+import com.applicaster.xray.core.ISink;
 
 import java.util.HashMap;
 import java.util.HashSet;

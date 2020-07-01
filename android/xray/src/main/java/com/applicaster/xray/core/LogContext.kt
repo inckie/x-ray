@@ -1,4 +1,4 @@
-package com.applicaster.xray
+package com.applicaster.xray.core
 
 import java.util.*
 

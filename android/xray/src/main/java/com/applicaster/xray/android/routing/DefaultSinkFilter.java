@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.applicaster.xray.routing.ISinkFilter;
+import com.applicaster.xray.core.routing.ISinkFilter;
 
 public class DefaultSinkFilter implements ISinkFilter {
 

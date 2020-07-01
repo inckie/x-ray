@@ -1,11 +1,10 @@
-package com.applicaster.xray;
+package com.applicaster.xray.core;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.routing.ISinkFilter;
-import com.applicaster.xray.routing.Mapper;
-import com.applicaster.xray.sinks.ISink;
+import com.applicaster.xray.core.routing.ISinkFilter;
+import com.applicaster.xray.core.routing.Mapper;
 
 import org.jetbrains.annotations.NotNull;
 

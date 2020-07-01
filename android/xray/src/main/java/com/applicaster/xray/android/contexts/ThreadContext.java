@@ -1,6 +1,6 @@
 package com.applicaster.xray.android.contexts;
 
-import com.applicaster.xray.LogContext;
+import com.applicaster.xray.core.LogContext;
 
 import org.jetbrains.annotations.NotNull;
 

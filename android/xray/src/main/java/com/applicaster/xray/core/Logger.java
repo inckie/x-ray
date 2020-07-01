@@ -1,14 +1,13 @@
-package com.applicaster.xray;
+package com.applicaster.xray.core;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.formatting.message.IMessageFormatter;
-import com.applicaster.xray.formatting.message.BasicMessageFormatter;
-import com.applicaster.xray.sinks.ISink;
-import com.applicaster.xray.utility.Stack;
+import com.applicaster.xray.core.formatting.message.IMessageFormatter;
+import com.applicaster.xray.core.formatting.message.BasicMessageFormatter;
+import com.applicaster.xray.core.utility.Stack;
 
 import org.jetbrains.annotations.NotNull;
 

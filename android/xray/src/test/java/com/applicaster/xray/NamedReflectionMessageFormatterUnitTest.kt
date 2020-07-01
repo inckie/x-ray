@@ -1,6 +1,6 @@
 package com.applicaster.xray
 
-import com.applicaster.xray.formatting.message.NamedReflectionMessageFormatter
+import com.applicaster.xray.core.formatting.message.NamedReflectionMessageFormatter
 import org.junit.Test
 
 import org.junit.Assert.*

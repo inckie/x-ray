@@ -1,4 +1,4 @@
-package com.applicaster.xray.routing;
+package com.applicaster.xray.core.routing;
 
 import androidx.annotation.NonNull;
 

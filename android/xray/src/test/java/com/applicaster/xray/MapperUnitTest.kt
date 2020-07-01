@@ -2,8 +2,11 @@ package com.applicaster.xray
 
 import android.util.Log
 import com.applicaster.xray.android.routing.DefaultSinkFilter
-import com.applicaster.xray.routing.Mapper
-import com.applicaster.xray.sinks.ISink
+import com.applicaster.xray.core.Core
+import com.applicaster.xray.core.Event
+import com.applicaster.xray.core.Logger
+import com.applicaster.xray.core.routing.Mapper
+import com.applicaster.xray.core.ISink
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -134,7 +137,15 @@ class MapperUnitTest {
         val testSink0 = TestSink("Error")
         val testSink1 = TestSink("Error")
 
-        val testEvent = Event("tag", "subsystem", 0L, Log.DEBUG, "message", null, null)
+        val testEvent = Event(
+            "tag",
+            "subsystem",
+            0L,
+            Log.DEBUG,
+            "message",
+            null,
+            null
+        )
 
         // add mapping to not yet registered sinks
         Core.get().setFilter("test_sink_0", "subsystem") { _, _, _ -> true }
