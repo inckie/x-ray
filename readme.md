@@ -12,6 +12,8 @@
 - Named placeholders in templates (WIP)
 - Split the source code to modules or source sets. Better both as an option.
 - In-memory circular buffer event sink
+- Maybe output file sinks to cache and not data storage, so user can wipe it without losing data
+- Trim/rotate file sinks
 
 ## Issues:
 - Using Android-specific nullable annotations
