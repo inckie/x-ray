@@ -59,4 +59,5 @@ buildscript {
 }
 allprojects {
     group = 'com.applicaster.xray'
+    version = '0.0.1'
 }
