@@ -52,6 +52,12 @@ public class Core {
         }
     }
 
+    public void removeSink(@NotNull String sinkName) {
+        synchronized(sinks) {
+            sinks.remove(sinkName);
+        }
+    }
+
     // early-exit filter
     public boolean hasSinks(@NonNull String loggerName,
                             @NonNull String tag,
