@@ -17,15 +17,15 @@ import java.io.IOException;
 /*
   Android specific file log writer
  */
-public class FileLogSink implements ISink {
+public class PackageFileLogSink implements ISink {
 
     private static final String TAG = "FileLogSink";
     private final Context ctx;
     private final String fileName;
     private final IEventFormatter formatter = new PlainTextEventFormatter();
 
-    public FileLogSink(@NonNull Context ctx,
-                       @NonNull String fileName) {
+    public PackageFileLogSink(@NonNull Context ctx,
+                              @NonNull String fileName) {
         this.fileName = fileName;
         this.ctx = ctx.getApplicationContext();
     }

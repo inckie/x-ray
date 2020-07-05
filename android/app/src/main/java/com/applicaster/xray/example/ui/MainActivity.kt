@@ -15,7 +15,7 @@ import com.applicaster.xray.example.R
 import com.applicaster.xray.core.formatting.message.ReflectionMessageFormatter
 import com.applicaster.xray.core.formatting.message.NamedReflectionMessageFormatter
 import com.applicaster.xray.android.sinks.ADBSink
-import com.applicaster.xray.android.sinks.FileLogSink
+import com.applicaster.xray.android.sinks.PackageFileLogSink
 import com.applicaster.xray.crashreporter.Reporting
 import com.applicaster.xray.example.sinks.InMemoryLogSink
 
@@ -25,8 +25,16 @@ class MainActivity : AppCompatActivity() {
         // check if we have already initialized x-ray
         if (null == Core.get().getSink("adb_sink")) {
 
-            val fileLogSink = FileLogSink(this, "default.log");
-            val errorFileLogSink = FileLogSink(this, "errors.log");
+            val fileLogSink =
+                PackageFileLogSink(
+                    this,
+                    "default.log"
+                );
+            val errorFileLogSink =
+                PackageFileLogSink(
+                    this,
+                    "errors.log"
+                );
 
             // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
             Reporting.init("crash@example.com", fileLogSink.file)
