@@ -27,18 +27,40 @@ public class Logger {
 
     private static final Logger sRoot = new Logger("", null);
 
-    // todo: fail, info, warn levels
+    public IEventBuilder v() {
+        return v(getStackTag());
+    }
+
+    public IEventBuilder i() {
+        return i(getStackTag());
+    }
 
     public IEventBuilder d() {
         return d(getStackTag());
+    }
+
+    public IEventBuilder w() {
+        return w(getStackTag());
     }
 
     public IEventBuilder e() {
         return e(getStackTag());
     }
 
+    public IEventBuilder v(@NonNull String tag) {
+        return makeBuilder(tag, Log.VERBOSE);
+    }
+
     public IEventBuilder d(@NonNull String tag) {
         return makeBuilder(tag, Log.DEBUG);
+    }
+
+    public IEventBuilder i(@NonNull String tag) {
+        return makeBuilder(tag, Log.INFO);
+    }
+
+    public IEventBuilder w(@NonNull String tag) {
+        return makeBuilder(tag, Log.WARN);
     }
 
     public IEventBuilder e(@NonNull String tag) {
