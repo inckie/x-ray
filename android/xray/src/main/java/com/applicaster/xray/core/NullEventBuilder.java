@@ -25,6 +25,12 @@ public class NullEventBuilder implements IEventBuilder {
 
     @NotNull
     @Override
+    public IEventBuilder exception(@NotNull Throwable t) {
+        return this;
+    }
+
+    @NotNull
+    @Override
     public IEventBuilder putData(@NotNull Map<String, ?> data) {
         return this;
     }

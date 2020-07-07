@@ -18,6 +18,9 @@ public interface IEventBuilder {
     IEventBuilder setLevel(int level);
 
     @NotNull
+    IEventBuilder exception(@NotNull Throwable t);
+
+    @NotNull
     IEventBuilder putData(@NotNull Map<String, ?> data);
 
     // Expand data to primitive classes. toString will be used otherwise
@@ -31,5 +34,4 @@ public interface IEventBuilder {
 
     void message(@NonNull String message,
                  @Nullable Object... args);
-
 }

@@ -22,6 +22,7 @@ public class EventBuilder implements IEventBuilder {
     private LinkedHashMap<String, Object> data = new LinkedHashMap<>();
     private int level;
     private String message;
+    private Throwable exception;
     private boolean expandData; // todo: covert objects to Map/Array or other convenient container if set
 
     private boolean submitted;
@@ -45,13 +46,21 @@ public class EventBuilder implements IEventBuilder {
                 level,
                 message,
                 data,
-                context);
+                context,
+                exception);
     }
 
     @Override
     @NotNull
     public IEventBuilder setLevel(int level) {
         this.level = level;
+        return this;
+    }
+
+    @NotNull
+    @Override
+    public IEventBuilder exception(@NotNull Throwable t) {
+        this.exception = t;
         return this;
     }
 

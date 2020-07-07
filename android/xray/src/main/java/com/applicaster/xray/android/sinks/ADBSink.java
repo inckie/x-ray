@@ -18,7 +18,11 @@ public class ADBSink implements ISink {
 
     @Override
     public void log(@NonNull Event event) {
-        Log.println(event.getLevel(), event.getTag(), formatter.format(event));
+        if(Log.ERROR == event.getLevel() && null != event.getException()) {
+            Log.e(event.getTag(), formatter.format(event), event.getException());
+        } else {
+            Log.println(event.getLevel(), event.getTag(), formatter.format(event));
+        }
     }
 
 }
