@@ -144,6 +144,7 @@ class MapperUnitTest {
             Log.DEBUG,
             "message",
             null,
+            null,
             null
         )
 
