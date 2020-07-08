@@ -3,9 +3,6 @@ package com.applicaster.xray.core;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.core.Event;
-import com.applicaster.xray.core.IEventBuilder;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;

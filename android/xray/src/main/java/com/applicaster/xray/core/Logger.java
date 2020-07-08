@@ -5,8 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.core.formatting.message.IMessageFormatter;
 import com.applicaster.xray.core.formatting.message.BasicMessageFormatter;
+import com.applicaster.xray.core.formatting.message.IMessageFormatter;
 import com.applicaster.xray.core.utility.Stack;
 
 import org.jetbrains.annotations.NotNull;

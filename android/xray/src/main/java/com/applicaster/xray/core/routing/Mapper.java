@@ -3,8 +3,8 @@ package com.applicaster.xray.core.routing;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applicaster.xray.core.Logger;
 import com.applicaster.xray.core.ISink;
+import com.applicaster.xray.core.Logger;
 
 import java.util.HashMap;
 import java.util.HashSet;

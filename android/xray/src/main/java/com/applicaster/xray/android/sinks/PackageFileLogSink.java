@@ -6,9 +6,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.applicaster.xray.core.Event;
+import com.applicaster.xray.core.ISink;
 import com.applicaster.xray.core.formatting.event.IEventFormatter;
 import com.applicaster.xray.core.formatting.event.PlainTextEventFormatter;
-import com.applicaster.xray.core.ISink;
 
 import java.io.File;
 import java.io.FileOutputStream;
