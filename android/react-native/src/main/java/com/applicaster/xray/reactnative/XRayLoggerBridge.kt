@@ -20,8 +20,8 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
 
     @ReactMethod
     fun logEvent(eventData: ReadableMap) {
-        val tag = eventData.getString("tag")!!
-        val logger = eventData.getString("logger")!!
+        val tag = eventData.getString("category")!!
+        val logger = eventData.getString("subsystem")!!
         val level = eventData.getInt("level")
         if(!Core.get().hasSinks(tag, logger, level)) {
             return
@@ -29,7 +29,7 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
         val event = Event(
             tag,
             logger,
-            eventData.getInt("timestamp").toLong(),
+            System.currentTimeMillis(),
             level,
             eventData.getString("message")!!,
             eventData.getMap("data")?.toHashMap(),
