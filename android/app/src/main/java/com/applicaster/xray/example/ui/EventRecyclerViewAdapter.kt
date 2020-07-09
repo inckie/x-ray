@@ -39,7 +39,7 @@ class EventRecyclerViewAdapter(
         }
 
         fun bind(item: Event) {
-            binding.tag.text = item.tag
+            binding.tag.text = item.category
             binding.message.text = item.message
         }
     }

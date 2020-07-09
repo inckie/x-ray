@@ -72,7 +72,7 @@ public class Core {
         ArrayList<ISink> result = new ArrayList<>();
         Set<String> enabledSinks;
         synchronized (mapper) {
-            enabledSinks = mapper.getMapping(event.getSubsystem(), event.getTag(), event.getLevel());
+            enabledSinks = mapper.getMapping(event.getSubsystem(), event.getCategory(), event.getLevel());
         }
         synchronized(sinks) {
             // keeping the sink order

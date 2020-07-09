@@ -20,15 +20,15 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
 
     @ReactMethod
     fun logEvent(eventData: ReadableMap) {
-        val tag = eventData.getString("category")!!
-        val logger = eventData.getString("subsystem")!!
+        val category = eventData.getString("category")!!
+        val subsystem = eventData.getString("subsystem")!!
         val level = eventData.getInt("level")
-        if(!Core.get().hasSinks(tag, logger, level)) {
+        if(!Core.get().hasSinks(category, subsystem, level)) {
             return
         }
         val event = Event(
-            tag,
-            logger,
+            category,
+            subsystem,
             System.currentTimeMillis(),
             level,
             eventData.getString("message")!!,
