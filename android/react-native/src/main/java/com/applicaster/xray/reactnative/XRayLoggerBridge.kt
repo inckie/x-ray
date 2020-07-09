@@ -32,8 +32,8 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
             System.currentTimeMillis(),
             level,
             eventData.getString("message")!!,
-            eventData.getMap("data")?.toHashMap(),
-            eventData.getMap("context")?.toHashMap(),
+            optHashMap(eventData,"data"),
+            optHashMap(eventData,"context"),
             null
         )
         // todo: this should be extracted since this code is shared with logger
@@ -43,4 +43,6 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
         }
     }
 
+    private fun optHashMap(eventData: ReadableMap, key: String) =
+        if (eventData.hasKey(key)) eventData.getMap(key)?.toHashMap() else null
 }
