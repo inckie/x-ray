@@ -36,11 +36,7 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
             optHashMap(eventData,"context"),
             null
         )
-        // todo: this should be extracted since this code is shared with logger
-        val mapping = Core.get().getMapping(event)
-        if (mapping.isNotEmpty()) {
-            for (sink in mapping) sink.log(event)
-        }
+        Core.get().submit(event)
     }
 
     private fun optHashMap(eventData: ReadableMap, key: String) =
