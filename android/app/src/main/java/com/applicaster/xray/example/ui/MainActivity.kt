@@ -12,12 +12,12 @@ import com.applicaster.xray.android.routing.DefaultSinkFilter
 import com.applicaster.xray.example.model.JavaTestClass
 import com.applicaster.xray.example.model.KotlinTestClass
 import com.applicaster.xray.example.R
-import com.applicaster.xray.core.formatting.message.ReflectionMessageFormatter
-import com.applicaster.xray.core.formatting.message.NamedReflectionMessageFormatter
+import com.applicaster.xray.formatters.message.reflactionformatter.NamedReflectionMessageFormatter
 import com.applicaster.xray.android.sinks.ADBSink
 import com.applicaster.xray.android.sinks.PackageFileLogSink
 import com.applicaster.xray.crashreporter.Reporting
 import com.applicaster.xray.example.sinks.InMemoryLogSink
+import com.applicaster.xray.formatters.message.reflactionformatter.ReflectionMessageFormatter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
