@@ -1,5 +1,5 @@
 //
-//  EventsBuilder.swift
+//  EventBuilder.swift
 //  xray
 //
 //  Created by Anton Kononenko on 7/10/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EventBuilder: NSObject {
+public class EventBuilder: NSObject {
     class func submit(subsystem: String,
                       logLevel: LogLevel = .debug,
                       category: String? = nil,
@@ -21,7 +21,7 @@ class EventBuilder: NSObject {
         // TODO: Add messanger formatter for message if needed
         let event = Event(category: category,
                           subsystem: subsystem,
-                          timestamp: round(NSDate().timeIntervalSince1970),
+                          timestamp: UInt(round(NSDate().timeIntervalSince1970)),
                           message: message,
                           data: data,
                           context: context,

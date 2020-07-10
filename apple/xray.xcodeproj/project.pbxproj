@@ -14,9 +14,10 @@
 		4066C05124B76FBA00E05A01 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05024B76FBA00E05A01 /* Event.swift */; };
 		4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05224B7785300E05A01 /* XrayLogger.swift */; };
 		4066C05624B81B1B00E05A01 /* SinkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05524B81B1B00E05A01 /* SinkProtocol.swift */; };
-		40E697F024B8C4ED004A0A05 /* EventsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697EF24B8C4ED004A0A05 /* EventsBuilder.swift */; };
+		40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */; };
 		40E697F224B8C502004A0A05 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697F124B8C502004A0A05 /* Logger.swift */; };
-		40E697F824B8C833004A0A05 /* EventBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697F724B8C833004A0A05 /* EventBuilderProtocol.swift */; };
+		40FBBCEF24B90D7500BB6423 /* String+DeletingPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCEE24B90D7500BB6423 /* String+DeletingPrefix.swift */; };
+		40FBBCF224B90DAA00BB6423 /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCF124B90DAA00BB6423 /* LoggerUtils.swift */; };
 		6582D5FB68E9159810549882 /* Pods_xray_xrayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,9 +43,10 @@
 		4066C05024B76FBA00E05A01 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4066C05224B7785300E05A01 /* XrayLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayLogger.swift; sourceTree = "<group>"; };
 		4066C05524B81B1B00E05A01 /* SinkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkProtocol.swift; sourceTree = "<group>"; };
-		40E697EF24B8C4ED004A0A05 /* EventsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsBuilder.swift; sourceTree = "<group>"; };
+		40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
 		40E697F124B8C502004A0A05 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		40E697F724B8C833004A0A05 /* EventBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilderProtocol.swift; sourceTree = "<group>"; };
+		40FBBCEE24B90D7500BB6423 /* String+DeletingPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DeletingPrefix.swift"; sourceTree = "<group>"; };
+		40FBBCF124B90DAA00BB6423 /* LoggerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerUtils.swift; sourceTree = "<group>"; };
 		4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xray_xrayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48EF988C7F09957A786F4086 /* Pods-xray-xrayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray-xrayTests.debug.xcconfig"; path = "Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC534A3ACC02C1D9E134B401 /* Pods_xray.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 		4066C03724B76F7100E05A01 /* xray */ = {
 			isa = PBXGroup;
 			children = (
+				40FBBCED24B90D4D00BB6423 /* Extensions */,
 				4066C04F24B76F8D00E05A01 /* Core */,
 				4066C03824B76F7100E05A01 /* xray.h */,
 				4066C03924B76F7100E05A01 /* Info.plist */,
@@ -123,6 +126,7 @@
 		4066C04F24B76F8D00E05A01 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				40FBBCF024B90D9000BB6423 /* Utils */,
 				40E697F324B8C6C7004A0A05 /* Logger */,
 				40E697EE24B8C4D0004A0A05 /* Events */,
 				4066C05424B81AFD00E05A01 /* SinkProtocol */,
@@ -159,10 +163,25 @@
 		40E697F624B8C81E004A0A05 /* EventBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				40E697EF24B8C4ED004A0A05 /* EventsBuilder.swift */,
-				40E697F724B8C833004A0A05 /* EventBuilderProtocol.swift */,
+				40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */,
 			);
 			path = EventBuilder;
+			sourceTree = "<group>";
+		};
+		40FBBCED24B90D4D00BB6423 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				40FBBCEE24B90D7500BB6423 /* String+DeletingPrefix.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		40FBBCF024B90D9000BB6423 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				40FBBCF124B90DAA00BB6423 /* LoggerUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		5ECECC3F456C949F9E4868A0 /* Pods */ = {
@@ -354,10 +373,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				40E697F224B8C502004A0A05 /* Logger.swift in Sources */,
+				40FBBCF224B90DAA00BB6423 /* LoggerUtils.swift in Sources */,
 				4066C05124B76FBA00E05A01 /* Event.swift in Sources */,
 				4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */,
-				40E697F024B8C4ED004A0A05 /* EventsBuilder.swift in Sources */,
-				40E697F824B8C833004A0A05 /* EventBuilderProtocol.swift in Sources */,
+				40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */,
+				40FBBCEF24B90D7500BB6423 /* String+DeletingPrefix.swift in Sources */,
 				4066C05624B81B1B00E05A01 /* SinkProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
