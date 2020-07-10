@@ -76,4 +76,9 @@ public class XrayLogger: NSObject {
 extension XrayLogger {
     func submit(event: Event) {
     }
+
+    func hasSinks(forLogger subsystem: String,
+                  category: String,
+                  logLevel: LogLevel) {
+    }
 }

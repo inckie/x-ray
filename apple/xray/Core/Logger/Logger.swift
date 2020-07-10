@@ -53,7 +53,6 @@ class Logger: NSObject {
         return context
     }
 
-    // com.anton.app/bbb/sss/ttt
     static func getLogger(for subsystem: String? = nil) -> Logger {
         guard let subsystem = subsystem else {
             return rootLogger
@@ -93,3 +92,4 @@ class Logger: NSObject {
         return self
     }
 }
+
