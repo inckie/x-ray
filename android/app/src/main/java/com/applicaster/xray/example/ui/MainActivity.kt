@@ -44,7 +44,9 @@ class MainActivity : AppCompatActivity() {
             Reporting.init("crash@example.com", fileLogSink.file)
             Reporting.enableForCurrentThread(this) // todo: combine with init?
 
+            // configure XRay notification
 
+            // add report sharing button
             val shareLogIntent = PendingIntent.getActivity(
                 this,
                 0,
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
             val actions: HashMap<String, PendingIntent> = hashMapOf("Send" to shareLogIntent)
 
-            // here we show Notification UI
+            // here we show Notification UI with custom actions
             XRayNotification.show(
                 this,
                 101,
@@ -99,16 +101,28 @@ class MainActivity : AppCompatActivity() {
         )
 
         rootLogger
+            .d("Test")
+            .message("Basic debug message")
+
+        rootLogger
+            .i("Test")
+            .message("Basic info message")
+
+        rootLogger
+            .w("Test")
+            .message("Basic warning message")
+
+        rootLogger
+            .e("Test")
+            .message("Basic error message")
+
+        rootLogger
             .d() // auto tag with enclosing class name
             .putData(mapOf("object" to kotlinTestClass))
             .message(
                 "Formatter test for Kotlin class %s&object_contents",
                 kotlinTestClass
             )
-
-        rootLogger
-            .d("Test")
-            .message("Basic message")
 
         rootLogger
             .d() // auto tag with enclosing class name

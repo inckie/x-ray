@@ -8,10 +8,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.applicaster.xray.core.Core
+
 
 object XRayNotification {
 
+    private const val ERROR_COUNTER_SINK_NAME = "error_counter_sink"
     private const val CHANNEL_ID = "xray.notification"
     private val CHANNEL_NAME: CharSequence = "X Ray logging"
 
@@ -19,6 +25,9 @@ object XRayNotification {
 
     private var currentNotificationId = -1
     private var channelCreated = false
+
+    private var errors = 0;
+    private var warnings = 0;
 
     fun show(context: Context, notificationId: Int, actions: HashMap<String, PendingIntent>? = null) {
         if (-1 != currentNotificationId) {
@@ -76,8 +85,36 @@ object XRayNotification {
             notificationBuilder.addAction(0, it.key, it.value)
         }
 
+        addErrorCounter(notificationBuilder, notificationManager, notificationId)
+
         notificationManager.notify(notificationId, notificationBuilder.build())
         currentNotificationId = notificationId
+    }
+
+    private fun addErrorCounter(
+        notificationBuilder: NotificationCompat.Builder,
+        notificationManager: NotificationManager,
+        notificationId: Int
+    ) {
+        val uiHandler = Handler(Looper.getMainLooper())
+        // must be Runnable so removeCallbacks will work
+        val printErrors: Runnable = Runnable {
+            // https://emojipedia.org/prohibited/
+            // https://emojipedia.org/warning/
+            notificationBuilder.setContentText("\uD83D\uDEAB $errors ⚠️ $warnings️")
+            notificationManager.notify(notificationId, notificationBuilder.build())
+        }
+
+        Core.get().addSink(ERROR_COUNTER_SINK_NAME) { event ->
+            when (event.level) {
+                Log.ERROR -> ++errors
+                Log.WARN -> ++warnings
+                else -> return@addSink
+            }
+            // remove old runnable in case we have more than one error in single ui loop update
+            uiHandler.removeCallbacks(printErrors)
+            uiHandler.post(printErrors)
+        }
     }
 
     fun hide(context: Context) {
@@ -87,6 +124,7 @@ object XRayNotification {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(currentNotificationId)
+        Core.get().removeSink(ERROR_COUNTER_SINK_NAME)
         currentNotificationId = -1
     }
 }
