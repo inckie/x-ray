@@ -20,10 +20,14 @@ public class Logger {
     public static final char NameSeparator = '/';
 
     private final HashMap<String, Logger> children = new HashMap<>();
+
     private final String name;
+
     private final Logger parent;
+
     private LogContext context = new LogContext();
-    private IMessageFormatter messageFormatter = new BasicMessageFormatter();
+
+    private IMessageFormatter messageFormatter;
 
     private static final Logger sRoot = new Logger("", null);
 
@@ -72,18 +76,32 @@ public class Logger {
         if(!Core.get().hasSinks(this.getName(), tag, level)) {
             return new NullEventBuilder();
         }
-        return new EventBuilder(this, tag, getFullContext())
+        return new EventBuilder(tag,
+                this.getName(),
+                getFullContext(),
+                resolveMessageFormatter())
                 .setLevel(level);
     }
 
     @NotNull
-    public synchronized Map<String, Object> getFullContext() {
+    private IMessageFormatter resolveMessageFormatter() {
+        synchronized(this) {
+            if (null == parent || null != messageFormatter)
+                return this.messageFormatter;
+        }
+        return parent.resolveMessageFormatter();
+    }
+
+    @NotNull
+    public Map<String, Object> getFullContext() {
         Map<String, Object> mergedContext = new HashMap<>();
         if (parent != null) {
             mergedContext.putAll(parent.getFullContext());
         }
         // override parent values on conflict
-        mergedContext.putAll(context.retrieve());
+        synchronized(this) {
+            mergedContext.putAll(context.retrieve());
+        }
         return mergedContext;
     }
 
@@ -91,15 +109,6 @@ public class Logger {
     public synchronized Logger setContext(@NotNull LogContext context) {
         this.context = context; // overrides context!
         return this;
-    }
-
-    void submit(Event event) {
-        // todo: this should be extracted since logger is not the only source of Events
-        ArrayList<ISink> mapping = Core.get().getMapping(event);
-        if(!mapping.isEmpty()) {
-            for(ISink sink : mapping)
-                sink.log(event);
-        }
     }
 
     @NonNull
@@ -116,9 +125,8 @@ public class Logger {
                    @Nullable Logger parent) {
         this.name = name;
         this.parent = parent;
-        if(null != parent) {
-            // todo: decide what to copy to the child: formatter?
-            messageFormatter = parent.messageFormatter;
+        if(null == parent) {
+            messageFormatter = new BasicMessageFormatter();
         }
     }
 
@@ -139,21 +147,21 @@ public class Logger {
         return logger;
     }
 
-    public static synchronized Logger get(@NonNull String name){
+    @NotNull
+    public static synchronized Logger get(@NonNull String name) {
         return sRoot.getChild(name);
     }
 
+    @NotNull
     public String getName() {
         return name;
     }
 
-    @NonNull
-    public String getFormattedMessage(String template, Map<String, Object> outParameters, Object... args) {
-        return messageFormatter.format(template, outParameters, args);
-    }
-
+    @NotNull
     public Logger setFormatter(@NotNull IMessageFormatter formatter) {
-        this.messageFormatter = formatter;
+        synchronized (this) {
+            this.messageFormatter = formatter;
+        }
         return this;
     }
 

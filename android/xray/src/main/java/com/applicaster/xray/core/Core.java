@@ -27,7 +27,7 @@ public class Core {
     // region Sinks management
 
     @NotNull
-    public Core addSink(String name, ISink sink) {
+    public Core addSink(@NotNull String name, @NotNull ISink sink) {
         synchronized(sinks) {
             if(null != sinks.put(name, sink)) {
                 // todo: log error
@@ -40,7 +40,7 @@ public class Core {
     }
 
     @Nullable
-    public ISink getSink(String name) {
+    public ISink getSink(@NotNull String name) {
         synchronized (sinks) {
             return sinks.get(name);
         }
@@ -72,7 +72,7 @@ public class Core {
         ArrayList<ISink> result = new ArrayList<>();
         Set<String> enabledSinks;
         synchronized (mapper) {
-            enabledSinks = mapper.getMapping(event.getSubsystem(), event.getTag(), event.getLevel());
+            enabledSinks = mapper.getMapping(event.getSubsystem(), event.getCategory(), event.getLevel());
         }
         synchronized(sinks) {
             // keeping the sink order
@@ -96,6 +96,14 @@ public class Core {
     }
 
     //endregion
+
+    public void submit(@NotNull Event event) {
+        ArrayList<ISink> mapping = getMapping(event);
+        if(!mapping.isEmpty()) {
+            for(ISink sink : mapping)
+                sink.log(event);
+        }
+    }
 
     @NonNull
     public static Core get() {

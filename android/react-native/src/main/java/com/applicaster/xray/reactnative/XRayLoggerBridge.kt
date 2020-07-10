@@ -20,27 +20,25 @@ class XRayLoggerBridge(reactContext: ReactApplicationContext)
 
     @ReactMethod
     fun logEvent(eventData: ReadableMap) {
-        val tag = eventData.getString("tag")!!
-        val logger = eventData.getString("logger")!!
+        val category = eventData.getString("category")!!
+        val subsystem = eventData.getString("subsystem")!!
         val level = eventData.getInt("level")
-        if(!Core.get().hasSinks(tag, logger, level)) {
+        if(!Core.get().hasSinks(category, subsystem, level)) {
             return
         }
         val event = Event(
-            tag,
-            logger,
-            eventData.getInt("timestamp").toLong(),
+            category,
+            subsystem,
+            System.currentTimeMillis(),
             level,
             eventData.getString("message")!!,
-            eventData.getMap("data")?.toHashMap(),
-            eventData.getMap("context")?.toHashMap(),
+            optHashMap(eventData,"data"),
+            optHashMap(eventData,"context"),
             null
         )
-        // todo: this should be extracted since this code is shared with logger
-        val mapping = Core.get().getMapping(event)
-        if (mapping.isNotEmpty()) {
-            for (sink in mapping) sink.log(event)
-        }
+        Core.get().submit(event)
     }
 
+    private fun optHashMap(eventData: ReadableMap, key: String) =
+        if (eventData.hasKey(key)) eventData.getMap(key)?.toHashMap() else null
 }
