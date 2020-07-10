@@ -1,23 +1,27 @@
 package com.applicaster.xray.example.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.applicaster.xray.android.contexts.ThreadContext
+import com.applicaster.xray.android.routing.DefaultSinkFilter
+import com.applicaster.xray.android.sinks.ADBSink
+import com.applicaster.xray.android.sinks.PackageFileLogSink
 import com.applicaster.xray.core.Core
 import com.applicaster.xray.core.LogContext
 import com.applicaster.xray.core.Logger
-import com.applicaster.xray.android.contexts.ThreadContext
-import com.applicaster.xray.android.routing.DefaultSinkFilter
+import com.applicaster.xray.crashreporter.Reporting
+import com.applicaster.xray.crashreporter.SendActivity
+import com.applicaster.xray.example.R
 import com.applicaster.xray.example.model.JavaTestClass
 import com.applicaster.xray.example.model.KotlinTestClass
-import com.applicaster.xray.example.R
-import com.applicaster.xray.formatters.message.reflactionformatter.NamedReflectionMessageFormatter
-import com.applicaster.xray.android.sinks.ADBSink
-import com.applicaster.xray.android.sinks.PackageFileLogSink
-import com.applicaster.xray.crashreporter.Reporting
 import com.applicaster.xray.example.sinks.InMemoryLogSink
+import com.applicaster.xray.formatters.message.reflactionformatter.NamedReflectionMessageFormatter
 import com.applicaster.xray.formatters.message.reflactionformatter.ReflectionMessageFormatter
+import com.applicaster.xray.ui.notification.XRayNotification
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +44,24 @@ class MainActivity : AppCompatActivity() {
             Reporting.init("crash@example.com", fileLogSink.file)
             Reporting.enableForCurrentThread(this) // todo: combine with init?
 
+
+            val shareLogIntent = PendingIntent.getActivity(
+                this,
+                0,
+                Intent(this, SendActivity::class.java)
+                    .setAction("com.applicaster.xray.send"),
+                PendingIntent.FLAG_CANCEL_CURRENT
+            )
+
+            val actions: HashMap<String, PendingIntent> = hashMapOf("Send" to shareLogIntent)
+
+            // here we show Notification UI
+            XRayNotification.show(
+                this,
+                101,
+                actions
+            )
+
             Core.get()
                 .addSink("adb_sink", ADBSink())
                 .addSink(
@@ -59,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn_log_some).setOnClickListener { logSomeEvents() }
         findViewById<Button>(R.id.btn_crash).setOnClickListener { throw Exception("Test crash") }
-
         // now when UI is ready, we can check for crash report
         Reporting.checkCrashReport(this)
     }

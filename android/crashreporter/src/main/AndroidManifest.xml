@@ -1,8 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.applicaster.xray.crashreporter">
+
     <application>
+        <activity
+            android:name=".SendActivity"
+            android:noHistory="true"
+            android:theme="@style/Theme.Transparent" />
+
         <provider
-            android:name="com.applicaster.xray.crashreporter.ReportingFileProvider"
+            android:name=".ReportingFileProvider"
             android:authorities="${applicationId}.reporting.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -11,4 +18,5 @@
                 android:resource="@xml/report_provider_paths" />
         </provider>
     </application>
+
 </manifest>
