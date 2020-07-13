@@ -9,18 +9,21 @@
 import Foundation
 
 class Logger: NSObject {
-    static let rootLogger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "",
+    static let rootLogger = Logger(subsystem: "",
                                    parent: nil)
     public let subsystem: String
     private var children: [String: Logger] = [:]
     weak var parent: Logger?
 
     let context: [String: Any] = [:]
-    // TODO: Make message formatter if needed here
+    var messageFormatter: MessageFormatterProtocol?
 
     init(subsystem: String, parent: Logger?) {
         self.subsystem = subsystem
         self.parent = parent
+        if parent == nil {
+            messageFormatter = DefaultMessageFormatter()
+        }
         super.init()
     }
 
@@ -36,10 +39,20 @@ class Logger: NSObject {
                             category: category,
                             data: data,
                             context: getFullContext(),
-                            messageFormatter: nil,
+                            messageFormatter: resolveMessageFormatter(),
                             message: message,
                             exception: exception,
                             otherArgs: otherArgs)
+    }
+
+    func resolveMessageFormatter() -> MessageFormatterProtocol? {
+        DispatchQueue.global(qos: .default).sync {
+            guard let messageFormatter = messageFormatter else {
+                return parent != nil ? parent?.resolveMessageFormatter() : nil
+            }
+
+            return messageFormatter
+        }
     }
 
     func getFullContext() -> [String: Any] {
@@ -55,11 +68,7 @@ class Logger: NSObject {
         guard let subsystem = subsystem else {
             return rootLogger
         }
-        if subsystem.hasPrefix(rootLogger.subsystem) {
-            return rootLogger.child(for: subsystem)
-        }
-        let fullSubsystem = rootLogger.subsystem + subsystemNameSeparator + subsystem
-        return rootLogger.child(for: fullSubsystem)
+        return rootLogger.child(for: subsystem)
     }
 
     func getLogger(for subsystem: String) -> Logger {

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		05FEC1B5DFFE417B7177C5B4 /* Pods_xray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC534A3ACC02C1D9E134B401 /* Pods_xray.framework */; };
 		4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467024BCB984005832AC /* SinkFilterProtocol.swift */; };
+		4066467524BCEA4C005832AC /* MessageFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */; };
+		4066467924BCF393005832AC /* DefaultMessageFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467824BCF393005832AC /* DefaultMessageFormatter.swift */; };
 		4066C03F24B76F7200E05A01 /* xray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4066C03524B76F7100E05A01 /* xray.framework */; };
 		4066C04424B76F7200E05A01 /* xrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C04324B76F7200E05A01 /* xrayTests.swift */; };
 		4066C04624B76F7200E05A01 /* xray.h in Headers */ = {isa = PBXBuildFile; fileRef = 4066C03824B76F7100E05A01 /* xray.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,6 +39,8 @@
 		0C921A1B80AF234F1C91B169 /* Pods-xray.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray.debug.xcconfig"; path = "Target Support Files/Pods-xray/Pods-xray.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD17D521CC4835B38E1D6B9 /* Pods-xray-xrayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray-xrayTests.release.xcconfig"; path = "Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests.release.xcconfig"; sourceTree = "<group>"; };
 		4066467024BCB984005832AC /* SinkFilterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkFilterProtocol.swift; sourceTree = "<group>"; };
+		4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFormatterProtocol.swift; sourceTree = "<group>"; };
+		4066467824BCF393005832AC /* DefaultMessageFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMessageFormatter.swift; sourceTree = "<group>"; };
 		4066C03524B76F7100E05A01 /* xray.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4066C03824B76F7100E05A01 /* xray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xray.h; sourceTree = "<group>"; };
 		4066C03924B76F7100E05A01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +91,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4066467624BCF36F005832AC /* Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				4066467724BCF37C005832AC /* MessageFormatter */,
+			);
+			path = Formatting;
+			sourceTree = "<group>";
+		};
+		4066467724BCF37C005832AC /* MessageFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				4066467824BCF393005832AC /* DefaultMessageFormatter.swift */,
+			);
+			path = MessageFormatter;
+			sourceTree = "<group>";
+		};
 		4066C02B24B76F7100E05A01 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +150,7 @@
 		4066C04F24B76F8D00E05A01 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4066467624BCF36F005832AC /* Formatting */,
 				40FBBCF324B91DC000BB6423 /* Routing */,
 				40FBBCF024B90D9000BB6423 /* Utils */,
 				40E697F324B8C6C7004A0A05 /* Logger */,
@@ -145,6 +166,7 @@
 			children = (
 				4066C05524B81B1B00E05A01 /* SinkProtocol.swift */,
 				4066467024BCB984005832AC /* SinkFilterProtocol.swift */,
+				4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -386,6 +408,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4066467924BCF393005832AC /* DefaultMessageFormatter.swift in Sources */,
+				4066467524BCEA4C005832AC /* MessageFormatterProtocol.swift in Sources */,
 				40E697F224B8C502004A0A05 /* Logger.swift in Sources */,
 				40FBBCF224B90DAA00BB6423 /* LoggerUtils.swift in Sources */,
 				4066C05124B76FBA00E05A01 /* Event.swift in Sources */,
