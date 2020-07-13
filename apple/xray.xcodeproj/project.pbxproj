@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		05FEC1B5DFFE417B7177C5B4 /* Pods_xray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC534A3ACC02C1D9E134B401 /* Pods_xray.framework */; };
 		4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467024BCB984005832AC /* SinkFilterProtocol.swift */; };
-		4066467324BCD45E005832AC /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467224BCD45E005832AC /* FilterModel.swift */; };
 		4066C03F24B76F7200E05A01 /* xray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4066C03524B76F7100E05A01 /* xray.framework */; };
 		4066C04424B76F7200E05A01 /* xrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C04324B76F7200E05A01 /* xrayTests.swift */; };
 		4066C04624B76F7200E05A01 /* xray.h in Headers */ = {isa = PBXBuildFile; fileRef = 4066C03824B76F7100E05A01 /* xray.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -38,7 +37,6 @@
 		0C921A1B80AF234F1C91B169 /* Pods-xray.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray.debug.xcconfig"; path = "Target Support Files/Pods-xray/Pods-xray.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD17D521CC4835B38E1D6B9 /* Pods-xray-xrayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray-xrayTests.release.xcconfig"; path = "Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests.release.xcconfig"; sourceTree = "<group>"; };
 		4066467024BCB984005832AC /* SinkFilterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkFilterProtocol.swift; sourceTree = "<group>"; };
-		4066467224BCD45E005832AC /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		4066C03524B76F7100E05A01 /* xray.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4066C03824B76F7100E05A01 /* xray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xray.h; sourceTree = "<group>"; };
 		4066C03924B76F7100E05A01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				40FBBCF424B91DF800BB6423 /* Mapper.swift */,
-				4066467224BCD45E005832AC /* FilterModel.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -394,7 +391,6 @@
 				4066C05124B76FBA00E05A01 /* Event.swift in Sources */,
 				4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */,
 				4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */,
-				4066467324BCD45E005832AC /* FilterModel.swift in Sources */,
 				40FBBCF524B91DF800BB6423 /* Mapper.swift in Sources */,
 				40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */,
 				40FBBCEF24B90D7500BB6423 /* String+Extensions.swift in Sources */,
