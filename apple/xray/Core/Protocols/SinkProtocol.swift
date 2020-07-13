@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol SinkProtocol: NSObjectProtocol {
-    
+    func log(event:Event)
 }

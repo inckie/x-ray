@@ -18,46 +18,52 @@ class Mapper {
     func setFilter(loggerSubsystem: String,
                    sinkIdentifier: String,
                    filter: SinkFilterProtocol?) {
-        let mappedSubsystem = loggerMapping[loggerSubsystem]
-        if var mappedSubsystem = mappedSubsystem {
-            if let filter = filter {
-                mappedSubsystem[sinkIdentifier] = filter
-            } else {
-                mappedSubsystem[sinkIdentifier] = nil
-                if mappedSubsystem.isEmpty {
-                    loggerMapping[loggerSubsystem] = nil
+        DispatchQueue.global(qos: .default).sync { [weak self] in
+            guard let self = self else { return }
+
+            let mappedSubsystem = self.loggerMapping[loggerSubsystem]
+            if var mappedSubsystem = mappedSubsystem {
+                if let filter = filter {
+                    mappedSubsystem[sinkIdentifier] = filter
+                } else {
+                    mappedSubsystem[sinkIdentifier] = nil
+                    if mappedSubsystem.isEmpty {
+                        self.loggerMapping[loggerSubsystem] = nil
+                    }
                 }
+                return
             }
-            return
-        }
 
-        guard let filter = filter else {
-            return
-        }
+            guard let filter = filter else {
+                return
+            }
 
-        loggerMapping[loggerSubsystem] = [sinkIdentifier: filter]
+            self.loggerMapping[loggerSubsystem] = [sinkIdentifier: filter]
+        }
     }
 
     private func getClosestMapping(loggerSubsystem: String) -> [String: SinkFilterProtocol]? {
-        if loggerSubsystem == "" {
-            return loggerMapping[""]
-        }
-
-        if let mappedSinks = loggerMapping[loggerSubsystem] {
-            return mappedSinks
-        }
-
-        var parentSubsystem = loggerSubsystem.retrieveParentSubsystemPath()
-        while parentSubsystem != nil {
-            if let parentSubsystem = parentSubsystem,
-                let parentMappedSinks = loggerMapping[parentSubsystem] {
-                return parentMappedSinks
+        DispatchQueue.global(qos: .default).sync {
+            if loggerSubsystem == "" {
+                return loggerMapping[""]
             }
 
-            parentSubsystem = loggerSubsystem.retrieveParentSubsystemPath()
-        }
+            if let mappedSinks = loggerMapping[loggerSubsystem] {
+                return mappedSinks
+            }
 
-        return loggerMapping[""]
+            var parentSubsystem = loggerSubsystem.retrieveParentSubsystemPath()
+            while parentSubsystem != nil {
+                if let parentSubsystem = parentSubsystem,
+                    let parentMappedSinks = loggerMapping[parentSubsystem] {
+                    return parentMappedSinks
+                }
+
+                parentSubsystem = loggerSubsystem.retrieveParentSubsystemPath()
+            }
+
+            return loggerMapping[""]
+        }
     }
 
     public func getMapping(loggerSubsystem: String,
@@ -82,7 +88,11 @@ class Mapper {
         return retVal
     }
 
-    public func hasSinks(loggerSubsystem: String, category: String, logLevel: LogLevel) -> Bool {
-        return getMapping(loggerSubsystem: loggerSubsystem, category: category, logLevel: logLevel) != nil
+    public func hasSinks(loggerSubsystem: String,
+                         category: String,
+                         logLevel: LogLevel) -> Bool {
+        return getMapping(loggerSubsystem: loggerSubsystem,
+                          category: category,
+                          logLevel: logLevel) != nil
     }
 }

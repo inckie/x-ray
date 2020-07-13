@@ -32,71 +32,109 @@ public class XrayLogger: NSObject {
     @discardableResult
     open func addSink(identifier: String,
                       sink: SinkProtocol) -> Bool {
-        guard sinks[identifier] == nil else {
-            return false
+        DispatchQueue.global(qos: .default).sync {
+            guard sinks[identifier] == nil else {
+                return false
+            }
+            sinks[identifier] = sink
+            return true
         }
-        sinks[identifier] = sink
-        return true
     }
 
     /// returns boolean about success
     @discardableResult
     open func getSink(_ indentifier: String) -> SinkProtocol? {
-        guard let sink = sinks[indentifier] else {
-            return nil
+        DispatchQueue.global(qos: .default).sync {
+            guard let sink = sinks[indentifier] else {
+                return nil
+            }
+            return sink
         }
-        return sink
     }
 
     /// returns boolean about success
     @discardableResult
     open func removeSink(by indentifier: String) -> Bool {
-        guard sinks[indentifier] != nil else {
-            return false
+        DispatchQueue.global(qos: .default).sync {
+            guard sinks[indentifier] != nil else {
+                return false
+            }
+            sinks[indentifier] = nil
+            return true
         }
-        sinks[indentifier] = nil
-        return true
     }
 
     /// returns boolean about success
     @discardableResult
     open func removeSink(by sink: SinkProtocol) -> Bool {
-        let itemToDelete = sinks.first { (item) -> Bool in
-            // CHeck if it is working
-            item.value === sink
-        }
-        guard let keyToDelete = itemToDelete?.key else {
-            return false
-        }
+        DispatchQueue.global(qos: .default).sync {
+            let itemToDelete = sinks.first { (item) -> Bool in
+                // CHeck if it is working
+                item.value === sink
+            }
+            guard let keyToDelete = itemToDelete?.key else {
+                return false
+            }
 
-        sinks[keyToDelete] = nil
-        return true
+            sinks[keyToDelete] = nil
+            return true
+        }
     }
 
     /// if you need to start fresh
     open func reset() {
-        sinks.removeAll()
+        DispatchQueue.global(qos: .default).sync {
+            sinks.removeAll()
+        }
     }
 }
 
 extension XrayLogger {
     func submit(event: Event) {
-    
+        DispatchQueue.global(qos: .default).sync {
+            let mapping = getMapping(event: event)
+            if mapping.isEmpty == false {
+                for sink in mapping {
+                    sink.log(event: event)
+                }
+            }
+        }
+    }
+
+    func getMapping(event: Event) -> [SinkProtocol] {
+        DispatchQueue.global(qos: .default).sync {
+            var retVal: [SinkProtocol] = []
+            guard let enabledSinks = mapper.getMapping(loggerSubsystem: event.subsystem,
+                                                       category: event.category,
+                                                       logLevel: event.level) else {
+                return retVal
+            }
+            for namedSink in sinks {
+                if enabledSinks.contains(namedSink.key) {
+                    retVal.append(namedSink.value)
+                }
+            }
+            return retVal
+        }
     }
 
     func hasSinks(loggerSubsystem: String,
                   category: String,
                   logLevel: LogLevel) -> Bool {
-        return mapper.hasSinks(loggerSubsystem: loggerSubsystem,
-                               category: category,
-                               logLevel: logLevel)
+        DispatchQueue.global(qos: .default).sync {
+            mapper.hasSinks(loggerSubsystem: loggerSubsystem,
+                            category: category,
+                            logLevel: logLevel)
+        }
     }
 
     public func setFilter(loggerSubsystem: String,
                           sinkIdentifier: String,
                           filter: SinkFilterProtocol?) {
-        mapper.setFilter(loggerSubsystem: loggerSubsystem,
-                         sinkIdentifier: sinkIdentifier,
-                         filter: filter)
+        DispatchQueue.global(qos: .default).sync {
+            mapper.setFilter(loggerSubsystem: loggerSubsystem,
+                             sinkIdentifier: sinkIdentifier,
+                             filter: filter)
+        }
     }
 }

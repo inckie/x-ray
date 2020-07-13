@@ -12,7 +12,7 @@ class Event: NSObject {
     let category: String?
     let subsystem: String
     let timestamp: UInt // UTC
-    let level: Int
+    let level: LogLevel
     let message: String
     let data: [String: Any]? // What func, line
     let context: [String: Any]?
@@ -21,7 +21,7 @@ class Event: NSObject {
     init(category: String?,
          subsystem: String,
          timestamp: UInt,
-         level: Int = 0,
+         level: LogLevel = .debug
          message: String,
          data: [String: Any]?,
          context: [String: Any]?,
