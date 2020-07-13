@@ -18,13 +18,13 @@ class Mapper {
     func setFilter(loggerSubsystem: String,
                    sinkIdentifier: String,
                    filter: SinkFilterProtocol?) {
-        let mappedSinks = loggerMapping[sinkloggerSubsystemIdentifier]
-        if var mappedSinks = mappedSinks {
+        let mappedSubsystem = loggerMapping[loggerSubsystem]
+        if var mappedSubsystem = mappedSubsystem {
             if let filter = filter {
-                mappedSinks[sinkIdentifier] = filter
+                mappedSubsystem[sinkIdentifier] = filter
             } else {
-                mappedSinks[sinkIdentifier] = nil
-                if mappedSinks.isEmpty {
+                mappedSubsystem[sinkIdentifier] = nil
+                if mappedSubsystem.isEmpty {
                     loggerMapping[loggerSubsystem] = nil
                 }
             }
