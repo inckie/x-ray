@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Event: NSObject {
+public class Event: NSObject {
     let category: String?
     let subsystem: String
     let timestamp: UInt // UTC
@@ -21,7 +21,7 @@ class Event: NSObject {
     init(category: String?,
          subsystem: String,
          timestamp: UInt,
-         level: LogLevel = .debug
+         level: LogLevel = .debug,
          message: String,
          data: [String: Any]?,
          context: [String: Any]?,
