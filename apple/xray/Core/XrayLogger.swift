@@ -18,7 +18,13 @@ public enum LogLevel: NSInteger {
 
 public class XrayLogger: NSObject {
     public static let sharedInstance = XrayLogger()
-    public private(set) var sinks: [String: SinkProtocol] = [:]
+    private let mapper = Mapper()
+
+    public private(set) var sinks: [String: SinkProtocol] = [:] {
+        didSet {
+            mapper.refreshSinks(sinks: sinks)
+        }
+    }
 
     // MARK: Sink Handlers
 
@@ -75,10 +81,22 @@ public class XrayLogger: NSObject {
 
 extension XrayLogger {
     func submit(event: Event) {
+    
     }
 
-    func hasSinks(forLogger subsystem: String,
+    func hasSinks(loggerSubsystem: String,
                   category: String,
-                  logLevel: LogLevel) {
+                  logLevel: LogLevel) -> Bool {
+        return mapper.hasSinks(loggerSubsystem: loggerSubsystem,
+                               category: category,
+                               logLevel: logLevel)
+    }
+
+    public func setFilter(loggerSubsystem: String,
+                          sinkIdentifier: String,
+                          filter: SinkFilterProtocol?) {
+        mapper.setFilter(loggerSubsystem: loggerSubsystem,
+                         sinkIdentifier: sinkIdentifier,
+                         filter: filter)
     }
 }

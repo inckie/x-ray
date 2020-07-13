@@ -1,5 +1,5 @@
 //
-//  String+DeletingPrefix.swift
+//  String+Extensions.swift
 //  xray
 //
 //  Created by Anton Kononenko on 7/10/20.
@@ -14,5 +14,14 @@ extension String {
             return self
         }
         return String(dropFirst(prefix.count))
+    }
+
+    func retrieveParentSubsystemPath() -> String? {
+        guard let lastSeparatorIndex = self.lastIndex(of: "/") else {
+            return nil
+        }
+
+        let parentSubsystem = String(self[..<lastSeparatorIndex])
+        return parentSubsystem
     }
 }

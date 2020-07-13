@@ -11,8 +11,6 @@ import Foundation
 class Logger: NSObject {
     static let rootLogger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "",
                                    parent: nil)
-    static let nameSeparator = "/"
-
     public let subsystem: String
     private var children: [String: Logger] = [:]
     weak var parent: Logger?
@@ -60,7 +58,7 @@ class Logger: NSObject {
         if subsystem.hasPrefix(rootLogger.subsystem) {
             return rootLogger.child(for: subsystem)
         }
-        let fullSubsystem = rootLogger.subsystem + nameSeparator + subsystem
+        let fullSubsystem = rootLogger.subsystem + subsystemNameSeparator + subsystem
         return rootLogger.child(for: fullSubsystem)
     }
 
@@ -92,4 +90,3 @@ class Logger: NSObject {
         return self
     }
 }
-

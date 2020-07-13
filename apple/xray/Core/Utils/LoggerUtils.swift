@@ -8,9 +8,12 @@
 
 import Foundation
 
+let subsystemNameSeparator = "/"
+
 class LoggerUtils {
+    
     class func getNextSubsystem(subsystem: String, parentSubsystem: String) -> String? {
-        let parentSubsystemWithSeparator = parentSubsystem + Logger.nameSeparator
+        let parentSubsystemWithSeparator = parentSubsystem + subsystemNameSeparator
         let subsystemWithoutParent = subsystem.deletingPrefix(parentSubsystemWithSeparator)
 
         guard parentSubsystemWithSeparator != subsystemWithoutParent,
