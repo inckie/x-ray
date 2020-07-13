@@ -11,20 +11,16 @@ import Foundation
 let subsystemNameSeparator = "/"
 
 class LoggerUtils {
-    
     class func getNextSubsystem(subsystem: String, parentSubsystem: String) -> String? {
-        let parentSubsystemWithSeparator = parentSubsystem + subsystemNameSeparator
+        let parentSubsystemWithSeparator = parentSubsystem.count > 0 ? parentSubsystem + subsystemNameSeparator : parentSubsystem
         let subsystemWithoutParent = subsystem.deletingPrefix(parentSubsystemWithSeparator)
 
         guard parentSubsystemWithSeparator != subsystemWithoutParent,
-            let nextSubsystemSection = subsystemWithoutParent.split(separator: "/").first else {
+            let nextSubsystemSection = subsystemWithoutParent.split(separator: Character(subsystemNameSeparator)).first else {
             return nil
         }
+        
         let subsystemToSearch = parentSubsystemWithSeparator + nextSubsystemSection
         return subsystemToSearch
     }
 }
-
-
-
- 

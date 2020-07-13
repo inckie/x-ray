@@ -12,19 +12,27 @@ class Logger: NSObject {
     static let rootLogger = Logger(subsystem: "",
                                    parent: nil)
     public let subsystem: String
-    private var children: [String: Logger] = [:]
+    private(set) var children: [String: Logger] = [:]
     weak var parent: Logger?
 
     let context: [String: Any] = [:]
     var messageFormatter: MessageFormatterProtocol?
 
-    init(subsystem: String, parent: Logger?) {
+    init(subsystem: String,
+         parent: Logger?) {
         self.subsystem = subsystem
         self.parent = parent
         if parent == nil {
             messageFormatter = DefaultMessageFormatter()
         }
         super.init()
+    }
+
+    func createChildLogger(subsystem: String) -> Logger {
+        let childLogger = Logger(subsystem: subsystem,
+                                 parent: self)
+        children[subsystem] = childLogger
+        return childLogger
     }
 
     func logEvent(
@@ -64,38 +72,41 @@ class Logger: NSObject {
         return context
     }
 
-    static func getLogger(for subsystem: String? = nil) -> Logger {
-        guard let subsystem = subsystem else {
+    static func getLogger(for subsystem: String? = nil) -> Logger? {
+        guard let subsystem = subsystem,
+            subsystem.isEmpty == false else {
             return rootLogger
         }
         return rootLogger.child(for: subsystem)
     }
 
-    func getLogger(for subsystem: String) -> Logger {
+    func getLogger(for subsystem: String) -> Logger? {
         if self.subsystem == subsystem {
             return self
         }
         return child(for: subsystem)
     }
 
-    func child(for subsystem: String) -> Logger {
-        if let subsystemToSearch = LoggerUtils.getNextSubsystem(subsystem: subsystem,
-                                                                parentSubsystem: self.subsystem) {
-            if let searchedItem = children[subsystemToSearch] {
-                if searchedItem.subsystem == subsystemToSearch {
-                    return searchedItem
-                } else {
-                    return searchedItem.getLogger(for: subsystem)
-                }
-            } else {
-                let newChild = Logger(subsystem: subsystemToSearch,
-                                      parent: self)
-                return newChild.getLogger(for: subsystem)
-            }
-
-        } else {
-            // TODO: Possible nil
+    func child(for subsystem: String) -> Logger? {
+        if let searchedSubsystem = children[subsystem] {
+            return searchedSubsystem
         }
-        return self
+
+        if let nextSubsystemLevel = LoggerUtils.getNextSubsystem(subsystem: subsystem,
+                                                                 parentSubsystem: self.subsystem) {
+            return childInNextSubsystemLevel(targetSubsystem: subsystem, nextSubsystemToSearch: nextSubsystemLevel)
+        }
+
+        return nil
+    }
+
+    func childInNextSubsystemLevel(targetSubsystem: String,
+                                   nextSubsystemToSearch: String) -> Logger? {
+        if let searchedItem = children[nextSubsystemToSearch] {
+            return searchedItem.getLogger(for: subsystem)
+        } else {
+            let newChild = createChildLogger(subsystem: nextSubsystemToSearch)
+            return newChild.getLogger(for: subsystem)
+        }
     }
 }
