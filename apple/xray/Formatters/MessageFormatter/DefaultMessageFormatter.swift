@@ -12,7 +12,7 @@ class DefaultMessageFormatter: MessageFormatterProtocol {
     func format(template: String, prameters: [String: Any], otherArgs: Any...) -> String {
         var retVal = template
         for arg in otherArgs {
-            retVal = retVal + "\(arg)"
+            retVal = retVal + " \(arg)"
         }
         return retVal
     }

@@ -105,13 +105,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4066467624BCF36F005832AC /* Formatting */ = {
+		4066467624BCF36F005832AC /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
 				408E9A5E24BF567400E4736A /* EventFormatter */,
 				4066467724BCF37C005832AC /* MessageFormatter */,
 			);
-			path = Formatting;
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		4066467724BCF37C005832AC /* MessageFormatter */ = {
@@ -161,7 +161,7 @@
 		4066C03724B76F7100E05A01 /* xray */ = {
 			isa = PBXGroup;
 			children = (
-				4066467624BCF36F005832AC /* Formatting */,
+				4066467624BCF36F005832AC /* Formatters */,
 				408E9A6524BF71EE00E4736A /* SinksFilters */,
 				408E9A5824BE5A0600E4736A /* Sinks */,
 				40FBBCED24B90D4D00BB6423 /* Extensions */,
