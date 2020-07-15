@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
             .setContext(LogContext(mapOf("loggerContext" to "loggerContextValue")));
 
         Core.get()
-            .setFilter("error_log_sink", "childLogger", DefaultSinkFilter(Log.DEBUG))
+            .setFilter("error_log_sink", "childLogger", DLogefaultSinkFilter(.DEBUG))
 
         rootLogger
             .d("Test")

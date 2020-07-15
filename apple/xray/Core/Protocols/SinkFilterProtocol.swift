@@ -10,6 +10,6 @@ import Foundation
 
 public protocol SinkFilterProtocol {
     func accept(loggerSubsystem: String,
-                category: String?,
+                category: String,
                 logLevel: LogLevel) -> Bool
 }

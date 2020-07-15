@@ -14,6 +14,21 @@ public enum LogLevel: NSInteger {
     case info = 2
     case warning = 3
     case error = 4
+
+    func toString() -> String {
+        switch self {
+        case .verbose:
+            return "verbose"
+        case .debug:
+            return "debug"
+        case .info:
+            return "info"
+        case .warning:
+            return "warning"
+        case .error:
+            return "error"
+        }
+    }
 }
 
 public class XrayLogger: NSObject {
@@ -91,11 +106,18 @@ public class XrayLogger: NSObject {
 
 extension XrayLogger {
     func submit(event: Event) {
-        DispatchQueue.global(qos: .default).sync {
-            let mapping = getMapping(event: event)
-            if mapping.isEmpty == false {
-                for sink in mapping {
-                    sink.log(event: event)
+        let mapping = getMapping(event: event)
+        if mapping.isEmpty == false {
+            for sink in mapping {
+                if sink.asynchronously {
+                    sink.queue.async {
+                        sink.log(event: event)
+                    }
+
+                } else {
+                    sink.queue.sync {
+                        sink.log(event: event)
+                    }
                 }
             }
         }

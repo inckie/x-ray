@@ -18,6 +18,10 @@
 		4066C05124B76FBA00E05A01 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05024B76FBA00E05A01 /* Event.swift */; };
 		4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05224B7785300E05A01 /* XrayLogger.swift */; };
 		4066C05624B81B1B00E05A01 /* SinkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05524B81B1B00E05A01 /* SinkProtocol.swift */; };
+		408E9A5B24BE5A2300E4736A /* BaseSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A5A24BE5A2300E4736A /* BaseSink.swift */; };
+		408E9A5D24BF4F4100E4736A /* EventFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A5C24BF4F4100E4736A /* EventFormatterProtocol.swift */; };
+		408E9A6024BF56A500E4736A /* DefaultEventFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A5F24BF56A500E4736A /* DefaultEventFormatter.swift */; };
+		408E9A6424BF5E2A00E4736A /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A6324BF5E2A00E4736A /* Console.swift */; };
 		40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */; };
 		40E697F224B8C502004A0A05 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697F124B8C502004A0A05 /* Logger.swift */; };
 		40FBBCEF24B90D7500BB6423 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCEE24B90D7500BB6423 /* String+Extensions.swift */; };
@@ -52,6 +56,10 @@
 		4066C05024B76FBA00E05A01 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4066C05224B7785300E05A01 /* XrayLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayLogger.swift; sourceTree = "<group>"; };
 		4066C05524B81B1B00E05A01 /* SinkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkProtocol.swift; sourceTree = "<group>"; };
+		408E9A5A24BE5A2300E4736A /* BaseSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSink.swift; sourceTree = "<group>"; };
+		408E9A5C24BF4F4100E4736A /* EventFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFormatterProtocol.swift; sourceTree = "<group>"; };
+		408E9A5F24BF56A500E4736A /* DefaultEventFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEventFormatter.swift; sourceTree = "<group>"; };
+		408E9A6324BF5E2A00E4736A /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
 		40E697F124B8C502004A0A05 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		40FBBCEE24B90D7500BB6423 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -96,6 +104,7 @@
 		4066467624BCF36F005832AC /* Formatting */ = {
 			isa = PBXGroup;
 			children = (
+				408E9A5E24BF567400E4736A /* EventFormatter */,
 				4066467724BCF37C005832AC /* MessageFormatter */,
 			);
 			path = Formatting;
@@ -148,6 +157,7 @@
 		4066C03724B76F7100E05A01 /* xray */ = {
 			isa = PBXGroup;
 			children = (
+				408E9A5824BE5A0600E4736A /* Sinks */,
 				40FBBCED24B90D4D00BB6423 /* Extensions */,
 				4066C04F24B76F8D00E05A01 /* Core */,
 				4066C03824B76F7100E05A01 /* xray.h */,
@@ -186,8 +196,42 @@
 				4066C05524B81B1B00E05A01 /* SinkProtocol.swift */,
 				4066467024BCB984005832AC /* SinkFilterProtocol.swift */,
 				4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */,
+				408E9A5C24BF4F4100E4736A /* EventFormatterProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		408E9A5824BE5A0600E4736A /* Sinks */ = {
+			isa = PBXGroup;
+			children = (
+				408E9A6224BF5E1600E4736A /* Console */,
+				408E9A5924BE5A1200E4736A /* BaseSink */,
+			);
+			path = Sinks;
+			sourceTree = "<group>";
+		};
+		408E9A5924BE5A1200E4736A /* BaseSink */ = {
+			isa = PBXGroup;
+			children = (
+				408E9A5A24BE5A2300E4736A /* BaseSink.swift */,
+			);
+			path = BaseSink;
+			sourceTree = "<group>";
+		};
+		408E9A5E24BF567400E4736A /* EventFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				408E9A5F24BF56A500E4736A /* DefaultEventFormatter.swift */,
+			);
+			path = EventFormatter;
+			sourceTree = "<group>";
+		};
+		408E9A6224BF5E1600E4736A /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				408E9A6324BF5E2A00E4736A /* Console.swift */,
+			);
+			path = Console;
 			sourceTree = "<group>";
 		};
 		40E697EE24B8C4D0004A0A05 /* Events */ = {
@@ -428,14 +472,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4066467924BCF393005832AC /* DefaultMessageFormatter.swift in Sources */,
+				408E9A6424BF5E2A00E4736A /* Console.swift in Sources */,
 				4066467524BCEA4C005832AC /* MessageFormatterProtocol.swift in Sources */,
 				40E697F224B8C502004A0A05 /* Logger.swift in Sources */,
 				40FBBCF224B90DAA00BB6423 /* LoggerUtils.swift in Sources */,
 				4066C05124B76FBA00E05A01 /* Event.swift in Sources */,
+				408E9A5B24BE5A2300E4736A /* BaseSink.swift in Sources */,
 				4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */,
 				4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */,
 				40FBBCF524B91DF800BB6423 /* Mapper.swift in Sources */,
+				408E9A6024BF56A500E4736A /* DefaultEventFormatter.swift in Sources */,
 				40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */,
+				408E9A5D24BF4F4100E4736A /* EventFormatterProtocol.swift in Sources */,
 				40FBBCEF24B90D7500BB6423 /* String+Extensions.swift in Sources */,
 				4066C05624B81B1B00E05A01 /* SinkProtocol.swift in Sources */,
 			);

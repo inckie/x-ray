@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SwiftyBeaver
 class Logger: NSObject {
     static let rootLogger = Logger(subsystem: "",
                                    parent: nil)
@@ -38,14 +38,24 @@ class Logger: NSObject {
     func logEvent(
         logLevel: LogLevel = .debug,
         message: String,
-        category: String? = nil,
+        category: String,
         data: [String: Any]? = nil,
         exception: NSException? = nil,
+        file: String = #file,
+        function: String = #function,
+        line: Int = #line,
+        includeCallStackSymbols: Bool = false,
         otherArgs: Any...) {
+        let newData = populateData(data: data,
+                                   file: file,
+                                   function: function,
+                                   line: line,
+                                   includeCallStackSymbols: includeCallStackSymbols)
+        
         EventBuilder.submit(subsystem: subsystem,
                             logLevel: logLevel,
                             category: category,
-                            data: data,
+                            data: newData,
                             context: getFullContext(),
                             messageFormatter: resolveMessageFormatter(),
                             message: message,
@@ -94,7 +104,8 @@ class Logger: NSObject {
 
         if let nextSubsystemLevel = LoggerUtils.getNextSubsystem(subsystem: subsystem,
                                                                  parentSubsystem: self.subsystem) {
-            return childInNextSubsystemLevel(targetSubsystem: subsystem, nextSubsystemToSearch: nextSubsystemLevel)
+            return childInNextSubsystemLevel(targetSubsystem: subsystem,
+                                             nextSubsystemToSearch: nextSubsystemLevel)
         }
 
         return nil
@@ -103,10 +114,36 @@ class Logger: NSObject {
     func childInNextSubsystemLevel(targetSubsystem: String,
                                    nextSubsystemToSearch: String) -> Logger? {
         if let searchedItem = children[nextSubsystemToSearch] {
-            return searchedItem.getLogger(for: subsystem)
+            return searchedItem.getLogger(for: targetSubsystem)
         } else {
             let newChild = createChildLogger(subsystem: nextSubsystemToSearch)
-            return newChild.getLogger(for: subsystem)
+            return newChild.getLogger(for: targetSubsystem)
         }
+    }
+
+    func populateData(data: [String: Any]?,
+                      file: String,
+                      function: String,
+                      line: Int,
+                      includeCallStackSymbols: Bool = false) -> [String: Any]? {
+        guard let data = data else {
+            return nil
+        }
+
+        var newData = data
+        newData["location"] = ["file": file,
+                               "function": function,
+                               "line": line]
+        if includeCallStackSymbols == true {
+            newData["stack_symbols"] = Thread.callStackSymbols
+        }
+        let name = __dispatch_queue_get_label(nil)
+        let threadName = String(cString: name, encoding: .utf8) ?? Thread.current.description
+
+        newData["thread"] = [
+            "main_thread": Thread.current.isMainThread,
+            "thread_name": threadName,
+        ]
+        return newData
     }
 }

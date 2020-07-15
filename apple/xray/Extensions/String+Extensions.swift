@@ -25,4 +25,25 @@ extension String {
         return parentSubsystem
     }
 
+//    func isSubsystemPathCorrupeted() -> Bool {
+//        let regexLiteral = "^(?:[.\\/\\\\ ](?![.\\/\\\\\\n])|[^<>:\"|?*.\\/\\\\ \\n])+$"
+//
+//        let regex = try! NSRegularExpression(pattern: regexLiteral,
+//                                             options: NSRegularExpression.Options.caseInsensitive)
+//        let range = NSMakeRange(0, count)
+//
+//        return regex.numberOfCaptureGroups > 0
+//    }
+//
+//    func removeDuplicationDelimiterOfSubsystemPath() -> String {
+//        let regexLiteral = "(\\/)\\1+"
+//        let regex = try! NSRegularExpression(pattern: regexLiteral,
+//                                             options: NSRegularExpression.Options.caseInsensitive)
+//        let range = NSMakeRange(0, count)
+//        let retVal = regex.stringByReplacingMatches(in: self,
+//                                                    options: [],
+//                                                    range: range,
+//                                                    withTemplate: "/")
+//        return retVal
+//    }
 }

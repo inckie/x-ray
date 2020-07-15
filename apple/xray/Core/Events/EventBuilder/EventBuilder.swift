@@ -11,7 +11,7 @@ import Foundation
 public class EventBuilder: NSObject {
     class func submit(subsystem: String,
                       logLevel: LogLevel = .debug,
-                      category: String? = nil,
+                      category: String,
                       data: [String: Any]? = nil,
                       context: [String: Any]? = nil,
                       messageFormatter: Any? = nil,

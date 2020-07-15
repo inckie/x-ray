@@ -67,7 +67,7 @@ class Mapper {
     }
 
     public func getMapping(loggerSubsystem: String,
-                           category: String?,
+                           category: String,
                            logLevel: LogLevel) -> Set<String>? {
         var retVal: Set<String>
 

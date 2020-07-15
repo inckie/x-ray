@@ -9,5 +9,8 @@
 import Foundation
 
 public protocol SinkProtocol: NSObjectProtocol {
-    func log(event:Event)
+    func log(event: Event)
+    var formatter: EventFormatterProtocol? { get set }
+    var asynchronously: Bool { get set }
+    var queue: DispatchQueue { get set }
 }
