@@ -1,7 +1,6 @@
 package com.applicaster.xray.example.ui
 
 import android.app.PendingIntent
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -47,14 +46,7 @@ class MainActivity : AppCompatActivity() {
             // configure XRay notification
 
             // add report sharing button
-            val shareLogIntent = PendingIntent.getActivity(
-                this,
-                0,
-                Intent(this, SendActivity::class.java)
-                    .setAction("com.applicaster.xray.send"),
-                PendingIntent.FLAG_CANCEL_CURRENT
-            )
-
+            val shareLogIntent = SendActivity.getSendPendingIntent(this)
             val actions: HashMap<String, PendingIntent> = hashMapOf("Send" to shareLogIntent)
 
             // here we show Notification UI with custom actions

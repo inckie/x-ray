@@ -1,5 +1,8 @@
 package com.applicaster.xray.crashreporter
 
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,4 +15,20 @@ class SendActivity : AppCompatActivity() {
         Reporting.sendLogReport(this)
         finish()
     }
+
+    companion object {
+
+        private const val sendAction = "com.applicaster.xray.send"
+
+        @JvmStatic
+        fun getSendPendingIntent(context: Context) =
+            PendingIntent.getActivity(
+                context,
+                0,
+                Intent(context, SendActivity::class.java)
+                    .setAction(sendAction),
+                PendingIntent.FLAG_CANCEL_CURRENT
+            )!!
+    }
+
 }
