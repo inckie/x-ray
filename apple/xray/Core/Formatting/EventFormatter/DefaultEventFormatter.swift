@@ -57,5 +57,6 @@ public class DefaultEventFormatter: EventFormatterProtocol {
         if let userInfoString = parseDictionary(headerName: "UserInfo", dict: exception.userInfo as? [String: Any]) {
             retVal += userInfoString
         }
+        return retVal
     }
 }
