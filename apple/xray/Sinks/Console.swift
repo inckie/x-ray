@@ -41,14 +41,7 @@ public class Console: BaseSink {
     private func logPrint(event: Event) {
         let message = formatter?.format(event: event) ?? event.message
 
-        let log = """
-                Level: \(event.level.toString())
-                Category: \(event.category)
-                Subsystem: \(event.subsystem)
-                \(message)
-        """
-
-        print(log)
+        print(message)
     }
 
     private func logOsLog(event: Event) {

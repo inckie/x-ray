@@ -1,16 +1,23 @@
 PODS:
+  - SwiftyBeaver (1.9.1)
   - xray (0.0.1)
 
 DEPENDENCIES:
+  - SwiftyBeaver
   - xray (from `/Users/antonkononenko/Work/x-ray/apple/xray.podspec`)
+
+SPEC REPOS:
+  trunk:
+    - SwiftyBeaver
 
 EXTERNAL SOURCES:
   xray:
     :path: "/Users/antonkononenko/Work/x-ray/apple/xray.podspec"
 
 SPEC CHECKSUMS:
+  SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
   xray: 34ee7f3c76a385d1b148ad8788564800cc3ba4b4
 
-PODFILE CHECKSUM: 1f664d2ccf674fac376fb0899bfcc340cb04cf9e
+PODFILE CHECKSUM: da6ba84e3f28bafbf389ead771d6e5fe34be72c8
 
 COCOAPODS: 1.9.3

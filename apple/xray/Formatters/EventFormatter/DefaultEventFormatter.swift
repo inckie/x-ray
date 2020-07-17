@@ -8,19 +8,36 @@
 
 import Foundation
 
-private let defaultChildrenSpacing = 3
+private let defaultChildrenSpacing = 5
 public class DefaultEventFormatter: EventFormatterProtocol {
+    public var skipData: Bool = true
+    public var skipContext: Bool = true
+    public var skipeException: Bool = false
+    let dateFormatter = DateFormatter()
+    public var format = "yyyy-MM-dd'T'HH:mm:ssZ"
     public func format(event: Event) -> String {
-        var retVal = "message: \(event.message) \n"
-        if let dataString = parseDictionary(headerName: "data", dict: event.data) {
+        let date = Date(timeIntervalSince1970: TimeInterval(event.timestamp))
+        dateFormatter.dateFormat = format
+        let dateString = dateFormatter.string(from: date)
+        let projectName = Bundle.main.infoDictionary?["CFBundleName"] ?? ""
+        let callerPlace = parseLineString(event: event)
+
+        var retVal = "\(dateString) | \(event.level.toString()): \(projectName) \(callerPlace) \(event.message) \n"
+
+        if skipData == false,
+            let dataString = parseDictionary(headerName: "data",
+                                             dict: event.data) {
             retVal += dataString
         }
 
-        if let contextString = parseDictionary(headerName: "context", dict: event.context) {
+        if skipContext == false,
+            let contextString = parseDictionary(headerName: "context",
+                                                dict: event.context) {
             retVal += contextString
         }
 
-        if let exceptionString = parseException(exception: event.exception) {
+        if skipeException,
+            let exceptionString = parseException(exception: event.exception) {
             retVal += exceptionString
         }
 
@@ -35,7 +52,7 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             return nil
         }
 
-        var retVal = "\(headerName):\n"
+        var retVal = "  \(headerName):\n"
         dict.forEach { item in
             retVal += String(repeating: " ", count: childrenSpacing)
 
@@ -66,7 +83,7 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             return nil
         }
 
-        var retVal = headerName.count > 0 ? "\(headerName): [\n" : "[\n"
+        var retVal = headerName.count > 0 ? "  \(headerName): [\n" : "  [\n"
         array.forEach { item in
             retVal += String(repeating: " ", count: childrenSpacing)
 
@@ -112,5 +129,15 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             retVal += userInfoString
         }
         return retVal
+    }
+
+    func parseLineString(event: Event) -> String {
+        guard let data = event.data,
+            let location = data["location"] as? [String: Any],
+            let lineNumber = location["line"],
+            let functionName = location["function"] else {
+            return ""
+        }
+        return "[\(functionName):\(lineNumber)]"
     }
 }

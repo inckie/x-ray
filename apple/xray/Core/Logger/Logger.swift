@@ -141,6 +141,7 @@ public class Logger: NSObject {
         let threadName = String(cString: name, encoding: .utf8) ?? Thread.current.description
 
         newData["thread"] = [
+            "priority": Thread.threadPriority(),
             "main_thread": Thread.current.isMainThread,
             "thread_name": threadName,
         ]

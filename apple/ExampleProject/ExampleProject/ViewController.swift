@@ -9,10 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+//        let logFileName = "\(Date()).log"
+
+//        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        let documentsDirectory = allPaths.first!
+//        let pathStringComponent = "/" + logFileName
+//        let pathForLog = (documentsDirectory as NSString).appending(pathStringComponent)
+//        freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
+//        NSLog("aaaa")
+//        NSLog("bbbb %@","Huy")
+//        print("ff")
+
+
     }
 }
-

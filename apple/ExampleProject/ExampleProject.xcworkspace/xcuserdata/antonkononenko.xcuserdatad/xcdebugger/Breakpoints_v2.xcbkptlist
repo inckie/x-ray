@@ -7,36 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "436D3126-5081-4925-8EDF-3F25F80D0CD6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ExampleProject/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3F8A6165-8E60-4707-B213-B3B716A8DE46"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../xray/Formatters/EventFormatter/DefaultEventFormatter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "52594A58-7199-4E9B-9E33-3061EFD29DBB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -66,7 +36,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6FF635C5-570A-46E4-8882-54E0AA1413F4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../xray/Core/Events/EventBuilder/EventBuilder.swift"
@@ -88,26 +58,8 @@
             filePath = "../xray/Sinks/Console.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "logOsLog(event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "926CAEAD-CCF9-457D-80A0-51DE22779713"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../xray/Sinks/Console.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "logOsLog(event:)"
-            landmarkType = "7">
+            startingLineNumber = "70"
+            endingLineNumber = "70">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -156,7 +108,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A9CB4452-6CA8-408A-BFB2-26FA596578F9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../xray/Core/Routing/Mapper.swift"
@@ -172,7 +124,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "375E5D23-2259-48B2-AEE1-95B34D2795E3"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../xray/Core/Routing/Mapper.swift"
@@ -188,7 +140,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E54A977C-A0A9-4887-A3AB-F5CF3D050EC0"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../xray/Core/Routing/Mapper.swift"
@@ -204,7 +156,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "364FA70C-2BBE-41F3-BC74-D8EAB6FE8629"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../xray/Core/Routing/Mapper.swift"
@@ -214,6 +166,312 @@
             endingLineNumber = "59"
             landmarkName = "getClosestMapping(loggerSubsystem:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7EF03BED-C8B6-480E-98C9-FFA929EAC0F3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../xray/Sinks/File.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "log(event:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "55D85FBD-440B-40DD-8B5D-CFB178A25151"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExampleProject/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7636AC41-EA5B-46A5-9783-FDD61C57D053"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "formatMessage(_:level:msg:thread:file:function:line:context:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "350855C4-A193-48C9-8588-432E6E19DEB0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "formatMessage(_:level:msg:thread:file:function:line:context:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "1863">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "2302">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "2960">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "3536">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "4112">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "4775">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "5438">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "6014">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "6687">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "7214">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "7653">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "8302">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "8850">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "9289">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "9995">
+               </Location>
+               <Location
+                  uuid = "350855C4-A193-48C9-8588-432E6E19DEB0 - 791a9c63de00942a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftyBeaver.BaseDestination.formatMessage(_: Swift.String, level: SwiftyBeaver.SwiftyBeaver.Level, msg: Swift.String, thread: Swift.String, file: Swift.String, function: Swift.String, line: Swift.Int, context: Swift.Optional&lt;Any&gt;) -&gt; Swift.String"
+                  moduleName = "SwiftyBeaver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkononenko/Work/x-ray/apple/ExampleProject/Pods/SwiftyBeaver/Sources/BaseDestination.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "10569">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

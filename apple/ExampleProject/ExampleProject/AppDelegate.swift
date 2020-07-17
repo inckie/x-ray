@@ -8,26 +8,49 @@
 
 import UIKit
 import xray
+import SwiftyBeaver
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let log = SwiftyBeaver.self
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        XrayLogger.sharedInstance.addSink(identifier: "test",
-                                          sink: Console(logType: .os_log))
+        XrayLogger.sharedInstance.addSink(identifier: "console",
+                                          sink: Console(logType: .print))
+        XrayLogger.sharedInstance.addSink(identifier: "file",
+                                            sink: File())
         let rootLogger = Logger.getLogger(for: "com.test.anton")
         rootLogger?.context["test_context_data"] = "context_value"
 
         rootLogger?.logEvent(logLevel: .error,
-                             message: "Test %@, %@, %@",
+                             message: "My error logger",
                              category: "category",
                              data: ["data_key": "data_value"],
-                             exception: nil,
-                             args: "33", ["1", "2", "3"], ["myKey": ["A", "B", "C"]])
+                             exception: nil)
+        rootLogger?.logEvent(logLevel: .debug,
+                              message: "Debug thing",
+                              category: "category",
+                              data: ["data_key": "data_value"],
+                              exception: nil)
+        
+
+
+        
+        let console = ConsoleDestination()
+        let file = FileDestination()// log to Xcode Console
+//        console.format = "$DHH:mm:ss$d $L $M"
+
+        log.addDestination(console)
+        log.addDestination(file)
+
+        log.verbose("not so important")  // prio 1, VERBOSE in silver
+        log.debug("something to debug")  // prio 2, DEBUG in green
+        log.info("a nice information")   // prio 3, INFO in blue
+        log.warning("oh no, that won’t be good")  // prio 4, WARNING in yellow
+        log.error("ouch, an error did occur!")
 
         return true
     }
 
-    // MARK: UISceneSession Lifecycle
 }

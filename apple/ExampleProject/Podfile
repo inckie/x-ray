@@ -6,5 +6,6 @@
 target 'ExampleProject' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+  pod 'SwiftyBeaver'
   pod 'xray', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
 end

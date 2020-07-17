@@ -18,15 +18,15 @@ public enum LogLevel: NSInteger {
     func toString() -> String {
         switch self {
         case .verbose:
-            return "verbose"
+            return "VERBOSE"
         case .debug:
-            return "debug"
+            return "DEBUG"
         case .info:
-            return "info"
+            return "INFO"
         case .warning:
-            return "warning"
+            return "WARNING"
         case .error:
-            return "error"
+            return "ERROR"
         }
     }
 }
