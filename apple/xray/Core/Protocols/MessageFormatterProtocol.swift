@@ -10,6 +10,6 @@ import Foundation
 
 protocol MessageFormatterProtocol {
     func format(template: String,
-                prameters: [String: Any],
-                otherArgs: Any...) -> String
+                prameters: [String: Any]?,
+                args: [CVarArg]) -> String
 }

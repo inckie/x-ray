@@ -33,6 +33,7 @@ public enum LogLevel: NSInteger {
 
 public class XrayLogger: NSObject {
     public static let sharedInstance = XrayLogger()
+
     private let mapper = Mapper()
 
     public private(set) var sinks: [String: SinkProtocol] = [:] {

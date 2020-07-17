@@ -9,11 +9,16 @@
 import Foundation
 
 class DefaultMessageFormatter: MessageFormatterProtocol {
-    func format(template: String, prameters: [String: Any], otherArgs: Any...) -> String {
-        var retVal = template
-        for arg in otherArgs {
-            retVal = retVal + " \(arg)"
+    func format(template: String,
+                prameters: [String: Any]?,
+                args: [CVarArg]) -> String {
+        guard args.count > 0 else {
+            return template
         }
+        let retVal = String(format: template,
+                            arguments: args)
+
         return retVal
     }
+    
 }

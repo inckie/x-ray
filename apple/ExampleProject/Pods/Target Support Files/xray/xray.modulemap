@@ -1,0 +1,6 @@
+framework module xray {
+  umbrella header "xray-umbrella.h"
+
+  export *
+  module * { export * }
+}

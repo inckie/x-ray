@@ -17,26 +17,48 @@ public class EventBuilder: NSObject {
                       messageFormatter: MessageFormatterProtocol? = nil,
                       message: String,
                       exception: NSException?,
-                      otherArgs: Any...) {
+                      args: [CVarArg] = []) {
+        let newMessage = formatMessage(messageFormatter: messageFormatter,
+                                       message: message,
+                                       data: data,
+                                       args: args)
+        let newData = argsToData(data: data,
+                                 args: args)
         let event = Event(category: category,
                           subsystem: subsystem,
                           timestamp: UInt(round(NSDate().timeIntervalSince1970)),
-                          message: message,
-                          data: data,
+                          level: logLevel,
+                          message: newMessage,
+                          data: newData,
                           context: context,
                           exception: exception)
         XrayLogger.sharedInstance.submit(event: event)
     }
 
-    private func formatMessage(messageFormatter: MessageFormatterProtocol?,
-                               message: String,
-                               data: [String: Any],
-                               otherArgs: Any...) -> String {
+    private class func formatMessage(messageFormatter: MessageFormatterProtocol?,
+                                     message: String,
+                                     data: [String: Any]?,
+                                     args: [CVarArg] = []) -> String {
         guard let messageFormatter = messageFormatter else {
             return message
         }
         return messageFormatter.format(template: message,
                                        prameters: data,
-                                       otherArgs: otherArgs)
+                                       args: args)
+    }
+
+    private class func argsToData(data: [String: Any]?,
+                                  args: [CVarArg]) -> [String: Any]? {
+        guard var data = data else {
+            return nil
+        }
+
+        guard args.count > 0 else {
+            return data
+        }
+
+        data["message_args"] = args
+
+        return data
     }
 }

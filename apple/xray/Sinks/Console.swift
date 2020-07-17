@@ -9,20 +9,33 @@
 import Foundation
 import os
 
-public enum ConsoleType: NSInteger {
+public enum LogType: NSInteger {
     case print
     case os_log
 }
 
 public class Console: BaseSink {
-    var consoleType: ConsoleType = .os_log
+    var logType: LogType = .os_log
 
-    init(consoleType: ConsoleType) {
-        self.consoleType = consoleType
+    public init(logType: LogType) {
+        self.logType = logType
         super.init()
     }
 
+    public override var asynchronously: Bool {
+        get {
+            return false
+        }
+        set {
+        }
+    }
+
     public override func log(event: Event) {
+        if logType == .os_log {
+            logOsLog(event: event)
+        } else {
+            logPrint(event: event)
+        }
     }
 
     private func logPrint(event: Event) {
@@ -34,7 +47,7 @@ public class Console: BaseSink {
                 Subsystem: \(event.subsystem)
                 \(message)
         """
-        
+
         print(log)
     }
 
@@ -43,11 +56,7 @@ public class Console: BaseSink {
                               category: event.category)
         let message = formatter?.format(event: event) ?? event.message
         let level = osLogLevelMapper(logLevel: event.level)
-        // TODO: Check if we want to setup it
-        os_log(level,
-               log: model_log,
-               "%{public}%@",
-               message)
+        os_log("%{public}@", log: model_log, type: level, message)
     }
 
     private func osLogLevelMapper(logLevel: LogLevel) -> OSLogType {

@@ -1,0 +1,16 @@
+PODS:
+  - xray (0.0.1)
+
+DEPENDENCIES:
+  - xray (from `/Users/antonkononenko/Work/x-ray/apple/xray.podspec`)
+
+EXTERNAL SOURCES:
+  xray:
+    :path: "/Users/antonkononenko/Work/x-ray/apple/xray.podspec"
+
+SPEC CHECKSUMS:
+  xray: 34ee7f3c76a385d1b148ad8788564800cc3ba4b4
+
+PODFILE CHECKSUM: 1f664d2ccf674fac376fb0899bfcc340cb04cf9e
+
+COCOAPODS: 1.9.3

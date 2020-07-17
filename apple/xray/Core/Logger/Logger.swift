@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import SwiftyBeaver
-class Logger: NSObject {
+
+public class Logger: NSObject {
     static let rootLogger = Logger(subsystem: "",
                                    parent: nil)
     public let subsystem: String
     private(set) var children: [String: Logger] = [:]
     weak var parent: Logger?
 
-    let context: [String: Any] = [:]
+    public var context: [String: Any] = [:]
     var messageFormatter: MessageFormatterProtocol?
-
+    
     init(subsystem: String,
          parent: Logger?) {
         self.subsystem = subsystem
@@ -35,7 +35,7 @@ class Logger: NSObject {
         return childLogger
     }
 
-    func logEvent(
+    public func logEvent(
         logLevel: LogLevel = .debug,
         message: String,
         category: String,
@@ -45,13 +45,13 @@ class Logger: NSObject {
         function: String = #function,
         line: Int = #line,
         includeCallStackSymbols: Bool = false,
-        otherArgs: Any...) {
+        args: CVarArg...) {
         let newData = populateData(data: data,
                                    file: file,
                                    function: function,
                                    line: line,
                                    includeCallStackSymbols: includeCallStackSymbols)
-        
+
         EventBuilder.submit(subsystem: subsystem,
                             logLevel: logLevel,
                             category: category,
@@ -60,7 +60,7 @@ class Logger: NSObject {
                             messageFormatter: resolveMessageFormatter(),
                             message: message,
                             exception: exception,
-                            otherArgs: otherArgs)
+                            args: args)
     }
 
     func resolveMessageFormatter() -> MessageFormatterProtocol? {
@@ -82,7 +82,7 @@ class Logger: NSObject {
         return context
     }
 
-    static func getLogger(for subsystem: String? = nil) -> Logger? {
+    public static func getLogger(for subsystem: String? = nil) -> Logger? {
         guard let subsystem = subsystem,
             subsystem.isEmpty == false else {
             return rootLogger

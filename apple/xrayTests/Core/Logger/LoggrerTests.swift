@@ -111,21 +111,26 @@ class LoggrerTests: XCTestCase {
 //        XCTAssertNotNil(innerLogger?.parent)
 //        XCTAssertTrue(innerLogger?.subsystem == "foo/$a'#%a!-")
 //        XCTAssertTrue(innerLogger?.parent?.subsystem == "foo")
-//        
-        //TODO: Resolve such cases
+//
+        // TODO: Resolve such cases
         // Posible use regex: ^[^\/](?:[.\/](?![.\/\\\n])|[^<>:"|?*.\/\\\n])+[^\/]$
 //        let foo = "/a/a".isSubsystemPathCorrupeted()
 //        let foo = "/a/a/".isSubsystemPathCorrupeted()
 //        let foo = "//a/a".isSubsystemPathCorrupeted()
 //        let foo = "// /a".isSubsystemPathCorrupeted()
-
     }
 
     func testLoggerStuff() {
-        let rootLogger = Logger.getLogger(for: "test")
-        rootLogger?.logEvent(logLevel: .debug, message: "TestMessage", category: "category", data: ["test":"Data"], exception: nil, otherArgs: 1,2,3)
-
+        XrayLogger.sharedInstance.addSink(identifier: "test",
+                                          sink: Console(logType: .os_log))
+        let rootLogger = Logger.getLogger(for: "com.test.anton")
+        rootLogger?.logEvent(logLevel: .debug,
+                             message: "TestMessage",
+                             category: "category",
+                             data: ["test": "Data"],
+                             exception: nil, otherArgs: 1, 2, 3)
     }
+
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
