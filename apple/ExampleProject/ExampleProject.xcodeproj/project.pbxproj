@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		260EFC3A0553B06C3FCDECAA /* Pods_ExampleProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516CFE077792CBEB0A48C7B2 /* Pods_ExampleProject.framework */; };
+		4003EF9E24C62C8C00475DD6 /* LoggerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4003EF9D24C62C8C00475DD6 /* LoggerViewController.swift */; };
+		4003EFA124C62F1100475DD6 /* LoggerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4003EFA024C62F1100475DD6 /* LoggerCell.swift */; };
+		4003EFA424C6302E00475DD6 /* LoggerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFA324C6302E00475DD6 /* LoggerViewController.xib */; };
+		4003EFA624C632F400475DD6 /* LoggerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFA524C632F400475DD6 /* LoggerCell.xib */; };
+		4003EFAC24C63EF200475DD6 /* DataSourceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4003EFAB24C63EF200475DD6 /* DataSourceHelper.swift */; };
 		408E9A9924BF7E3B00E4736A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A9824BF7E3B00E4736A /* AppDelegate.swift */; };
 		408E9A9D24BF7E3B00E4736A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A9C24BF7E3B00E4736A /* ViewController.swift */; };
 		408E9AA024BF7E3B00E4736A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408E9A9E24BF7E3B00E4736A /* Main.storyboard */; };
@@ -16,6 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4003EF9D24C62C8C00475DD6 /* LoggerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerViewController.swift; sourceTree = "<group>"; };
+		4003EFA024C62F1100475DD6 /* LoggerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerCell.swift; sourceTree = "<group>"; };
+		4003EFA324C6302E00475DD6 /* LoggerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerViewController.xib; sourceTree = "<group>"; };
+		4003EFA524C632F400475DD6 /* LoggerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerCell.xib; sourceTree = "<group>"; };
+		4003EFAB24C63EF200475DD6 /* DataSourceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceHelper.swift; sourceTree = "<group>"; };
 		408E9A9524BF7E3B00E4736A /* ExampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		408E9A9824BF7E3B00E4736A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		408E9A9C24BF7E3B00E4736A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +59,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4003EF9F24C62EFD00475DD6 /* LoggerCell */ = {
+			isa = PBXGroup;
+			children = (
+				4003EFA024C62F1100475DD6 /* LoggerCell.swift */,
+				4003EFA524C632F400475DD6 /* LoggerCell.xib */,
+			);
+			path = LoggerCell;
+			sourceTree = "<group>";
+		};
+		4003EFA224C6300C00475DD6 /* LoggerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4003EF9D24C62C8C00475DD6 /* LoggerViewController.swift */,
+				4003EFA324C6302E00475DD6 /* LoggerViewController.xib */,
+			);
+			path = LoggerViewController;
+			sourceTree = "<group>";
+		};
+		4003EFAA24C63EE300475DD6 /* DataSourceHelper */ = {
+			isa = PBXGroup;
+			children = (
+				4003EFAB24C63EF200475DD6 /* DataSourceHelper.swift */,
+			);
+			path = DataSourceHelper;
+			sourceTree = "<group>";
+		};
 		408E9A8C24BF7E3B00E4736A = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +106,9 @@
 		408E9A9724BF7E3B00E4736A /* ExampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				4003EFAA24C63EE300475DD6 /* DataSourceHelper */,
+				4003EFA224C6300C00475DD6 /* LoggerViewController */,
+				4003EF9F24C62EFD00475DD6 /* LoggerCell */,
 				408E9A9824BF7E3B00E4736A /* AppDelegate.swift */,
 				408E9A9C24BF7E3B00E4736A /* ViewController.swift */,
 				408E9A9E24BF7E3B00E4736A /* Main.storyboard */,
@@ -149,9 +188,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4003EFA424C6302E00475DD6 /* LoggerViewController.xib in Resources */,
 				408E9AA524BF7E3D00E4736A /* LaunchScreen.storyboard in Resources */,
 				408E9AA224BF7E3D00E4736A /* Assets.xcassets in Resources */,
 				408E9AA024BF7E3B00E4736A /* Main.storyboard in Resources */,
+				4003EFA624C632F400475DD6 /* LoggerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +264,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				408E9A9D24BF7E3B00E4736A /* ViewController.swift in Sources */,
+				4003EFAC24C63EF200475DD6 /* DataSourceHelper.swift in Sources */,
+				4003EF9E24C62C8C00475DD6 /* LoggerViewController.swift in Sources */,
 				408E9A9924BF7E3B00E4736A /* AppDelegate.swift in Sources */,
+				4003EFA124C62F1100475DD6 /* LoggerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

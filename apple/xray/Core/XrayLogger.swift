@@ -15,7 +15,7 @@ public enum LogLevel: NSInteger {
     case warning
     case error
 
-    func toString() -> String {
+    public func toString() -> String {
         switch self {
         case .verbose:
             return "VERBOSE"
@@ -29,6 +29,22 @@ public enum LogLevel: NSInteger {
             return "ERROR"
         }
     }
+    
+    public func toColor() -> UIColor {
+        switch self {
+        case .verbose:
+            return UIColor.lightGray
+        case .debug:
+            return UIColor.green
+        case .info:
+            return UIColor.blue
+        case .warning:
+            return UIColor.orange
+        case .error:
+            return UIColor.red
+        }
+    }
+
 }
 
 public class XrayLogger: NSObject {

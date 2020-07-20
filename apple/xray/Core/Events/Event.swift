@@ -9,14 +9,14 @@
 import Foundation
 
 public class Event: NSObject {
-    let category: String
-    let subsystem: String
-    let timestamp: UInt // UTC
-    let level: LogLevel
-    let message: String
-    let data: [String: Any]?
-    let context: [String: Any]?
-    let exception: NSException?
+    public let category: String
+    public let subsystem: String
+    public let timestamp: UInt // UTC
+    public let level: LogLevel
+    public let message: String
+    public let data: [String: Any]?
+    public let context: [String: Any]?
+    public let exception: NSException?
 
     init(category: String,
          subsystem: String,
