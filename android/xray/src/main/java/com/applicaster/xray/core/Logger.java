@@ -137,11 +137,21 @@ public class Logger {
 
     @NotNull
     public synchronized Logger getChild(@NonNull String childName) {
+        int sep = childName.indexOf(NameSeparator);
+        if (-1 == sep) {
+            return getOrMakeChild(childName);
+        }
+        String child = childName.substring(0, sep);
+        String grandChild = childName.substring(sep + 1);
+        return getOrMakeChild(child).getChild(grandChild);
+    }
+
+    @NotNull
+    private Logger getOrMakeChild(@NonNull String childName) {
         Logger logger = children.get(childName);
         if(null != logger) {
             return logger;
         }
-        // todo: handle situation when we are creating grandchild logger (use recursion)
         logger = new Logger(name.isEmpty() ? childName : name + NameSeparator + childName, this);
         children.put(childName, logger);
         return logger;
