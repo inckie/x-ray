@@ -11,7 +11,6 @@ import com.applicaster.xray.core.utility.Stack;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
