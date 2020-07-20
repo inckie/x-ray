@@ -1,4 +1,4 @@
-package com.applicaster.xray.core.formatting.message
+package com.applicaster.xray.formatters.message.reflactionformatter
 
 import java.util.regex.Pattern
 

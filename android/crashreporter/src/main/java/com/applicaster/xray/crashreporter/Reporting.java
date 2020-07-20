@@ -132,4 +132,9 @@ public class Reporting {
         else
             return manufacturer + " " + model;
     }
+
+    public static void sendLogReport(Activity context) {
+        StringBuilder sb = buildReportHeader(context);
+        sendWithAttachment(context, sb.toString(), logFile);
+    }
 }

@@ -1,5 +1,6 @@
-package com.applicaster.xray.core.formatting.message
+package com.applicaster.xray.formatters.message.reflactionformatter
 
+import com.applicaster.xray.core.formatting.message.IMessageFormatter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 

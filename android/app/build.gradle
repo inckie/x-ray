@@ -35,7 +35,9 @@ android {
 dependencies {
 
     implementation project(':xray')
+    implementation project(':reflectionformatter')
     implementation project(':crashreporter')
+    implementation project(':notification')
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

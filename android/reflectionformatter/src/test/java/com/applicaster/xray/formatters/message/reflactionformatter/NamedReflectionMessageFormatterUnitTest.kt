@@ -1,9 +1,9 @@
-package com.applicaster.xray
+package com.applicaster.xray.formatters.message.reflactionformatter
 
-import com.applicaster.xray.core.formatting.message.NamedReflectionMessageFormatter
-import org.junit.Test
-
+import com.applicaster.xray.JavaTestClass
+import com.applicaster.xray.KotlinTestClass
 import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -14,8 +14,13 @@ class NamedReflectionMessageFormatterUnitTest {
     @Test
     fun testAnchorsMessageFormatter() {
 
-        val kotlinTestClass = KotlinTestClass("Kotlin String field", 0xff, 0.1f)
-        val javaTestClass = JavaTestClass("Java String field", 0xff, 0.1f)
+        val kotlinTestClass = KotlinTestClass(
+            "Kotlin String field",
+            0xff,
+            0.1f
+        )
+        val javaTestClass =
+            JavaTestClass("Java String field", 0xff, 0.1f)
 
         val formatter = NamedReflectionMessageFormatter()
 
