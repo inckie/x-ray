@@ -18,5 +18,19 @@
     "tag": "0.0.1"
   },
   "source_files": "xray/**/*.{swift}",
+  "subspecs": [
+    {
+      "name": "ReactNative",
+      "dependencies": {
+        "React": [
+
+        ]
+      },
+      "source_files": [
+        "ReactNative/**/*.{swift}",
+        "ReactNative/ReactNativeModulesExports.m"
+      ]
+    }
+  ],
   "swift_version": "5.1"
 }

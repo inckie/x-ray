@@ -58,7 +58,7 @@ public class File: BaseSink {
     }
 
     // append to file. uses full base class functionality
-    public override func log(event: Event) {
+    override public func log(event: Event) {
         let message = formatter?.format(event: event) ?? event.message
         _ = saveToFile(str: message)
     }
@@ -82,11 +82,9 @@ public class File: BaseSink {
                 fileManager.createFile(atPath: url.path, contents: nil)
 
                 #if os(iOS) || os(watchOS)
-                    if #available(iOS 10.0, watchOS 3.0, *) {
-                        var attributes = try fileManager.attributesOfItem(atPath: url.path)
-                        attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
-                        try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
-                    }
+                    var attributes = try fileManager.attributesOfItem(atPath: url.path)
+                    attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
+                    try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
                 #endif
             }
             write(data: data, to: url)

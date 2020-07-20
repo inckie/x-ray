@@ -14,7 +14,7 @@ public class Event: NSObject {
     let timestamp: UInt // UTC
     let level: LogLevel
     let message: String
-    let data: [String: Any]? // What func, line
+    let data: [String: Any]?
     let context: [String: Any]?
     let exception: NSException?
 

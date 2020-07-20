@@ -42,6 +42,7 @@ class Mapper {
         }
     }
 
+    
     private func getClosestMapping(loggerSubsystem: String) -> [String: SinkFilterProtocol]? {
         DispatchQueue.global(qos: .default).sync {
             if loggerSubsystem == "" {

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 Pod::Spec.new do |s|
   s.name = 'xray'
@@ -13,7 +14,17 @@ Pod::Spec.new do |s|
   s.homepage = 'git@github.com:applicaster/x-ray.git'
   s.license = 'Appache 2.0'
   s.author = { 'a.kononenko@applicaster.com' => 'a.kononenko@applicaster.com' }
-  s.source = { :git => 'git@github.com:applicaster/x-ray.git', :tag => "0.0.1" }
-  
+  s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: '0.0.1' }
+
   s.source_files = 'xray/**/*.{swift}'
+
+  s.subspec 'ReactNative' do |sp|
+    sp.dependency 'React'
+
+    sp.source_files = [
+      'ReactNative/**/*.{swift}',
+      'ReactNative/ReactNativeModulesExports.m'
+    ]
+  end
+
 end

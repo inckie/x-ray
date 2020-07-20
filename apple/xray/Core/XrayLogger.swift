@@ -9,11 +9,11 @@
 import Foundation
 
 public enum LogLevel: NSInteger {
-    case verbose = 0
-    case debug = 1
-    case info = 2
-    case warning = 3
-    case error = 4
+    case verbose
+    case debug
+    case info
+    case warning
+    case error
 
     func toString() -> String {
         switch self {

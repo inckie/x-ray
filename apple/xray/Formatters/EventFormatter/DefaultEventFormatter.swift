@@ -12,9 +12,11 @@ private let defaultChildrenSpacing = 5
 public class DefaultEventFormatter: EventFormatterProtocol {
     public var skipData: Bool = true
     public var skipContext: Bool = true
-    public var skipeException: Bool = false
+    public var skipException: Bool = false
+
     let dateFormatter = DateFormatter()
     public var format = "yyyy-MM-dd'T'HH:mm:ssZ"
+
     public func format(event: Event) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(event.timestamp))
         dateFormatter.dateFormat = format
@@ -22,7 +24,7 @@ public class DefaultEventFormatter: EventFormatterProtocol {
         let projectName = Bundle.main.infoDictionary?["CFBundleName"] ?? ""
         let callerPlace = parseLineString(event: event)
 
-        var retVal = "\(dateString) | \(event.level.toString()): \(projectName) \(callerPlace) \(event.message) \n"
+        var retVal = "\(dateString) | \(event.level.toString()): \(projectName) (\(event.subsystem)) \(callerPlace) \(event.message) \n"
 
         if skipData == false,
             let dataString = parseDictionary(headerName: "data",
@@ -36,7 +38,7 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             retVal += contextString
         }
 
-        if skipeException,
+        if skipException,
             let exceptionString = parseException(exception: event.exception) {
             retVal += exceptionString
         }
@@ -141,3 +143,6 @@ public class DefaultEventFormatter: EventFormatterProtocol {
         return "[\(functionName):\(lineNumber)]"
     }
 }
+
+
+

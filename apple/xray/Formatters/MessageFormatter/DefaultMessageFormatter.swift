@@ -20,5 +20,4 @@ class DefaultMessageFormatter: MessageFormatterProtocol {
 
         return retVal
     }
-    
 }
