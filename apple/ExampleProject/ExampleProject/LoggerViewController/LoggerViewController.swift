@@ -12,7 +12,7 @@ import xray
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     let dataSourceHelper = DataSourceHelper()
-    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     var dataSource: [Event] = []
 
     var formatter: EventFormatterProtocol?
@@ -90,7 +90,8 @@ extension LoggerViewController: UICollectionViewDataSource {
         let event = dataSource[indexPath.row]
         let formattedDate = dateStringFromEvent(event: event)
         cell.updateCell(event: event,
-                        dateString: formattedDate)
+                        dateString: formattedDate,
+                        width: collectionView.frame.size.width)
         return cell
     }
 }

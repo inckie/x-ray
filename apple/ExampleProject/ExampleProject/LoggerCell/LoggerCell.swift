@@ -10,13 +10,14 @@ import UIKit
 import xray
 
 class LoggerCell: UICollectionViewCell {
-    @IBOutlet var loggerTypeView: UIView!
-    @IBOutlet var messageLabel: UILabel!
-    @IBOutlet var subsystemLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var arrowImageView: UIImageView!
-    @IBOutlet var logTypeLabel: UILabel!
-
+    @IBOutlet weak var loggerTypeView: UIView!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var subsystemLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var arrowImageView: UIImageView!
+    @IBOutlet weak var logTypeLabel: UILabel!
+    @IBOutlet weak var cellWidthConstraint: NSLayoutConstraint!
+    
     override func prepareForReuse() {
         messageLabel.text = ""
         subsystemLabel.text = ""
@@ -25,9 +26,9 @@ class LoggerCell: UICollectionViewCell {
     }
 
     func updateCell(event: Event,
-                    dateString: String) {
-        roundCorners(.allCorners,
-                     radius: 10)
+                    dateString: String,
+                    width:CGFloat) {
+        roundCorners(radius: 10)
         setCardView()
         messageLabel.text = event.message
         subsystemLabel.text = event.subsystem
@@ -35,15 +36,14 @@ class LoggerCell: UICollectionViewCell {
         loggerTypeView.backgroundColor = event.level.toColor()
         arrowImageView.tintColor = event.level.toColor()
         logTypeLabel.text = event.level.toString()
+        cellWidthConstraint.constant = width
     }
 }
 
 extension UIView {
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
+    func roundCorners(radius: CGFloat) {
+        layer.cornerRadius = radius
+        layer.masksToBounds = true
     }
 
     func setCardView() {
