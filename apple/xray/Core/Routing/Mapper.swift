@@ -60,7 +60,7 @@ class Mapper {
                     return parentMappedSinks
                 }
 
-                parentSubsystem = loggerSubsystem.retrieveParentSubsystemPath()
+                parentSubsystem = parentSubsystem?.retrieveParentSubsystemPath()
             }
 
             return loggerMapping[""]

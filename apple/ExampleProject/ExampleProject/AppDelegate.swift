@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           sink: Console(logType: .print))
         XrayLogger.sharedInstance.addSink(identifier: "file",
                                             sink: File())
-        let rootLogger = Logger.getLogger(for: "com.test.anton")
+        let rootLogger = Logger.getLogger(for: "quickbrick/rn_plugin/player/player_controls/airplay_button")
         rootLogger?.context["test_context_data"] = "context_value"
 
         rootLogger?.logEvent(logLevel: .error,

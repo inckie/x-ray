@@ -36,6 +36,7 @@ class LoggerCell: UICollectionViewCell {
         loggerTypeView.backgroundColor = event.level.toColor()
         arrowImageView.tintColor = event.level.toColor()
         logTypeLabel.text = event.level.toString()
+        logTypeLabel.textColor = event.level.toColor()
         cellWidthConstraint.constant = width
     }
 }
