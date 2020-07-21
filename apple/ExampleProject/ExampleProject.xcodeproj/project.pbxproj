@@ -22,6 +22,7 @@
 		408E9AA024BF7E3B00E4736A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408E9A9E24BF7E3B00E4736A /* Main.storyboard */; };
 		408E9AA224BF7E3D00E4736A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 408E9AA124BF7E3D00E4736A /* Assets.xcassets */; };
 		408E9AA524BF7E3D00E4736A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408E9AA324BF7E3D00E4736A /* LaunchScreen.storyboard */; };
+		40EB13B224C77E7A00930294 /* MailComposerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EB13B124C77E7A00930294 /* MailComposerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		408E9AA124BF7E3D00E4736A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		408E9AA424BF7E3D00E4736A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		408E9AA624BF7E3D00E4736A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40EB13B124C77E7A00930294 /* MailComposerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposerHelper.swift; sourceTree = "<group>"; };
 		4279D81F5BDC7BC593A2CFA6 /* Pods-ExampleProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleProject.release.xcconfig"; path = "Target Support Files/Pods-ExampleProject/Pods-ExampleProject.release.xcconfig"; sourceTree = "<group>"; };
 		44F14B53AEC7360F55951272 /* Pods-ExampleProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleProject.debug.xcconfig"; path = "Target Support Files/Pods-ExampleProject/Pods-ExampleProject.debug.xcconfig"; sourceTree = "<group>"; };
 		516CFE077792CBEB0A48C7B2 /* Pods_ExampleProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExampleProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +99,6 @@
 		4003EFB424C73C5300475DD6 /* DetailedLoggerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				40EB13AA24C7599400930294 /* Cells */,
 				4003EFB524C73C7200475DD6 /* DetailedLoggerViewController.swift */,
 				4003EFB724C73D2000475DD6 /* DetailedLoggerViewController.xib */,
 			);
@@ -133,6 +134,7 @@
 		408E9A9724BF7E3B00E4736A /* ExampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				40EB13B024C77E3900930294 /* MailComposer */,
 				4003EFB924C7421A00475DD6 /* Extensions */,
 				4003EFB424C73C5300475DD6 /* DetailedLoggerViewController */,
 				4003EFAD24C729B900475DD6 /* Assets */,
@@ -148,11 +150,12 @@
 			path = ExampleProject;
 			sourceTree = "<group>";
 		};
-		40EB13AA24C7599400930294 /* Cells */ = {
+		40EB13B024C77E3900930294 /* MailComposer */ = {
 			isa = PBXGroup;
 			children = (
+				40EB13B124C77E7A00930294 /* MailComposerHelper.swift */,
 			);
-			path = Cells;
+			path = MailComposer;
 			sourceTree = "<group>";
 		};
 		926867445E602863BA670DBC /* Frameworks */ = {
@@ -304,6 +307,7 @@
 			files = (
 				4003EFBB24C7422C00475DD6 /* UIView+Extensions.swift in Sources */,
 				408E9A9D24BF7E3B00E4736A /* ViewController.swift in Sources */,
+				40EB13B224C77E7A00930294 /* MailComposerHelper.swift in Sources */,
 				4003EF9E24C62C8C00475DD6 /* LoggerViewController.swift in Sources */,
 				4003EFB624C73C7200475DD6 /* DetailedLoggerViewController.swift in Sources */,
 				408E9A9924BF7E3B00E4736A /* AppDelegate.swift in Sources */,
@@ -453,15 +457,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = DAGJNL66V4;
 				INFOPLIST_FILE = ExampleProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.ExampleProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dirtvision.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "DIRTVision Applicaster";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -473,15 +480,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = DAGJNL66V4;
 				INFOPLIST_FILE = ExampleProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.ExampleProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dirtvision.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "DIRTVision Applicaster";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

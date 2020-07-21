@@ -18,6 +18,17 @@ public class Event: NSObject {
     public let context: [String: Any]?
     public let exception: NSException?
 
+    enum CodingKeys: String, CodingKey {
+        case category
+        case subsystem
+        case timestamp
+        case level
+        case message
+        case data
+        case context
+        case exception
+    }
+
     init(category: String,
          subsystem: String,
          timestamp: UInt,
@@ -35,5 +46,24 @@ public class Event: NSObject {
         self.context = context
         self.exception = exception
         super.init()
+    }
+
+    public func toJSONString(options opt: JSONSerialization.WritingOptions = []) -> String? {
+        var jsonData: [String: Any] = [
+            CodingKeys.category.rawValue: category,
+            CodingKeys.subsystem.rawValue: subsystem,
+            CodingKeys.timestamp.rawValue: timestamp,
+            CodingKeys.level.rawValue: level.rawValue,
+            CodingKeys.message.rawValue: message]
+
+        if let data = data {
+            jsonData[CodingKeys.data.rawValue] = data
+        }
+
+        if let context = context {
+            jsonData[CodingKeys.context.rawValue] = context
+        }
+
+        return JSONHelper.convertDictionaryToJSONString(dictionary: jsonData, options: opt )
     }
 }

@@ -57,9 +57,9 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             return nil
         }
 
-        var retVal = "  \(headerName):\n"
+        var retVal = "--\(headerName):\n"
         dict.forEach { item in
-            retVal += String(repeating: " ", count: childrenSpacing)
+            retVal += String(repeating: "-", count: childrenSpacing)
 
             if let dict = item.value as? [String: Any],
                 let dictString = parseDictionary(headerName: item.key,
@@ -88,9 +88,9 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             return nil
         }
 
-        var retVal = headerName.count > 0 ? "  \(headerName): [\n" : "  [\n"
+        var retVal = headerName.count > 0 ? "  \(headerName): [\n" : "--[\n"
         array.forEach { item in
-            retVal += String(repeating: " ", count: childrenSpacing)
+            retVal += String(repeating: "-", count: childrenSpacing)
 
             if let dict = item as? [String: Any],
                 let dictString = parseDictionary(headerName: "dictionary",
@@ -108,7 +108,7 @@ public class DefaultEventFormatter: EventFormatterProtocol {
                 retVal += "\(item)\n"
             }
         }
-        retVal += String(repeating: " ", count: childrenSpacing - defaultChildrenSpacing) + "]\n"
+        retVal += String(repeating: "-", count: childrenSpacing - defaultChildrenSpacing) + "]\n"
         return retVal
     }
 
@@ -123,11 +123,11 @@ public class DefaultEventFormatter: EventFormatterProtocol {
             retVal = "   \(symbol)"
         }
         retVal += "name:\n"
-        retVal += "   \(exception.name)"
+        retVal += "---\(exception.name)"
 
         if let reason = exception.reason {
             retVal += "reason:\n"
-            retVal += "   \(reason)"
+            retVal += "---\(reason)"
         }
 
         if let userInfoString = parseDictionary(headerName: "user_info", dict: exception.userInfo as? [String: Any]) {

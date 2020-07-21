@@ -59,77 +59,21 @@ public class File: BaseSink {
 
     // append to file. uses full base class functionality
     override public func log(event: Event) {
+        guard let url = fileURL else { return }
+
         let message = formatter?.format(event: event) ?? event.message
-        _ = saveToFile(str: message)
-    }
 
-    /// returns boolean about success
-    @discardableResult func saveToFile(str: String) -> Bool {
-        guard let url = fileURL else { return false }
-
-        let line = str + "\n"
-        guard let data = line.data(using: String.Encoding.utf8) else { return false }
-
-        do {
-            if fileManager.fileExists(atPath: url.path) == false {
-                let directoryURL = url.deletingLastPathComponent()
-                if fileManager.fileExists(atPath: directoryURL.path) == false {
-                    try fileManager.createDirectory(
-                        at: directoryURL,
-                        withIntermediateDirectories: true
-                    )
-                }
-                fileManager.createFile(atPath: url.path, contents: nil)
-
-                #if os(iOS) || os(watchOS)
-                    var attributes = try fileManager.attributesOfItem(atPath: url.path)
-                    attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
-                    try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
-                #endif
-            }
-            write(data: data, to: url)
-
-            return true
-        } catch {
-            print("Sink File can not save file: \(url).")
-            return false
-        }
-    }
-
-    private func write(data: Data, to url: URL) {
-        let coordinator = NSFileCoordinator(filePresenter: nil)
-        var error: NSError?
-        coordinator.coordinate(writingItemAt: url, error: &error) { url in
-            do {
-                let fileHandle = try FileHandle(forWritingTo: url)
-                fileHandle.seekToEndOfFile()
-                fileHandle.write(data)
-                if syncAfterEachWrite {
-                    fileHandle.synchronizeFile()
-                }
-                fileHandle.closeFile()
-            } catch {
-                print("Sink File could not write to file \(url).")
-                return
-            }
-        }
-
-        if let error = error {
-            print("Failed writing file with error: \(String(describing: error))")
-        }
+        _ = FileManagerHelper.saveToFile(str: message,
+                                         url: url,
+                                         sync: syncAfterEachWrite)
     }
 
     /// deletes log file.
     /// returns true if file was removed or does not exist, false otherwise
     public func deleteLogFile() -> Bool {
-        guard let url = fileURL,
-            fileManager.fileExists(atPath: url.path) == true else { return true }
-        do {
-            try fileManager.removeItem(at: url)
-            return true
-        } catch {
-            print("Sink File could not remove file \(url).")
-            return false
-        }
+        guard let url = fileURL else { return true }
+
+        let result = FileManagerHelper.deleteLogFile(url: url)
+        return result
     }
 }
