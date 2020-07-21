@@ -10,8 +10,11 @@ import Foundation
 
 private let defaultChildrenSpacing = 5
 public class DefaultEventFormatter: EventFormatterProtocol {
-    public var skipData: Bool = true
-    public var skipContext: Bool = true
+    public init() {
+    }
+
+    public var skipData: Bool = false
+    public var skipContext: Bool = false
     public var skipException: Bool = false
 
     let dateFormatter = DateFormatter()
@@ -143,6 +146,3 @@ public class DefaultEventFormatter: EventFormatterProtocol {
         return "[\(functionName):\(lineNumber)]"
     }
 }
-
-
-

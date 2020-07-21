@@ -11,8 +11,10 @@ import xray
 
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
-    let dataSourceHelper = DataSourceHelper()
+    private let screenIdentifier = "LoggerScreen"
+
     @IBOutlet weak var collectionView: UICollectionView!
+    private(set) weak var inMemorySink: InMemory?
     var dataSource: [Event] = []
 
     var formatter: EventFormatterProtocol?
@@ -26,15 +28,26 @@ class LoggerViewController: UIViewController {
     }
 
     let dateFormatter = DateFormatter()
-    public var format = "yyyy-MM-dd'T'HH:mm:ssZ"
+    public var format = "yyyy-MM-dd HH:mm:ssZ"
+
+    deinit {
+        inMemorySink?.removeObserver(identifier: screenIdentifier)
+        inMemorySink = nil
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        title = "Logger Screen"
         xibSetup()
-        collectionView?.register(UINib(nibName: "LoggerCell", bundle: nil),
+        collectionView?.register(UINib(nibName: cellIdentifier,
+                                       bundle: nil),
                                  forCellWithReuseIdentifier: cellIdentifier)
-        XrayLogger.sharedInstance.addSink(identifier: "LoggerScreen",
-                                          sink: self)
+        let inMemorySink = InMemory()
+        XrayLogger.sharedInstance.addSink(identifier: screenIdentifier,
+                                          sink: inMemorySink)
+        inMemorySink.addObserver(identifier: screenIdentifier,
+                                 item: self)
+        self.inMemorySink = inMemorySink
     }
 
     func xibSetup() {
@@ -46,27 +59,12 @@ class LoggerViewController: UIViewController {
     }
 
     func loadViewFromNib() -> UIView? {
-//        guard let nibName = nibName else { return nil }
         let nibName = "LoggerViewController"
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(
             withOwner: self,
             options: nil).first as? UIView
-    }
-
-    public var queue: DispatchQueue = {
-        let uuid = NSUUID().uuidString
-        let queueLabel = "sink-\(uuid)"
-        return DispatchQueue(label: queueLabel)
-    }()
-
-    func log(event: Event) {
-        let newDataSource = dataSourceHelper.addEvent(event: event)
-        if newDataSource.count > dataSource.count {
-            dataSource = newDataSource
-            collectionView?.reloadData() // SHould insert values not reload all table
-        }
     }
 
     func dateStringFromEvent(event: Event) -> String {
@@ -76,11 +74,21 @@ class LoggerViewController: UIViewController {
     }
 }
 
-extension LoggerViewController: UICollectionViewDelegate, SinkProtocol {
+extension LoggerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailedViewController = DetailedLoggerViewController(nibName: "DetailedLoggerViewController",
+                                                                  bundle: nil)
+        let event = dataSource[indexPath.row]
+        detailedViewController.event = event
+        detailedViewController.dateString = dateStringFromEvent(event: event)
+        navigationController?.pushViewController(detailedViewController,
+                                                 animated: true)
+    }
 }
 
 extension LoggerViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
 
@@ -93,5 +101,13 @@ extension LoggerViewController: UICollectionViewDataSource {
                         dateString: formattedDate,
                         width: collectionView.frame.size.width)
         return cell
+    }
+}
+
+extension LoggerViewController: InMemoryObserverProtocol {
+    func eventRecieved(event: Event,
+                       eventsList: [Event]) {
+        dataSource = eventsList
+        collectionView.reloadData()
     }
 }

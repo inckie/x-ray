@@ -27,18 +27,14 @@
                         <barButtonItem title="Share" id="Rrt-Ih-dTJ"/>
                     </items>
                 </toolbar>
-                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="lC0-4J-5R0">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DYV-C0-pBf">
-                    <rect key="frame" x="10" y="56" width="355" height="567"/>
+                    <rect key="frame" x="10" y="0.0" width="355" height="623"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="mtn-Co-oF2">
                         <size key="itemSize" width="355" height="120"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
                     </collectionViewFlowLayout>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Zqy-9P-qEi"/>
@@ -46,17 +42,14 @@
                     </connections>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="0.199619621" green="0.70985013249999995" blue="0.91361039879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.20000000000000001" green="0.70980392156862748" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="sJb-cx-hLa" firstAttribute="top" secondItem="DYV-C0-pBf" secondAttribute="bottom" id="1OL-5d-upD"/>
                 <constraint firstItem="DYV-C0-pBf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="24D-kw-DFl"/>
-                <constraint firstItem="lC0-4J-5R0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="2J6-xU-gps"/>
                 <constraint firstItem="sJb-cx-hLa" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="CeP-AG-ZuS"/>
-                <constraint firstItem="DYV-C0-pBf" firstAttribute="top" secondItem="lC0-4J-5R0" secondAttribute="bottom" id="Esf-zv-yjf"/>
                 <constraint firstItem="sJb-cx-hLa" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FI9-YT-RrK"/>
                 <constraint firstItem="sJb-cx-hLa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="HBG-v2-3Xd"/>
-                <constraint firstItem="lC0-4J-5R0" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="gAW-pS-1Dr"/>
-                <constraint firstItem="lC0-4J-5R0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="jqy-RK-cuj"/>
+                <constraint firstItem="DYV-C0-pBf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="L6G-0w-rYO"/>
                 <constraint firstItem="DYV-C0-pBf" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-10" id="xtL-HZ-P3B"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

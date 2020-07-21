@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                      exception: nil)
         
         rootLogger?.logEvent(logLevel: .warning,
-                                     message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                                     message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
                                      category: "category",
                                      data: ["data_key": "data_value"],
                                      exception: nil)
