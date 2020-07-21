@@ -34,6 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                               data: ["data_key": "data_value"],
                               exception: nil)
         
+        rootLogger?.logEvent(logLevel: .info,
+                                   message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                                   category: "category",
+                                   data: ["data_key": "data_value"],
+                                   exception: nil)
+        
+        rootLogger?.logEvent(logLevel: .verbose,
+                                     message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                                     category: "category",
+                                     data: ["data_key": "data_value"],
+                                     exception: nil)
+        
+        rootLogger?.logEvent(logLevel: .warning,
+                                     message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                                     category: "category",
+                                     data: ["data_key": "data_value"],
+                                     exception: nil)
+        
 
 
         

@@ -9,11 +9,13 @@
 import UIKit
 import xray
 
-class LoggerCell: UITableViewCell {
+class LoggerCell: UICollectionViewCell {
     @IBOutlet var loggerTypeView: UIView!
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var subsystemLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var arrowImageView: UIImageView!
+    @IBOutlet var logTypeLabel: UILabel!
 
     override func prepareForReuse() {
         messageLabel.text = ""
@@ -22,12 +24,17 @@ class LoggerCell: UITableViewCell {
         loggerTypeView.backgroundColor = UIColor.clear
     }
 
-    func updateCell(event: Event) {
+    func updateCell(event: Event,
+                    dateString: String) {
         roundCorners(.allCorners,
                      radius: 10)
+        setCardView()
         messageLabel.text = event.message
         subsystemLabel.text = event.subsystem
+        dateLabel.text = dateString
         loggerTypeView.backgroundColor = event.level.toColor()
+        arrowImageView.tintColor = event.level.toColor()
+        logTypeLabel.text = event.level.toString()
     }
 }
 
@@ -37,5 +44,16 @@ extension UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
+    }
+
+    func setCardView() {
+        layer.cornerRadius = 5.0
+        layer.borderColor = UIColor.clear.cgColor
+        layer.borderWidth = 5.0
+        layer.shadowOpacity = 0.5
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowRadius = 5.0
+        layer.shadowOffset = CGSize(width: 5, height: 5)
+        layer.masksToBounds = true
     }
 }

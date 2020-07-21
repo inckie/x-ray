@@ -29,22 +29,21 @@ public enum LogLevel: NSInteger {
             return "ERROR"
         }
     }
-    
+
     public func toColor() -> UIColor {
         switch self {
         case .verbose:
-            return UIColor.lightGray
+            return UIColor(red: 252 / 255, green: 218 / 255, blue: 157 / 255, alpha: 1)
         case .debug:
-            return UIColor.green
+            return UIColor(red: 50 / 255, green: 172 / 255, blue: 65 / 255, alpha: 1)
         case .info:
-            return UIColor.blue
+            return UIColor(red: 56 / 255, green: 128 / 255, blue: 248 / 255, alpha: 1)
         case .warning:
-            return UIColor.orange
+            return UIColor(red: 232 / 255, green: 129 / 255, blue: 26 / 255, alpha: 1)
         case .error:
-            return UIColor.red
+            return UIColor(red: 228 / 255, green: 35 / 255, blue: 40 / 255, alpha: 1)
         }
     }
-
 }
 
 public class XrayLogger: NSObject {

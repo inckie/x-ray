@@ -12,7 +12,7 @@ import xray
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     let dataSourceHelper = DataSourceHelper()
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var collectionView: UICollectionView!
     var dataSource: [Event] = []
 
     var formatter: EventFormatterProtocol?
@@ -25,12 +25,14 @@ class LoggerViewController: UIViewController {
         }
     }
 
+    let dateFormatter = DateFormatter()
+    public var format = "yyyy-MM-dd'T'HH:mm:ssZ"
+
     override func awakeFromNib() {
         super.awakeFromNib()
         xibSetup()
-        tableView?.register(UINib(nibName: "LoggerCell", bundle: nil),
-                            forCellReuseIdentifier: cellIdentifier)
-
+        collectionView?.register(UINib(nibName: "LoggerCell", bundle: nil),
+                                 forCellWithReuseIdentifier: cellIdentifier)
         XrayLogger.sharedInstance.addSink(identifier: "LoggerScreen",
                                           sink: self)
     }
@@ -63,30 +65,32 @@ class LoggerViewController: UIViewController {
         let newDataSource = dataSourceHelper.addEvent(event: event)
         if newDataSource.count > dataSource.count {
             dataSource = newDataSource
-            tableView.reloadData() // SHould insert values not reload all table
+            collectionView?.reloadData() // SHould insert values not reload all table
         }
+    }
+
+    func dateStringFromEvent(event: Event) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(event.timestamp))
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
     }
 }
 
-extension LoggerViewController: UITableViewDelegate, SinkProtocol {
+extension LoggerViewController: UICollectionViewDelegate, SinkProtocol {
 }
 
-extension LoggerViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension LoggerViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
-                                                 for: indexPath) as! LoggerCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier,
+                                                      for: indexPath) as! LoggerCell
         let event = dataSource[indexPath.row]
-        cell.updateCell(event: event)
+        let formattedDate = dateStringFromEvent(event: event)
+        cell.updateCell(event: event,
+                        dateString: formattedDate)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
-    }
-    
-
 }
