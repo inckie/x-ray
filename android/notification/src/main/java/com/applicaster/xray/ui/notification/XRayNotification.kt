@@ -10,9 +10,9 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.applicaster.xray.core.Core
+import com.applicaster.xray.core.LogLevel
 
 
 object XRayNotification {
@@ -107,8 +107,8 @@ object XRayNotification {
 
         Core.get().addSink(ERROR_COUNTER_SINK_NAME) { event ->
             when (event.level) {
-                Log.ERROR -> ++errors
-                Log.WARN -> ++warnings
+                LogLevel.error.level -> ++errors
+                LogLevel.warning.level -> ++warnings
                 else -> return@addSink
             }
             // remove old runnable in case we have more than one error in single ui loop update

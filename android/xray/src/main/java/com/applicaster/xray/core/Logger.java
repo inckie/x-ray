@@ -1,7 +1,5 @@
 package com.applicaster.xray.core;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -51,35 +49,35 @@ public class Logger {
     }
 
     public IEventBuilder v(@NonNull String tag) {
-        return makeBuilder(tag, Log.VERBOSE);
+        return makeBuilder(tag, LogLevel.verbose);
     }
 
     public IEventBuilder d(@NonNull String tag) {
-        return makeBuilder(tag, Log.DEBUG);
+        return makeBuilder(tag, LogLevel.debug);
     }
 
     public IEventBuilder i(@NonNull String tag) {
-        return makeBuilder(tag, Log.INFO);
+        return makeBuilder(tag, LogLevel.info);
     }
 
     public IEventBuilder w(@NonNull String tag) {
-        return makeBuilder(tag, Log.WARN);
+        return makeBuilder(tag, LogLevel.warning);
     }
 
     public IEventBuilder e(@NonNull String tag) {
-        return makeBuilder(tag, Log.ERROR);
+        return makeBuilder(tag, LogLevel.error);
     }
 
     @NotNull
-    private IEventBuilder makeBuilder(@NonNull String tag, int level) {
-        if(!Core.get().hasSinks(this.getName(), tag, level)) {
+    private IEventBuilder makeBuilder(@NonNull String tag, LogLevel level) {
+        if(!Core.get().hasSinks(this.getName(), tag, level.level)) {
             return new NullEventBuilder();
         }
         return new EventBuilder(tag,
                 this.getName(),
                 getFullContext(),
                 resolveMessageFormatter())
-                .setLevel(level);
+                .setLevel(level.level);
     }
 
     @NotNull
