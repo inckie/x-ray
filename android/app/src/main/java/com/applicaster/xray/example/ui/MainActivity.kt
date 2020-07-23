@@ -22,6 +22,14 @@ import com.applicaster.xray.formatters.message.reflactionformatter.NamedReflecti
 import com.applicaster.xray.formatters.message.reflactionformatter.ReflectionMessageFormatter
 import com.applicaster.xray.ui.notification.XRayNotification
 
+
+// DIdFinsih {
+    InitLogger([oBeserverEvent])
+    // SaveEvent -> toJSON
+    // File.log -> URL to file
+
+    LoggerViewController -> ask 
+}
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 

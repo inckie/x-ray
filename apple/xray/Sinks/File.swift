@@ -42,7 +42,7 @@ public class File: BaseSink {
                 baseURL = URL(fileURLWithPath: "/var/cache")
             #else
                 // iOS, watchOS, etc. are using the caches directory
-                if let url = fileManager.urls(for: .cachesDirectory,
+                if let url = fileManager.urls(for: .cachesDirectory, //sharedPublicDirectory
                                               in: .userDomainMask).first {
                     baseURL = url
                 }

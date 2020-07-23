@@ -9,12 +9,13 @@
 import Foundation
 
 class JSONHelper {
-    class func convertDictionaryToJSONString(dictionary: [String: Any],
-                                             options opt: JSONSerialization.WritingOptions = []) -> String? {
+    class func convertObjectToJSONString(object: Any,
+                                         options opt: JSONSerialization.WritingOptions = []) -> String? {
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: dictionary,
+            let jsonData = try JSONSerialization.data(withJSONObject: object,
                                                       options: opt)
-            let jsonString = String(data: jsonData, encoding: .utf8)
+            let jsonString = String(data: jsonData,
+                                    encoding: .utf8)
             return jsonString
         } catch {
             return nil

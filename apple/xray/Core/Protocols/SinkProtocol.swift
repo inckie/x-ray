@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 public protocol SinkProtocol: NSObjectProtocol {
     func log(event: Event)
     var formatter: EventFormatterProtocol? { get set }

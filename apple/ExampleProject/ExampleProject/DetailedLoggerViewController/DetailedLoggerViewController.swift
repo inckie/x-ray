@@ -22,7 +22,7 @@ class DetailedLoggerViewController: UIViewController, MFMailComposeViewControlle
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.setSubject("Logger Data")
-            mail.setToRecipients(["anton@test.com"])
+            mail.setToRecipients(["r.meirman@applicaster.com", "a.kononenko@applicaster.com", "a.smirnov@applicaster.com"])
             mail.setMessageBody("Test", isHTML: false)
 
             if let data = event?.toJSONString()?.data(using: .utf8),

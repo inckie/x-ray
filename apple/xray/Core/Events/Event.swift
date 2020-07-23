@@ -48,8 +48,8 @@ public class Event: NSObject {
         super.init()
     }
 
-    public func toJSONString(options opt: JSONSerialization.WritingOptions = []) -> String? {
-        var jsonData: [String: Any] = [
+    public func toDictionary() -> [String: Any] {
+        var dictionary: [String: Any] = [
             CodingKeys.category.rawValue: category,
             CodingKeys.subsystem.rawValue: subsystem,
             CodingKeys.timestamp.rawValue: timestamp,
@@ -57,13 +57,17 @@ public class Event: NSObject {
             CodingKeys.message.rawValue: message]
 
         if let data = data {
-            jsonData[CodingKeys.data.rawValue] = data
+            dictionary[CodingKeys.data.rawValue] = data
         }
 
         if let context = context {
-            jsonData[CodingKeys.context.rawValue] = context
+            dictionary[CodingKeys.context.rawValue] = context
         }
+        return dictionary
+    }
 
-        return JSONHelper.convertDictionaryToJSONString(dictionary: jsonData, options: opt )
+    public func toJSONString(options opt: JSONSerialization.WritingOptions = []) -> String? {
+        let jsonData = toDictionary()
+        return JSONHelper.convertObjectToJSONString(object: jsonData, options: opt)
     }
 }

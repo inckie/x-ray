@@ -45,4 +45,10 @@ public class InMemory: BaseSink {
                                          eventsList: events)
         }
     }
+
+    public func toJSONString(options opt: JSONSerialization.WritingOptions = []) -> String? {
+        let mappedEvents = events.map({ $0.toDictionary() })
+        return JSONHelper.convertObjectToJSONString(object: mappedEvents,
+                                                    options: opt)
+    }
 }

@@ -6,10 +6,11 @@
 //  Copyright © 2020 Applicaster. All rights reserved.
 //
 
+import MessageUI
 import UIKit
 import xray
 
-class LoggerViewController: UIViewController {
+class LoggerViewController: UIViewController, MFMailComposeViewControllerDelegate {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
 
@@ -71,6 +72,42 @@ class LoggerViewController: UIViewController {
         let date = Date(timeIntervalSince1970: TimeInterval(event.timestamp))
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: date)
+    }
+
+    @IBAction func exportData(_ sender: UIBarButtonItem) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.setSubject("Logger Data")
+            mail.setToRecipients(["r.meirman@applicaster.com", "a.kononenko@applicaster.com", "a.smirnov@applicaster.com"])
+            mail.setMessageBody("Test", isHTML: false)
+
+            if let data = inMemorySink?.toJSONString()?.data(using: .utf8) {
+                mail.addAttachmentData(data,
+                                       mimeType: "application/json",
+                                       fileName: "allLogs.json")
+            }
+
+//            if let event = event,
+//                let data = defaultEventFormatter.format(event: event).data(using: .utf8),
+//                let dateString = dateString {
+//                let levelString = event.level.toString()
+//
+//                mail.addAttachmentData(data,
+//                                       mimeType: "text",
+//                                       fileName: "\(levelString)_\(dateString).log")
+//            }
+
+            mail.mailComposeDelegate = self
+            navigationController?.present(mail,
+                                          animated: true,
+                                          completion: nil)
+        }
+    }
+
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult,
+                               error: Error?) {
+        controller.dismiss(animated: true)
     }
 }
 

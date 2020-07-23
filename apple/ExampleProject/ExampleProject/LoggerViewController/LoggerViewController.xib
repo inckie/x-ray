@@ -24,7 +24,11 @@
                         <constraint firstAttribute="height" constant="44" id="oWN-6e-f5c"/>
                     </constraints>
                     <items>
-                        <barButtonItem title="Share" id="Rrt-Ih-dTJ"/>
+                        <barButtonItem title="Export logs" id="Rrt-Ih-dTJ">
+                            <connections>
+                                <action selector="exportData:" destination="-1" id="QRL-3Z-Y9P"/>
+                            </connections>
+                        </barButtonItem>
                     </items>
                 </toolbar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DYV-C0-pBf">

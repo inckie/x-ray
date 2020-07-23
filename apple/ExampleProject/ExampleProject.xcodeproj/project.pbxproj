@@ -13,7 +13,6 @@
 		4003EFA424C6302E00475DD6 /* LoggerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFA324C6302E00475DD6 /* LoggerViewController.xib */; };
 		4003EFA624C632F400475DD6 /* LoggerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFA524C632F400475DD6 /* LoggerCell.xib */; };
 		4003EFAF24C729CD00475DD6 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFAE24C729CD00475DD6 /* clock.png */; };
-		4003EFB324C72AB500475DD6 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFB224C72AB500475DD6 /* info.png */; };
 		4003EFB624C73C7200475DD6 /* DetailedLoggerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4003EFB524C73C7200475DD6 /* DetailedLoggerViewController.swift */; };
 		4003EFB824C73D2000475DD6 /* DetailedLoggerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4003EFB724C73D2000475DD6 /* DetailedLoggerViewController.xib */; };
 		4003EFBB24C7422C00475DD6 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4003EFBA24C7422B00475DD6 /* UIView+Extensions.swift */; };
@@ -31,7 +30,6 @@
 		4003EFA324C6302E00475DD6 /* LoggerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerViewController.xib; sourceTree = "<group>"; };
 		4003EFA524C632F400475DD6 /* LoggerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerCell.xib; sourceTree = "<group>"; };
 		4003EFAE24C729CD00475DD6 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
-		4003EFB224C72AB500475DD6 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		4003EFB524C73C7200475DD6 /* DetailedLoggerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedLoggerViewController.swift; sourceTree = "<group>"; };
 		4003EFB724C73D2000475DD6 /* DetailedLoggerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedLoggerViewController.xib; sourceTree = "<group>"; };
 		4003EFBA24C7422B00475DD6 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 		4003EFAD24C729B900475DD6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				4003EFB224C72AB500475DD6 /* info.png */,
 				4003EFAE24C729CD00475DD6 /* clock.png */,
 			);
 			path = Assets;
@@ -229,7 +226,6 @@
 			files = (
 				4003EFB824C73D2000475DD6 /* DetailedLoggerViewController.xib in Resources */,
 				4003EFAF24C729CD00475DD6 /* clock.png in Resources */,
-				4003EFB324C72AB500475DD6 /* info.png in Resources */,
 				4003EFA424C6302E00475DD6 /* LoggerViewController.xib in Resources */,
 				408E9AA524BF7E3D00E4736A /* LaunchScreen.storyboard in Resources */,
 				408E9AA224BF7E3D00E4736A /* Assets.xcassets in Resources */,
