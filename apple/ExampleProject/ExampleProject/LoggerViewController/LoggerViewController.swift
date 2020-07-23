@@ -16,6 +16,8 @@ class LoggerViewController: UIViewController, MFMailComposeViewControllerDelegat
 
     @IBOutlet weak var collectionView: UICollectionView!
     private(set) weak var inMemorySink: InMemory?
+    
+    // IdentifierSink -> Obesrver
     var dataSource: [Event] = []
 
     var formatter: EventFormatterProtocol?

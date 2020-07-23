@@ -16,10 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let log = SwiftyBeaver.self
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        XrayLogger.sharedInstance.addSink(identifier: "console",
-                                          sink: Console(logType: .print))
+//        XrayLogger.sharedInstance.addSink(identifier: "console",
+//                                          sink: Console(logType: .print))
         XrayLogger.sharedInstance.addSink(identifier: "file",
-                                            sink: File())
+                                            sink: FileJSON())
         let rootLogger = Logger.getLogger(for: "quickbrick/rn_plugin/player/player_controls/airplay_button")
         rootLogger?.context["test_context_data"] = "context_value"
 

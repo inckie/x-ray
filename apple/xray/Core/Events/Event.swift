@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Event: NSObject {
+@objc public class Event: NSObject {
     public let category: String
     public let subsystem: String
     public let timestamp: UInt // UTC

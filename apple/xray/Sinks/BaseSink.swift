@@ -9,6 +9,7 @@
 import Foundation
 
 public class BaseSink: NSObject, SinkProtocol {
+    
     public var queue: DispatchQueue = {
         let uuid = NSUUID().uuidString
         let queueLabel = "sink-\(uuid)"

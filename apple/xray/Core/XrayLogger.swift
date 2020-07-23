@@ -6,7 +6,7 @@
 //  Copyright © 2020 Applicaster. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public enum LogLevel: NSInteger {
     case verbose

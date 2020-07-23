@@ -112,7 +112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "logOsLog(event:)"
+            landmarkName = "osLogLevelMapper(logLevel:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -128,7 +128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "logOsLog(event:)"
+            landmarkName = "osLogLevelMapper(logLevel:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
