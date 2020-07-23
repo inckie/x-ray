@@ -10,7 +10,7 @@ def reactNativeVersion = safeExtGet("reactNative", "+")
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "30.0.0"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 19
