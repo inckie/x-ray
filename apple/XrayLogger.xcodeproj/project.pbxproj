@@ -12,8 +12,8 @@
 		4066467524BCEA4C005832AC /* MessageFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */; };
 		4066467924BCF393005832AC /* DefaultMessageFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467824BCF393005832AC /* DefaultMessageFormatter.swift */; };
 		4066467D24BCF781005832AC /* LoggrerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467C24BCF781005832AC /* LoggrerTests.swift */; };
-		4066C03F24B76F7200E05A01 /* xray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4066C03524B76F7100E05A01 /* xray.framework */; };
-		4066C04424B76F7200E05A01 /* xrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C04324B76F7200E05A01 /* xrayTests.swift */; };
+		4066C03F24B76F7200E05A01 /* XrayLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4066C03524B76F7100E05A01 /* XrayLogger.framework */; };
+		4066C04424B76F7200E05A01 /* XrayLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C04324B76F7200E05A01 /* XrayLoggerTests.swift */; };
 		4066C04624B76F7200E05A01 /* xray.h in Headers */ = {isa = PBXBuildFile; fileRef = 4066C03824B76F7100E05A01 /* xray.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4066C05124B76FBA00E05A01 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05024B76FBA00E05A01 /* Event.swift */; };
 		4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05224B7785300E05A01 /* XrayLogger.swift */; };
@@ -55,11 +55,11 @@
 		4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFormatterProtocol.swift; sourceTree = "<group>"; };
 		4066467824BCF393005832AC /* DefaultMessageFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMessageFormatter.swift; sourceTree = "<group>"; };
 		4066467C24BCF781005832AC /* LoggrerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggrerTests.swift; sourceTree = "<group>"; };
-		4066C03524B76F7100E05A01 /* xray.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4066C03524B76F7100E05A01 /* XrayLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XrayLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4066C03824B76F7100E05A01 /* xray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xray.h; sourceTree = "<group>"; };
 		4066C03924B76F7100E05A01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4066C03E24B76F7200E05A01 /* xrayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xrayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4066C04324B76F7200E05A01 /* xrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xrayTests.swift; sourceTree = "<group>"; };
+		4066C03E24B76F7200E05A01 /* XrayLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XrayLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4066C04324B76F7200E05A01 /* XrayLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayLoggerTests.swift; sourceTree = "<group>"; };
 		4066C04524B76F7200E05A01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4066C05024B76FBA00E05A01 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4066C05224B7785300E05A01 /* XrayLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayLogger.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4066C03F24B76F7200E05A01 /* xray.framework in Frameworks */,
+				4066C03F24B76F7200E05A01 /* XrayLogger.framework in Frameworks */,
 				6582D5FB68E9159810549882 /* Pods_xray_xrayTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,8 +153,8 @@
 		4066C02B24B76F7100E05A01 = {
 			isa = PBXGroup;
 			children = (
-				4066C03724B76F7100E05A01 /* xray */,
-				4066C04224B76F7200E05A01 /* xrayTests */,
+				4066C03724B76F7100E05A01 /* XrayLogger */,
+				4066C04224B76F7200E05A01 /* XrayLoggerTests */,
 				4066C03624B76F7100E05A01 /* Products */,
 				5ECECC3F456C949F9E4868A0 /* Pods */,
 				242959B7D600DDABE7605071 /* Frameworks */,
@@ -164,13 +164,13 @@
 		4066C03624B76F7100E05A01 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4066C03524B76F7100E05A01 /* xray.framework */,
-				4066C03E24B76F7200E05A01 /* xrayTests.xctest */,
+				4066C03524B76F7100E05A01 /* XrayLogger.framework */,
+				4066C03E24B76F7200E05A01 /* XrayLoggerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4066C03724B76F7100E05A01 /* xray */ = {
+		4066C03724B76F7100E05A01 /* XrayLogger */ = {
 			isa = PBXGroup;
 			children = (
 				4066467624BCF36F005832AC /* Formatters */,
@@ -181,17 +181,17 @@
 				4066C03824B76F7100E05A01 /* xray.h */,
 				4066C03924B76F7100E05A01 /* Info.plist */,
 			);
-			path = xray;
+			path = XrayLogger;
 			sourceTree = "<group>";
 		};
-		4066C04224B76F7200E05A01 /* xrayTests */ = {
+		4066C04224B76F7200E05A01 /* XrayLoggerTests */ = {
 			isa = PBXGroup;
 			children = (
 				4066467A24BCF739005832AC /* Core */,
-				4066C04324B76F7200E05A01 /* xrayTests.swift */,
+				4066C04324B76F7200E05A01 /* XrayLoggerTests.swift */,
 				4066C04524B76F7200E05A01 /* Info.plist */,
 			);
-			path = xrayTests;
+			path = XrayLoggerTests;
 			sourceTree = "<group>";
 		};
 		4066C04F24B76F8D00E05A01 /* Core */ = {
@@ -341,9 +341,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4066C03424B76F7100E05A01 /* xray */ = {
+		4066C03424B76F7100E05A01 /* XrayLogger */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4066C04924B76F7200E05A01 /* Build configuration list for PBXNativeTarget "xray" */;
+			buildConfigurationList = 4066C04924B76F7200E05A01 /* Build configuration list for PBXNativeTarget "XrayLogger" */;
 			buildPhases = (
 				A190E483688E43C487EAA82C /* [CP] Check Pods Manifest.lock */,
 				4066C03024B76F7100E05A01 /* Headers */,
@@ -355,14 +355,14 @@
 			);
 			dependencies = (
 			);
-			name = xray;
+			name = XrayLogger;
 			productName = xray;
-			productReference = 4066C03524B76F7100E05A01 /* xray.framework */;
+			productReference = 4066C03524B76F7100E05A01 /* XrayLogger.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4066C03D24B76F7200E05A01 /* xrayTests */ = {
+		4066C03D24B76F7200E05A01 /* XrayLoggerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4066C04C24B76F7200E05A01 /* Build configuration list for PBXNativeTarget "xrayTests" */;
+			buildConfigurationList = 4066C04C24B76F7200E05A01 /* Build configuration list for PBXNativeTarget "XrayLoggerTests" */;
 			buildPhases = (
 				AFE4916760210E52B113372E /* [CP] Check Pods Manifest.lock */,
 				4066C03A24B76F7200E05A01 /* Sources */,
@@ -375,9 +375,9 @@
 			dependencies = (
 				4066C04124B76F7200E05A01 /* PBXTargetDependency */,
 			);
-			name = xrayTests;
+			name = XrayLoggerTests;
 			productName = xrayTests;
-			productReference = 4066C03E24B76F7200E05A01 /* xrayTests.xctest */;
+			productReference = 4066C03E24B76F7200E05A01 /* XrayLoggerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -412,8 +412,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4066C03424B76F7100E05A01 /* xray */,
-				4066C03D24B76F7200E05A01 /* xrayTests */,
+				4066C03424B76F7100E05A01 /* XrayLogger */,
+				4066C03D24B76F7200E05A01 /* XrayLoggerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -535,7 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4066467D24BCF781005832AC /* LoggrerTests.swift in Sources */,
-				4066C04424B76F7200E05A01 /* xrayTests.swift in Sources */,
+				4066C04424B76F7200E05A01 /* XrayLoggerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +544,7 @@
 /* Begin PBXTargetDependency section */
 		4066C04124B76F7200E05A01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4066C03424B76F7100E05A01 /* xray */;
+			target = 4066C03424B76F7100E05A01 /* XrayLogger */;
 			targetProxy = 4066C04024B76F7200E05A01 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -601,7 +601,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -658,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -683,14 +683,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = xray/Info.plist;
+				INFOPLIST_FILE = XrayLogger/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.xray;
+				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.XrayLogger;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -714,14 +714,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = xray/Info.plist;
+				INFOPLIST_FILE = XrayLogger/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.xray;
+				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.XrayLogger;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -737,13 +737,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = xrayTests/Info.plist;
+				INFOPLIST_FILE = XrayLoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.xrayTests;
+				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.XrayLoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -756,13 +756,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = xrayTests/Info.plist;
+				INFOPLIST_FILE = XrayLoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.xrayTests;
+				PRODUCT_BUNDLE_IDENTIFIER = FrameworksApp.applicaster.com.XrayLoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -781,7 +781,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4066C04924B76F7200E05A01 /* Build configuration list for PBXNativeTarget "xray" */ = {
+		4066C04924B76F7200E05A01 /* Build configuration list for PBXNativeTarget "XrayLogger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4066C04A24B76F7200E05A01 /* Debug */,
@@ -790,7 +790,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4066C04C24B76F7200E05A01 /* Build configuration list for PBXNativeTarget "xrayTests" */ = {
+		4066C04C24B76F7200E05A01 /* Build configuration list for PBXNativeTarget "XrayLoggerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4066C04D24B76F7200E05A01 /* Debug */,
