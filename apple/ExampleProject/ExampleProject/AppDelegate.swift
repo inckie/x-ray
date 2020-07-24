@@ -21,10 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fileJSONSink = FileJSON()
         XrayLogger.sharedInstance.addSink(identifier: "fileJSON",
                                           sink: FileJSON())
+        let inMemorySink = InMemory()
+        XrayLogger.sharedInstance.addSink(identifier: "inMemorySink",
+                                          sink: inMemorySink)
         Reporter.setDefaultData(emails: ["a.kononenko@applicaster.com"],
                                 url: fileJSONSink.fileURL,
                                 contexts: ["MyAppData1": "SomeValue", "MyAppData2": "SomeValue2"])
-        
+
         let rootLogger = Logger.getLogger(for: "quickbrick/rn_plugin/player/player_controls/airplay_button")
         rootLogger?.context["test_context_data"] = "context_value"
 
@@ -70,6 +73,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.warning("oh no, that won’t be good") // prio 4, WARNING in yellow
         log.error("ouch, an error did occur!")
 
+        let gesture = GTGestureRecognizer(target: self, action: #selector(foo))
+        window?.addGestureRecognizer(gesture)
         return true
+    }
+
+    var loggerViewController: LoggerViewController?
+    @objc func foo() {
+        print("RoundGesture")
+        if loggerViewController == nil {
+//            let loggerViewController = LoggerViewController(nibName: "LoggerViewController",
+//                                                            bundle: nil)
+            let loggerNavController = LoggerNavigationController.loggerNavigationController()
+            UIApplication.shared.windows.first?.rootViewController?.present(loggerNavController,
+                                                                            animated: true,
+                                                                            completion: nil)
+        }
     }
 }

@@ -14,7 +14,7 @@ public protocol InMemoryObserverProtocol: NSObjectProtocol {
 }
 
 public class InMemory: BaseSink {
-    var events: [Event] = []
+    public var events: [Event] = []
     var observers: [String: InMemoryObserverProtocol] = [:]
 
     override public var asynchronously: Bool {
@@ -27,11 +27,15 @@ public class InMemory: BaseSink {
 
     public func addObserver(identifier: String,
                             item: InMemoryObserverProtocol) {
-        observers[identifier] = item
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.observers[identifier] = item
+        }
     }
 
     public func removeObserver(identifier: String) {
-        observers[identifier] = nil
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.observers[identifier] = nil
+        }
     }
 
     override public func log(event: Event) {

@@ -33,9 +33,6 @@
 		40F4628E24CA1FB900D7046C /* InMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F4628B24CA1FB900D7046C /* InMemory.swift */; };
 		40F4628F24CA1FB900D7046C /* FileJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F4628C24CA1FB900D7046C /* FileJSON.swift */; };
 		40F4629024CA1FB900D7046C /* FileLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F4628D24CA1FB900D7046C /* FileLog.swift */; };
-		40F4629724CA28F300D7046C /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F4629624CA28F300D7046C /* Reporter.swift */; };
-		40F462D824CA307E00D7046C /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F462D724CA307E00D7046C /* Email.swift */; };
-		40F462DC24CA689600D7046C /* EmailAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F462DB24CA689600D7046C /* EmailAttachment.swift */; };
 		40FBBCEF24B90D7500BB6423 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCEE24B90D7500BB6423 /* String+Extensions.swift */; };
 		40FBBCF524B91DF800BB6423 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCF424B91DF800BB6423 /* Mapper.swift */; };
 		6582D5FB68E9159810549882 /* Pods_xray_xrayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */; };
@@ -82,9 +79,6 @@
 		40F4628B24CA1FB900D7046C /* InMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemory.swift; sourceTree = "<group>"; };
 		40F4628C24CA1FB900D7046C /* FileJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileJSON.swift; sourceTree = "<group>"; };
 		40F4628D24CA1FB900D7046C /* FileLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLog.swift; sourceTree = "<group>"; };
-		40F4629624CA28F300D7046C /* Reporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
-		40F462D724CA307E00D7046C /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
-		40F462DB24CA689600D7046C /* EmailAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAttachment.swift; sourceTree = "<group>"; };
 		40FBBCEE24B90D7500BB6423 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		40FBBCF424B91DF800BB6423 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xray_xrayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +173,6 @@
 		4066C03724B76F7100E05A01 /* xray */ = {
 			isa = PBXGroup;
 			children = (
-				40F4629524CA28E200D7046C /* Reporter */,
 				4066467624BCF36F005832AC /* Formatters */,
 				408E9A6524BF71EE00E4736A /* SinksFilters */,
 				408E9A5824BE5A0600E4736A /* Sinks */,
@@ -296,17 +289,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		40F4629524CA28E200D7046C /* Reporter */ = {
-			isa = PBXGroup;
-			children = (
-				40F4629624CA28F300D7046C /* Reporter.swift */,
-				40F462D724CA307E00D7046C /* Email.swift */,
-				40F462DB24CA689600D7046C /* EmailAttachment.swift */,
-			);
-			name = Reporter;
-			path = Extensions/Reporter;
-			sourceTree = SOURCE_ROOT;
-		};
 		40FBBCED24B90D4D00BB6423 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,7 +399,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4066C02F24B76F7100E05A01 /* Build configuration list for PBXProject "xray" */;
+			buildConfigurationList = 4066C02F24B76F7100E05A01 /* Build configuration list for PBXProject "XrayLogger" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -526,7 +508,6 @@
 				40F4628E24CA1FB900D7046C /* InMemory.swift in Sources */,
 				408E9A6424BF5E2A00E4736A /* Console.swift in Sources */,
 				408E9A6824BF721B00E4736A /* DefaultSinkFilter.swift in Sources */,
-				40F4629724CA28F300D7046C /* Reporter.swift in Sources */,
 				4066467524BCEA4C005832AC /* MessageFormatterProtocol.swift in Sources */,
 				40E697F224B8C502004A0A05 /* Logger.swift in Sources */,
 				40F4628A24CA1F6300D7046C /* LoggerUtils.swift in Sources */,
@@ -535,11 +516,9 @@
 				40F4628F24CA1FB900D7046C /* FileJSON.swift in Sources */,
 				408E9A5B24BE5A2300E4736A /* BaseSink.swift in Sources */,
 				4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */,
-				40F462DC24CA689600D7046C /* EmailAttachment.swift in Sources */,
 				4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */,
 				40F4629024CA1FB900D7046C /* FileLog.swift in Sources */,
 				408E9A6B24BF73B600E4736A /* DisabledSinkFilter.swift in Sources */,
-				40F462D824CA307E00D7046C /* Email.swift in Sources */,
 				40FBBCF524B91DF800BB6423 /* Mapper.swift in Sources */,
 				408E9A6024BF56A500E4736A /* DefaultEventFormatter.swift in Sources */,
 				40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */,
@@ -793,7 +772,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4066C02F24B76F7100E05A01 /* Build configuration list for PBXProject "xray" */ = {
+		4066C02F24B76F7100E05A01 /* Build configuration list for PBXProject "XrayLogger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4066C04724B76F7200E05A01 /* Debug */,

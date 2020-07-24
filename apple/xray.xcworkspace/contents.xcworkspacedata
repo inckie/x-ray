@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:xray.xcodeproj">
+      location = "group:/Users/antonkononenko/Work/x-ray/apple/XrayLogger.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

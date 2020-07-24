@@ -38,6 +38,31 @@ class LoggerViewController: UIViewController {
         inMemorySink = nil
     }
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        title = "Logger Screen"
+        xibSetup()
+
+        collectionView?.register(UINib(nibName: cellIdentifier,
+                                       bundle: nil),
+                                 forCellWithReuseIdentifier: cellIdentifier)
+//          let inMemorySink = InMemory()
+//          XrayLogger.sharedInstance.addSink(identifier: screenIdentifier,
+//                                            sink: inMemorySink)
+        let inMemorySink = XrayLogger.sharedInstance.getSink("inMemorySink") as? InMemory
+        inMemorySink?.addObserver(identifier: screenIdentifier,
+                                  item: self)
+        self.inMemorySink = inMemorySink
+        if let events = inMemorySink?.events {
+            dataSource = events
+            collectionView.reloadData()
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         title = "Logger Screen"
@@ -59,7 +84,8 @@ class LoggerViewController: UIViewController {
         view.frame = self.view.bounds
         view.autoresizingMask =
             [.flexibleWidth, .flexibleHeight]
-        self.view.addSubview(view)
+        self.view = view
+//        self.view.addSubview(view)
     }
 
     func loadViewFromNib() -> UIView? {
