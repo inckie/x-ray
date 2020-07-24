@@ -24,31 +24,27 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
     func requestSendEmail(emails: [String],
                           sharedFileURL: URL? = nil,
                           contexts: [String: Any]?,
-                          attachments: [EmailAttachment]? = nil,
-                          presenter: UIViewController? = nil) {
+                          attachments: [EmailAttachment]? = nil) {
         if (mailComposeViewController?.presentedViewController) != nil {
             mailComposeViewController?.dismiss(animated: false, completion: { [weak self] in
                 guard let self = self else { return }
                 self.createMailComposerViewController(emails: emails,
                                                       sharedFileURL: sharedFileURL,
                                                       contexts: contexts,
-                                                      attachments:attachments,
-                                                      presenter: presenter)
+                                                      attachments: attachments)
             })
         } else {
             createMailComposerViewController(emails: emails,
                                              sharedFileURL: sharedFileURL,
                                              contexts: contexts,
-                                             attachments:attachments,
-                                             presenter: presenter)
+                                             attachments: attachments)
         }
     }
 
     func createMailComposerViewController(emails: [String],
                                           sharedFileURL: URL? = nil,
                                           contexts: [String: Any]?,
-                                          attachments: [EmailAttachment]? = nil,
-                                          presenter: UIViewController? = nil) {
+                                          attachments: [EmailAttachment]? = nil) {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.setSubject(emailSubject)
@@ -92,16 +88,10 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
     }
 
     func presentMailCompose(mail: MFMailComposeViewController) {
-        if #available(iOS 13.0, *) {
-            let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
-
-            if let topController = keyWindow?.rootViewController {
-                topController.present(mail, animated: true, completion: nil)
-            }
-        } else {
-            if let topController = UIApplication.shared.keyWindow?.rootViewController {
-                topController.present(mail, animated: true, completion: nil)
-            }
+        if let viewController = UIApplication.topViewController() {
+            viewController.present(mail,
+                                   animated: true,
+                                   completion: nil)
         }
     }
 

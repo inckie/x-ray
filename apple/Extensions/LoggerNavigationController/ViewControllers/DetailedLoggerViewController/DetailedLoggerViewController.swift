@@ -7,8 +7,9 @@
 //
 
 import MessageUI
+import Reporter
 import UIKit
-import xray
+import XrayLogger
 
 class DetailedLoggerViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var backgroundDataView: UIView!
@@ -24,11 +25,9 @@ class DetailedLoggerViewController: UIViewController, MFMailComposeViewControlle
             let levelString = event.level.toString()
             let attachment = EmailAttachment(data: data, mimeType: "application/json", fileName: "\(levelString)_\(dateString).json")
 
-            Reporter.requestSendCustomEmail(attachments: [attachment],
-                                            presenter: self)
+            Reporter.requestSendCustomEmail(attachments: [attachment])
         } else {
-            Reporter.requestSendCustomEmail(attachments: nil,
-                                            presenter: self)
+            Reporter.requestSendCustomEmail(attachments: nil)
         }
     }
 

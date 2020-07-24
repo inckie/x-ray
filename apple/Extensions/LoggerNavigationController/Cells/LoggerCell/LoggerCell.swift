@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import xray
+import XrayLogger
 
 class LoggerCell: UICollectionViewCell {
     @IBOutlet weak var loggerTypeView: UIView!

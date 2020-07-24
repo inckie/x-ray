@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>LoggerInfo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ExampleProject.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Reporter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -14,7 +24,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>xray.xcscheme</key>
+		<key>XrayLogger.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

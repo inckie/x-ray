@@ -16,12 +16,12 @@ enum SymbolPhase {
     case leftDownStroke
 }
 
-class GTGestureRecognizer: UIGestureRecognizer {
+public class GTGestureRecognizer: UIGestureRecognizer {
     var strokePhase: SymbolPhase = .notStarted
     var initialTouchPoint: CGPoint = CGPoint.zero
     var trackedTouch: UITouch?
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
         if touches.count != 1 {
             state = .failed
@@ -41,7 +41,7 @@ class GTGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesMoved(touches, with: event)
         let newTouch = touches.first
         // There should be only the first touch.
@@ -71,7 +71,7 @@ class GTGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
         let newTouch = touches.first
         // There should be only the first touch.
@@ -91,13 +91,13 @@ class GTGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesCancelled(touches, with: event)
         state = .cancelled
         reset()
     }
 
-    override func reset() {
+    public override func reset() {
         super.reset()
         initialTouchPoint = CGPoint.zero
         strokePhase = .notStarted

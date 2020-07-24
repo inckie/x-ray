@@ -7,8 +7,9 @@
 //
 
 import MessageUI
+import Reporter
 import UIKit
-import xray
+import XrayLogger
 
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
@@ -40,23 +41,7 @@ class LoggerViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        title = "Logger Screen"
-        xibSetup()
-
-        collectionView?.register(UINib(nibName: cellIdentifier,
-                                       bundle: nil),
-                                 forCellWithReuseIdentifier: cellIdentifier)
-//          let inMemorySink = InMemory()
-//          XrayLogger.sharedInstance.addSink(identifier: screenIdentifier,
-//                                            sink: inMemorySink)
-        let inMemorySink = XrayLogger.sharedInstance.getSink("inMemorySink") as? InMemory
-        inMemorySink?.addObserver(identifier: screenIdentifier,
-                                  item: self)
-        self.inMemorySink = inMemorySink
-        if let events = inMemorySink?.events {
-            dataSource = events
-            collectionView.reloadData()
-        }
+        prepareLogger()
     }
 
     required init?(coder: NSCoder) {
@@ -65,18 +50,7 @@ class LoggerViewController: UIViewController {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        title = "Logger Screen"
-        xibSetup()
-
-        collectionView?.register(UINib(nibName: cellIdentifier,
-                                       bundle: nil),
-                                 forCellWithReuseIdentifier: cellIdentifier)
-        let inMemorySink = InMemory()
-        XrayLogger.sharedInstance.addSink(identifier: screenIdentifier,
-                                          sink: inMemorySink)
-        inMemorySink.addObserver(identifier: screenIdentifier,
-                                 item: self)
-        self.inMemorySink = inMemorySink
+        prepareLogger()
     }
 
     func xibSetup() {
@@ -86,6 +60,25 @@ class LoggerViewController: UIViewController {
             [.flexibleWidth, .flexibleHeight]
         self.view = view
 //        self.view.addSubview(view)
+    }
+
+    func prepareLogger() {
+        title = "Logger Screen"
+        xibSetup()
+
+        let bundle = Bundle(for: type(of: self))
+        collectionView?.register(UINib(nibName: cellIdentifier,
+                                       bundle: bundle),
+                                 forCellWithReuseIdentifier: cellIdentifier)
+
+        let inMemorySink = XrayLogger.sharedInstance.getSink("inMemorySink") as? InMemory
+        inMemorySink?.addObserver(identifier: screenIdentifier,
+                                  item: self)
+        self.inMemorySink = inMemorySink
+        if let events = inMemorySink?.events {
+            dataSource = events
+            collectionView.reloadData()
+        }
     }
 
     func loadViewFromNib() -> UIView? {
@@ -110,8 +103,9 @@ class LoggerViewController: UIViewController {
 
 extension LoggerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let bundle = Bundle(for: type(of: self))
         let detailedViewController = DetailedLoggerViewController(nibName: "DetailedLoggerViewController",
-                                                                  bundle: nil)
+                                                                  bundle: bundle)
         let event = dataSource[indexPath.row]
         detailedViewController.event = event
         detailedViewController.dateString = dateStringFromEvent(event: event)

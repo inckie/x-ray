@@ -20,8 +20,10 @@ target 'ExampleProject' do
 
   pod 'SwiftyBeaver'
 
-  pod 'xray', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
-  pod 'xray/Reporter', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
+  pod 'XrayLogger', path: '/Users/antonkononenko/Work/x-ray/apple/XrayLogger.podspec'
+  pod 'Reporter', path: '/Users/antonkononenko/Work/x-ray/apple/Reporter.podspec'
+  pod 'LoggerInfo', path: '/Users/antonkononenko/Work/x-ray/apple/LoggerInfo.podspec'
+
   # pod 'xray/ReactNative', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
   # use_native_modules!
   # use_react_native!

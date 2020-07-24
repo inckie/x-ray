@@ -6,9 +6,11 @@
 //  Copyright © 2020 Applicaster. All rights reserved.
 //
 
+import LoggerInfo
+import Reporter
 import SwiftyBeaver
 import UIKit
-import xray
+import XrayLogger
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let log = SwiftyBeaver.self
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        XrayLogger.sharedInstance.addSink(identifier: "console",
-//                                          sink: Console(logType: .print))
+        XrayLogger.sharedInstance.addSink(identifier: "console",
+                                          sink: Console(logType: .print))
         let fileJSONSink = FileJSON()
         XrayLogger.sharedInstance.addSink(identifier: "fileJSON",
                                           sink: FileJSON())
@@ -73,21 +75,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.warning("oh no, that won’t be good") // prio 4, WARNING in yellow
         log.error("ouch, an error did occur!")
 
-        let gesture = GTGestureRecognizer(target: self, action: #selector(foo))
+        let gesture = GTGestureRecognizer(target: self, action: #selector(presentLoggerInfo))
         window?.addGestureRecognizer(gesture)
         return true
     }
 
-    var loggerViewController: LoggerViewController?
-    @objc func foo() {
-        print("RoundGesture")
-        if loggerViewController == nil {
-//            let loggerViewController = LoggerViewController(nibName: "LoggerViewController",
-//                                                            bundle: nil)
-            let loggerNavController = LoggerNavigationController.loggerNavigationController()
-            UIApplication.shared.windows.first?.rootViewController?.present(loggerNavController,
-                                                                            animated: true,
-                                                                            completion: nil)
-        }
+    @objc func presentLoggerInfo() {
+        let loggerNavController = LoggerNavigationController.loggerNavigationController()
+        UIApplication.shared.windows.first?.rootViewController?.present(loggerNavController,
+                                                                        animated: true,
+                                                                        completion: nil)
     }
 }

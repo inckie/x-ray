@@ -8,8 +8,8 @@
 
 import Foundation
 import UIKit
-class LoggerNavigationController: UINavigationController {
-    static func loggerNavigationController() -> UINavigationController {
+public class LoggerNavigationController: UINavigationController {
+    public static func loggerNavigationController() -> UINavigationController {
         let loggerViewController = LoggerViewController(nibName: "LoggerViewController",
                                                         bundle: nil)
         return UINavigationController(rootViewController: loggerViewController)

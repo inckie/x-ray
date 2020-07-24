@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
   s.license = 'Appache 2.0'
   s.author = { 'a.kononenko@applicaster.com' => 'a.kononenko@applicaster.com' }
   s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: '0.0.1' }
-  spec.default_subspec = 'Core'
+  s.default_subspec = 'Core'
 
-  s.subspec 'Core' do |_core|
-    s.source_files = 'xray/**/*.{swift}'
+  s.subspec 'Core' do |core|
+    core.source_files = 'XrayLogger/**/*.{swift}'
   end
 
   s.subspec 'ReactNative' do |sp|

@@ -24,7 +24,7 @@ public class Reporter {
         sharedContexts = contexts
     }
 
-    public static func requestSendEmail(presenter: UIViewController? = nil) {
+    public static func requestSendEmail() {
         guard let sharedEmails = sharedEmails else {
             print("Can not send email, at least one sender must be defined")
             return
@@ -32,12 +32,10 @@ public class Reporter {
         sharedInstance.email.requestSendEmail(emails: sharedEmails,
                                               sharedFileURL: sharedFileURL,
                                               contexts: sharedContexts,
-                                              attachments: nil,
-                                              presenter: presenter)
+                                              attachments: nil)
     }
 
-    public static func requestSendCustomEmail(attachments: [EmailAttachment]? = nil,
-                                              presenter: UIViewController? = nil) {
+    public static func requestSendCustomEmail(attachments: [EmailAttachment]? = nil) {
         guard let emails = sharedEmails else {
             print("Can not send email, at least one sender must be defined")
             return
@@ -46,7 +44,6 @@ public class Reporter {
         sharedInstance.email.requestSendEmail(emails: emails,
                                               sharedFileURL: nil,
                                               contexts: sharedContexts,
-                                              attachments: attachments,
-                                              presenter: presenter)
+                                              attachments: attachments)
     }
 }

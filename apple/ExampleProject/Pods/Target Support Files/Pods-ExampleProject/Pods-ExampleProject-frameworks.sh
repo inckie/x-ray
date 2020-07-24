@@ -197,12 +197,16 @@ if [ -r "${ARTIFACT_LIST_FILE}" ]; then
 fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/LoggerInfo/LoggerInfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Reporter/Reporter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/xray/xray.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/XrayLogger/XrayLogger.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/LoggerInfo/LoggerInfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Reporter/Reporter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/xray/xray.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/XrayLogger/XrayLogger.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
