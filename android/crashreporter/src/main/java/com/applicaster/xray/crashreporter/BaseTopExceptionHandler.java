@@ -4,24 +4,20 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.Thread.UncaughtExceptionHandler;
+import org.jetbrains.annotations.NotNull;
 
-public class TopExceptionHandler implements UncaughtExceptionHandler {
+public abstract class BaseTopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    public static final String STACK_TRACE_FILE = "stack.trace";
+    protected final Context context;
+    protected final Thread.UncaughtExceptionHandler defaultUEH;
 
-    private Thread.UncaughtExceptionHandler defaultUEH;
-
-    private final Context context;
-
-    public TopExceptionHandler(Context ctx) {
-        this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-        this.context = ctx.getApplicationContext();
+    public BaseTopExceptionHandler(@NonNull Context ctx) {
+        defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+        context = ctx.getApplicationContext();
     }
 
-    public void uncaughtException(@NonNull Thread t, Throwable e) {
+    @NotNull
+    protected StringBuilder dumpException(Thread t, @NonNull Throwable e) {
         StackTraceElement[] arr = e.getStackTrace();
         StringBuilder report = new StringBuilder(e.toString() + "\n\n");
         report.append("--------- Stack trace ---------\n\n");
@@ -38,13 +34,6 @@ public class TopExceptionHandler implements UncaughtExceptionHandler {
                 report.append("    ").append(anArr.toString()).append("\n");
         }
         report.append("-------------------------------\n\n");
-
-        try(FileOutputStream trace = context.openFileOutput(STACK_TRACE_FILE, Context.MODE_PRIVATE)) {
-            trace.write(report.toString().getBytes());
-        } catch (IOException ioe) {
-            // ignored
-        }
-        defaultUEH.uncaughtException(t, e);
+        return report;
     }
-
 }
