@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.applicaster.xray.core.Event;
 import com.applicaster.xray.core.ISink;
+import com.applicaster.xray.core.LogLevel;
 import com.applicaster.xray.core.formatting.event.IEventFormatter;
 import com.applicaster.xray.core.formatting.event.PlainTextEventFormatter;
 
@@ -18,11 +19,15 @@ public class ADBSink implements ISink {
 
     @Override
     public void log(@NonNull Event event) {
-        if(Log.ERROR == event.getLevel() && null != event.getException()) {
+        if(LogLevel.error.level == event.getLevel() && null != event.getException()) {
             Log.e(event.getCategory(), formatter.format(event), event.getException());
         } else {
-            Log.println(event.getLevel(), event.getCategory(), formatter.format(event));
+            Log.println(mapLevel(event.getLevel()), event.getCategory(), formatter.format(event));
         }
+    }
+
+    private static int mapLevel(int level) {
+        return Log.VERBOSE + level; // On x-ray, verbose is 0. On Android, is 2
     }
 
 }

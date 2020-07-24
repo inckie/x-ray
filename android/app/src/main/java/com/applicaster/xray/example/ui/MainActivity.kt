@@ -2,7 +2,6 @@ package com.applicaster.xray.example.ui
 
 import android.app.PendingIntent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.applicaster.xray.android.contexts.ThreadContext
@@ -11,6 +10,7 @@ import com.applicaster.xray.android.sinks.ADBSink
 import com.applicaster.xray.android.sinks.PackageFileLogSink
 import com.applicaster.xray.core.Core
 import com.applicaster.xray.core.LogContext
+import com.applicaster.xray.core.LogLevel
 import com.applicaster.xray.core.Logger
 import com.applicaster.xray.crashreporter.Reporting
 import com.applicaster.xray.crashreporter.SendActivity
@@ -22,14 +22,6 @@ import com.applicaster.xray.formatters.message.reflactionformatter.NamedReflecti
 import com.applicaster.xray.formatters.message.reflactionformatter.ReflectionMessageFormatter
 import com.applicaster.xray.ui.notification.XRayNotification
 
-
-// DIdFinsih {
-    InitLogger([oBeserverEvent])
-    // SaveEvent -> toJSON
-    // File.log -> URL to file
-
-    LoggerViewController -> ask 
-}
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -48,8 +40,9 @@ class MainActivity : AppCompatActivity() {
                 );
 
             // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
+            // Its also possible to provide file name to the SendActivity intent directly
             Reporting.init("crash@example.com", fileLogSink.file)
-            Reporting.enableForCurrentThread(this) // todo: combine with init?
+            Reporting.enableForCurrentThread(this)
 
             // configure XRay notification
 
@@ -72,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 .addSink("default_log_sink", fileLogSink)
                 .addSink("error_log_sink", errorFileLogSink)
-                .setFilter("error_log_sink", "", DefaultSinkFilter(Log.ERROR))
+                .setFilter("error_log_sink", "", DefaultSinkFilter(LogLevel.error))
 
             val rootLogger = Logger.get()
             rootLogger.setContext(ThreadContext())
@@ -163,7 +156,7 @@ class MainActivity : AppCompatActivity() {
             .setContext(LogContext(mapOf("loggerContext" to "loggerContextValue")));
 
         Core.get()
-            .setFilter("error_log_sink", "childLogger", DLogefaultSinkFilter(.DEBUG))
+            .setFilter("error_log_sink", "childLogger", DefaultSinkFilter(LogLevel.debug))
 
         rootLogger
             .d("Test")

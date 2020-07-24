@@ -33,8 +33,7 @@ public class Mapper {
             if (null != mappedSinks) {
                 if(null != filter) {
                     mappedSinks.put(sinkName, filter);
-                }
-                else {
+                } else {
                     mappedSinks.remove(sinkName);
                     if(mappedSinks.isEmpty()) {
                         loggerMapping.remove(loggerName);

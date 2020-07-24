@@ -1,4 +1,4 @@
-package com.applicaster.xray;
+package com.applicaster.xray.formatters.message.reflactionformatter;
 
 public class JavaTestClass {
     public String fieldString;

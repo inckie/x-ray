@@ -124,6 +124,7 @@ public class Reporting {
         return sb;
     }
 
+    @NonNull
     public static String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
@@ -133,8 +134,12 @@ public class Reporting {
             return manufacturer + " " + model;
     }
 
-    public static void sendLogReport(Activity context) {
+    public static void sendLogReport(@NonNull Activity context) {
+        sendLogReport(context, logFile);
+    }
+
+    public static void sendLogReport(@NonNull Activity context, @NonNull File file) {
         StringBuilder sb = buildReportHeader(context);
-        sendWithAttachment(context, sb.toString(), logFile);
+        sendWithAttachment(context, sb.toString(), file);
     }
 }

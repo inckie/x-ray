@@ -1,17 +1,18 @@
 package com.applicaster.xray.android.routing;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
+import com.applicaster.xray.core.LogLevel;
 import com.applicaster.xray.core.routing.ISinkFilter;
+
+import org.jetbrains.annotations.NotNull;
 
 public class DefaultSinkFilter implements ISinkFilter {
 
-    private int minLevel = Log.DEBUG;
+    private int minLevel;
 
-    public DefaultSinkFilter(int level) {
-        minLevel = level;
+    public DefaultSinkFilter(@NotNull LogLevel level) {
+        minLevel = level.level;
     }
 
     @Override

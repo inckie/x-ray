@@ -1,7 +1,6 @@
 package com.applicaster.xray.example.ui
 
 import android.text.format.DateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -9,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.applicaster.xray.core.Event
+import com.applicaster.xray.core.LogLevel
 import com.applicaster.xray.example.databinding.FragmentEventLogBinding
 
 class EventRecyclerViewAdapter(
@@ -48,11 +48,11 @@ class EventRecyclerViewAdapter(
 
         private fun icon(level: Int) : String {
             return when(level) {
-                Log.ERROR -> "\uD83D\uDEAB"
-                Log.WARN -> "⚠️"
-                Log.INFO -> "ℹ️️"
-                Log.DEBUG -> "\uD83D\uDC1E️"
-                Log.VERBOSE -> "*"
+                LogLevel.error.level -> "\uD83D\uDEAB"
+                LogLevel.warning.level -> "⚠️"
+                LogLevel.info.level -> "ℹ️️"
+                LogLevel.debug.level -> "\uD83D\uDC1E️"
+                LogLevel.verbose.level -> "*"
                 else -> ""
             }
         }

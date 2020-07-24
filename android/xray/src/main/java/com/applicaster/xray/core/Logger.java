@@ -1,7 +1,5 @@
 package com.applicaster.xray.core;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -11,7 +9,6 @@ import com.applicaster.xray.core.utility.Stack;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,35 +49,35 @@ public class Logger {
     }
 
     public IEventBuilder v(@NonNull String tag) {
-        return makeBuilder(tag, Log.VERBOSE);
+        return makeBuilder(tag, LogLevel.verbose);
     }
 
     public IEventBuilder d(@NonNull String tag) {
-        return makeBuilder(tag, Log.DEBUG);
+        return makeBuilder(tag, LogLevel.debug);
     }
 
     public IEventBuilder i(@NonNull String tag) {
-        return makeBuilder(tag, Log.INFO);
+        return makeBuilder(tag, LogLevel.info);
     }
 
     public IEventBuilder w(@NonNull String tag) {
-        return makeBuilder(tag, Log.WARN);
+        return makeBuilder(tag, LogLevel.warning);
     }
 
     public IEventBuilder e(@NonNull String tag) {
-        return makeBuilder(tag, Log.ERROR);
+        return makeBuilder(tag, LogLevel.error);
     }
 
     @NotNull
-    private IEventBuilder makeBuilder(@NonNull String tag, int level) {
-        if(!Core.get().hasSinks(this.getName(), tag, level)) {
+    private IEventBuilder makeBuilder(@NonNull String tag, LogLevel level) {
+        if(!Core.get().hasSinks(this.getName(), tag, level.level)) {
             return new NullEventBuilder();
         }
         return new EventBuilder(tag,
                 this.getName(),
                 getFullContext(),
                 resolveMessageFormatter())
-                .setLevel(level);
+                .setLevel(level.level);
     }
 
     @NotNull
@@ -137,11 +134,21 @@ public class Logger {
 
     @NotNull
     public synchronized Logger getChild(@NonNull String childName) {
+        int sep = childName.indexOf(NameSeparator);
+        if (-1 == sep) {
+            return getOrMakeChild(childName);
+        }
+        String child = childName.substring(0, sep);
+        String grandChild = childName.substring(sep + 1);
+        return getOrMakeChild(child).getChild(grandChild);
+    }
+
+    @NotNull
+    private Logger getOrMakeChild(@NonNull String childName) {
         Logger logger = children.get(childName);
         if(null != logger) {
             return logger;
         }
-        // todo: handle situation when we are creating grandchild logger (use recursion)
         logger = new Logger(name.isEmpty() ? childName : name + NameSeparator + childName, this);
         children.put(childName, logger);
         return logger;

@@ -1,15 +1,10 @@
 package com.applicaster.xray
 
-import android.util.Log
 import com.applicaster.xray.android.routing.DefaultSinkFilter
-import com.applicaster.xray.core.Core
-import com.applicaster.xray.core.Event
-import com.applicaster.xray.core.Logger
+import com.applicaster.xray.core.*
 import com.applicaster.xray.core.routing.Mapper
-import com.applicaster.xray.core.ISink
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Testing for mapping routines
@@ -23,8 +18,8 @@ class MapperUnitTest {
         Core.get()
             .addSink("test_sink_debug", testSinkDebug)
             .addSink("test_sink_error", testSinkError)
-            .setFilter("test_sink_debug", "", DefaultSinkFilter(Log.DEBUG))
-            .setFilter("test_sink_error", "", DefaultSinkFilter(Log.ERROR))
+            .setFilter("test_sink_debug", "", DefaultSinkFilter(LogLevel.debug))
+            .setFilter("test_sink_error", "", DefaultSinkFilter(LogLevel.error))
 
         val debugMessage = "debug message"
         testSinkDebug.addExpectedMessage(debugMessage)
@@ -55,7 +50,7 @@ class MapperUnitTest {
 
         // override error filter for child logger
         Core.get()
-            .setFilter("test_sink_error", "childLogger", DefaultSinkFilter(Log.DEBUG))
+            .setFilter("test_sink_error", "childLogger", DefaultSinkFilter(LogLevel.debug))
 
         // now both sinks should receive it
         testSinkDebug.addExpectedMessage(debugMessage)
@@ -124,10 +119,10 @@ class MapperUnitTest {
             "sink1" to TestSink("Error")
         )
         val mapper = Mapper(hashMap)
-        val mappingBefore = mapper.getMapping("", "", Log.DEBUG)
+        val mappingBefore = mapper.getMapping("", "", LogLevel.debug.level)
         assertEquals(mappingBefore.size, 2)
         hashMap.remove("sink0")
-        val mappingAfter = mapper.getMapping("", "", Log.DEBUG)
+        val mappingAfter = mapper.getMapping("", "", LogLevel.debug.level)
         assertEquals(mappingAfter.size, 1)
     }
 
@@ -141,7 +136,7 @@ class MapperUnitTest {
             "tag",
             "subsystem",
             0L,
-            Log.DEBUG,
+            LogLevel.debug.level,
             "message",
             null,
             null,
