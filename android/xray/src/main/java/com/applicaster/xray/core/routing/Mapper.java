@@ -18,7 +18,7 @@ public class Mapper {
 
     // sinks Set is be backed up by original map owned by Core
     private final Set<String> sinks;
-    // map Logger base name -> (sink name -> sink filter)
+    // map Logger subsystem -> (sink identifier -> sink filter)
     private final Map<String, HashMap<String, ISinkFilter>> loggerMapping = new HashMap<>();
 
     public Mapper(Map<String, ISink> sinks) {
