@@ -5,6 +5,7 @@
 //  Created by Anton Kononenko on 7/15/20.
 //  Copyright © 2020 Applicaster. All rights reserved.
 //
+import XrayLogger
 
 import LoggerInfo
 import Reporter
