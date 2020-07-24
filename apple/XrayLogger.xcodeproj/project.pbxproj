@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05FEC1B5DFFE417B7177C5B4 /* Pods_xray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC534A3ACC02C1D9E134B401 /* Pods_xray.framework */; };
+		28B5D03ACD924EBCAD751E8F /* Pods_XrayLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA85E2DE6163E46AC6812F0 /* Pods_XrayLogger.framework */; };
 		4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467024BCB984005832AC /* SinkFilterProtocol.swift */; };
 		4066467524BCEA4C005832AC /* MessageFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467424BCEA4C005832AC /* MessageFormatterProtocol.swift */; };
 		4066467924BCF393005832AC /* DefaultMessageFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066467824BCF393005832AC /* DefaultMessageFormatter.swift */; };
@@ -35,7 +35,7 @@
 		40F4629024CA1FB900D7046C /* FileLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F4628D24CA1FB900D7046C /* FileLog.swift */; };
 		40FBBCEF24B90D7500BB6423 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCEE24B90D7500BB6423 /* String+Extensions.swift */; };
 		40FBBCF524B91DF800BB6423 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FBBCF424B91DF800BB6423 /* Mapper.swift */; };
-		6582D5FB68E9159810549882 /* Pods_xray_xrayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */; };
+		FFE66DD4997225C05D6E36B1 /* Pods_XrayLogger_XrayLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5E3BAB277759F0BA03954 /* Pods_XrayLogger_XrayLoggerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,10 +81,14 @@
 		40F4628D24CA1FB900D7046C /* FileLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLog.swift; sourceTree = "<group>"; };
 		40FBBCEE24B90D7500BB6423 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		40FBBCF424B91DF800BB6423 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
-		4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xray_xrayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48EF988C7F09957A786F4086 /* Pods-xray-xrayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray-xrayTests.debug.xcconfig"; path = "Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CC534A3ACC02C1D9E134B401 /* Pods_xray.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BBF865ECDD1277094DDDC2C /* Pods-XrayLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XrayLogger.release.xcconfig"; path = "Target Support Files/Pods-XrayLogger/Pods-XrayLogger.release.xcconfig"; sourceTree = "<group>"; };
+		8BAA5B1B7AE85E593E6949E7 /* Pods-XrayLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XrayLogger.debug.xcconfig"; path = "Target Support Files/Pods-XrayLogger/Pods-XrayLogger.debug.xcconfig"; sourceTree = "<group>"; };
+		D25D9EA4B297487BC37B9600 /* Pods-XrayLogger-XrayLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XrayLogger-XrayLoggerTests.release.xcconfig"; path = "Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
+		D9FE2B767AAC7A6DB3197656 /* Pods-XrayLogger-XrayLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XrayLogger-XrayLoggerTests.debug.xcconfig"; path = "Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC9E25FC918BB0E663ADBE7D /* Pods-xray.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xray.release.xcconfig"; path = "Target Support Files/Pods-xray/Pods-xray.release.xcconfig"; sourceTree = "<group>"; };
+		DEA85E2DE6163E46AC6812F0 /* Pods_XrayLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XrayLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1E5E3BAB277759F0BA03954 /* Pods_XrayLogger_XrayLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XrayLogger_XrayLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05FEC1B5DFFE417B7177C5B4 /* Pods_xray.framework in Frameworks */,
+				28B5D03ACD924EBCAD751E8F /* Pods_XrayLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4066C03F24B76F7200E05A01 /* XrayLogger.framework in Frameworks */,
-				6582D5FB68E9159810549882 /* Pods_xray_xrayTests.framework in Frameworks */,
+				FFE66DD4997225C05D6E36B1 /* Pods_XrayLogger_XrayLoggerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,8 +115,8 @@
 		242959B7D600DDABE7605071 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CC534A3ACC02C1D9E134B401 /* Pods_xray.framework */,
-				4220207697F08DE2A401F654 /* Pods_xray_xrayTests.framework */,
+				DEA85E2DE6163E46AC6812F0 /* Pods_XrayLogger.framework */,
+				E1E5E3BAB277759F0BA03954 /* Pods_XrayLogger_XrayLoggerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,6 +327,10 @@
 				DC9E25FC918BB0E663ADBE7D /* Pods-xray.release.xcconfig */,
 				48EF988C7F09957A786F4086 /* Pods-xray-xrayTests.debug.xcconfig */,
 				2DD17D521CC4835B38E1D6B9 /* Pods-xray-xrayTests.release.xcconfig */,
+				8BAA5B1B7AE85E593E6949E7 /* Pods-XrayLogger.debug.xcconfig */,
+				5BBF865ECDD1277094DDDC2C /* Pods-XrayLogger.release.xcconfig */,
+				D9FE2B767AAC7A6DB3197656 /* Pods-XrayLogger-XrayLoggerTests.debug.xcconfig */,
+				D25D9EA4B297487BC37B9600 /* Pods-XrayLogger-XrayLoggerTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -451,7 +459,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-xray-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-XrayLogger-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -473,7 +481,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-xray-xrayTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-XrayLogger-XrayLoggerTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -486,15 +494,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xray-xrayTests/Pods-xray-xrayTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -672,7 +680,7 @@
 		};
 		4066C04A24B76F7200E05A01 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C921A1B80AF234F1C91B169 /* Pods-xray.debug.xcconfig */;
+			baseConfigurationReference = 8BAA5B1B7AE85E593E6949E7 /* Pods-XrayLogger.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -703,7 +711,7 @@
 		};
 		4066C04B24B76F7200E05A01 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC9E25FC918BB0E663ADBE7D /* Pods-xray.release.xcconfig */;
+			baseConfigurationReference = 5BBF865ECDD1277094DDDC2C /* Pods-XrayLogger.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -733,7 +741,7 @@
 		};
 		4066C04D24B76F7200E05A01 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48EF988C7F09957A786F4086 /* Pods-xray-xrayTests.debug.xcconfig */;
+			baseConfigurationReference = D9FE2B767AAC7A6DB3197656 /* Pods-XrayLogger-XrayLoggerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -752,7 +760,7 @@
 		};
 		4066C04E24B76F7200E05A01 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DD17D521CC4835B38E1D6B9 /* Pods-xray-xrayTests.release.xcconfig */;
+			baseConfigurationReference = D25D9EA4B297487BC37B9600 /* Pods-XrayLogger-XrayLoggerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
