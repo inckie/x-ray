@@ -20,15 +20,9 @@
   "source_files": "xray/**/*.{swift}",
   "subspecs": [
     {
-      "name": "ReactNative",
-      "dependencies": {
-        "React": [
-
-        ]
-      },
+      "name": "Reporter",
       "source_files": [
-        "ReactNative/**/*.{swift}",
-        "ReactNative/ReactNativeModulesExports.m"
+        "Extensions/Reporter/**/*.{swift}"
       ]
     }
   ],

@@ -18,13 +18,18 @@ Pod::Spec.new do |s|
 
   s.source_files = 'xray/**/*.{swift}'
 
-  s.subspec 'ReactNative' do |sp|
-    sp.dependency 'React'
+  # s.subspec 'ReactNative' do |sp|
+  #   sp.dependency 'React'
 
+  #   sp.source_files = [
+  #     'ReactNative/**/*.{swift}',
+  #     'ReactNative/ReactNativeModulesExports.m'
+  #   ]
+  # end
+
+  s.subspec 'Reporter' do |sp|
     sp.source_files = [
-      'ReactNative/**/*.{swift}',
-      'ReactNative/ReactNativeModulesExports.m'
+      'Extensions/Reporter/**/*.{swift}'
     ]
   end
-
 end

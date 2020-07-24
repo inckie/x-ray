@@ -10,7 +10,7 @@ import Foundation
 
 class JSONHelper {
     class func convertObjectToJSONString(object: Any,
-                                         options opt: JSONSerialization.WritingOptions = []) -> String? {
+                                         options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: object,
                                                       options: opt)

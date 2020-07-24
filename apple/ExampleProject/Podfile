@@ -1,35 +1,37 @@
+# frozen_string_literal: true
+
 source 'https://cdn.cocoapods.org/'
 
-require_relative './node_modules/@react-native-community/cli-platform-ios/native_modules'
-require_relative './scripts/autolink-react-dependencies.rb'
-#prefix = "../../node_modules/react-native"
+# require_relative './node_modules/@react-native-community/cli-platform-ios/native_modules'
+# require_relative './scripts/autolink-react-dependencies.rb'
+# prefix = "../../node_modules/react-native"
 
 platform :ios, '11.0'
 
 require 'resolv-replace'
-pre_install do |installer|
-	# workaround for https://github.com/CocoaPods/CocoaPods/issues/3289
-	Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+pre_install do |_installer|
+  # workaround for https://github.com/CocoaPods/CocoaPods/issues/3289
+  Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
 end
 
 target 'ExampleProject' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  
 
   pod 'SwiftyBeaver'
 
   pod 'xray', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
-  pod 'xray/ReactNative', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
-  #use_native_modules!
-  use_react_native!
+  pod 'xray/Reporter', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
+  # pod 'xray/ReactNative', path: '/Users/antonkononenko/Work/x-ray/apple/xray.podspec'
+  # use_native_modules!
+  # use_react_native!
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-          config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
-          config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
-      end
+    target.build_configurations.each do |config|
+      config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
+      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+    end
   end
 end

@@ -10,13 +10,13 @@ import MessageUI
 import UIKit
 import xray
 
-class LoggerViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
 
     @IBOutlet weak var collectionView: UICollectionView!
     private(set) weak var inMemorySink: InMemory?
-    
+
     // IdentifierSink -> Obesrver
     var dataSource: [Event] = []
 
@@ -42,6 +42,7 @@ class LoggerViewController: UIViewController, MFMailComposeViewControllerDelegat
         super.awakeFromNib()
         title = "Logger Screen"
         xibSetup()
+
         collectionView?.register(UINib(nibName: cellIdentifier,
                                        bundle: nil),
                                  forCellWithReuseIdentifier: cellIdentifier)
@@ -77,39 +78,7 @@ class LoggerViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
 
     @IBAction func exportData(_ sender: UIBarButtonItem) {
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.setSubject("Logger Data")
-            mail.setToRecipients(["r.meirman@applicaster.com", "a.kononenko@applicaster.com", "a.smirnov@applicaster.com"])
-            mail.setMessageBody("Test", isHTML: false)
-
-            if let data = inMemorySink?.toJSONString()?.data(using: .utf8) {
-                mail.addAttachmentData(data,
-                                       mimeType: "application/json",
-                                       fileName: "allLogs.json")
-            }
-
-//            if let event = event,
-//                let data = defaultEventFormatter.format(event: event).data(using: .utf8),
-//                let dateString = dateString {
-//                let levelString = event.level.toString()
-//
-//                mail.addAttachmentData(data,
-//                                       mimeType: "text",
-//                                       fileName: "\(levelString)_\(dateString).log")
-//            }
-
-            mail.mailComposeDelegate = self
-            navigationController?.present(mail,
-                                          animated: true,
-                                          completion: nil)
-        }
-    }
-
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true)
+        Reporter.requestSendEmail()
     }
 }
 

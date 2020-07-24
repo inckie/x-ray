@@ -6,9 +6,9 @@
 //  Copyright © 2020 Applicaster. All rights reserved.
 //
 
+import SwiftyBeaver
 import UIKit
 import xray
-import SwiftyBeaver
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,8 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        XrayLogger.sharedInstance.addSink(identifier: "console",
 //                                          sink: Console(logType: .print))
-        XrayLogger.sharedInstance.addSink(identifier: "file",
-                                            sink: FileJSON())
+        let fileJSONSink = FileJSON()
+        XrayLogger.sharedInstance.addSink(identifier: "fileJSON",
+                                          sink: FileJSON())
+        Reporter.setDefaultData(emails: ["a.kononenko@applicaster.com"],
+                                url: fileJSONSink.fileURL,
+                                contexts: ["MyAppData1": "SomeValue", "MyAppData2": "SomeValue2"])
+        
         let rootLogger = Logger.getLogger(for: "quickbrick/rn_plugin/player/player_controls/airplay_button")
         rootLogger?.context["test_context_data"] = "context_value"
 
@@ -29,46 +34,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                              data: ["data_key": "data_value"],
                              exception: nil)
         rootLogger?.logEvent(logLevel: .debug,
-                              message: "Debug thing",
-                              category: "category",
-                              data: ["data_key": "data_value"],
-                              exception: nil)
-        
+                             message: "Debug thing",
+                             category: "category",
+                             data: ["data_key": "data_value"],
+                             exception: nil)
+
         rootLogger?.logEvent(logLevel: .info,
-                                   message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
-                                   category: "category",
-                                   data: ["data_key": "data_value"],
-                                   exception: nil)
-        
+                             message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                             category: "category",
+                             data: ["data_key": "data_value"],
+                             exception: nil)
+
         rootLogger?.logEvent(logLevel: .verbose,
-                                     message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
-                                     category: "category",
-                                     data: ["data_key": "data_value"],
-                                     exception: nil)
-        
+                             message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                             category: "category",
+                             data: ["data_key": "data_value"],
+                             exception: nil)
+
         rootLogger?.logEvent(logLevel: .warning,
-                                     message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
-                                     category: "category",
-                                     data: ["data_key": "data_value"],
-                                     exception: nil)
-        
+                             message: "Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good Long info message that describe problmeatic pieces in the code. Just to make it a bit bigger to undestand if we can make autoresizable cell and it will looks good",
+                             category: "category",
+                             data: ["data_key": "data_value"],
+                             exception: nil)
 
-
-        
         let console = ConsoleDestination()
-        let file = FileDestination()// log to Xcode Console
+        let file = FileDestination() // log to Xcode Console
 //        console.format = "$DHH:mm:ss$d $L $M"
 
         log.addDestination(console)
         log.addDestination(file)
 
-        log.verbose("not so important")  // prio 1, VERBOSE in silver
-        log.debug("something to debug")  // prio 2, DEBUG in green
-        log.info("a nice information")   // prio 3, INFO in blue
-        log.warning("oh no, that won’t be good")  // prio 4, WARNING in yellow
+        log.verbose("not so important") // prio 1, VERBOSE in silver
+        log.debug("something to debug") // prio 2, DEBUG in green
+        log.info("a nice information") // prio 3, INFO in blue
+        log.warning("oh no, that won’t be good") // prio 4, WARNING in yellow
         log.error("ouch, an error did occur!")
 
         return true
     }
-
 }

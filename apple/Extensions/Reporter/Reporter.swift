@@ -9,31 +9,44 @@
 import Foundation
 import MessageUI
 
-class Reporter {
-    public private(set) var emails: [String]
-    public private(set) var sharedFileURL: URL?
+public class Reporter {
+    public static let sharedInstance = Reporter()
+    public private(set) static var sharedEmails: [String]?
+    public private(set) static var sharedFileURL: URL?
+    public private(set) static var sharedContexts: [String: Any]?
+    var email = Email()
 
-    let email = Email()
-
-    init(email: String,
-         url: URL?) {
-        emails = [email]
+    public static func setDefaultData(emails: [String],
+                                      url: URL?,
+                                      contexts: [String: Any]?) {
+        sharedEmails = emails
         sharedFileURL = url
+        sharedContexts = contexts
     }
 
-    init(emails: [String],
-         url: URL? = nil) {
-        self.emails = emails
-        sharedFileURL = url
+    public static func requestSendEmail(presenter: UIViewController? = nil) {
+        guard let sharedEmails = sharedEmails else {
+            print("Can not send email, at least one sender must be defined")
+            return
+        }
+        sharedInstance.email.requestSendEmail(emails: sharedEmails,
+                                              sharedFileURL: sharedFileURL,
+                                              contexts: sharedContexts,
+                                              attachments: nil,
+                                              presenter: presenter)
     }
 
-    public func requestSendEmail(emails: [String],
-                                 sharedFileURL: URL?,
-                                 presenter: UIViewController?) {
-        email.requestSendEmail(emails: emails,
-                               sharedFileURL: sharedFileURL,
-                               presenter: presenter)
+    public static func requestSendCustomEmail(attachments: [EmailAttachment]? = nil,
+                                              presenter: UIViewController? = nil) {
+        guard let emails = sharedEmails else {
+            print("Can not send email, at least one sender must be defined")
+            return
+        }
+
+        sharedInstance.email.requestSendEmail(emails: emails,
+                                              sharedFileURL: nil,
+                                              contexts: sharedContexts,
+                                              attachments: attachments,
+                                              presenter: presenter)
     }
-    
-    
 }

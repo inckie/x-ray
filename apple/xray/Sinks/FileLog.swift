@@ -17,7 +17,7 @@ public class FileLog: BaseSink, Storable {
         let fileName = fileName ?? "xray_file_log.txt"
 
         // sharedPublicDirectory
-        if let url = fileManager.urls(for: .sharedPublicDirectory,
+        if let url = fileManager.urls(for: .documentDirectory,
                                       in: .userDomainMask).first {
             fileURL = url.appendingPathComponent(fileName,
                                                  isDirectory: false)

@@ -15,9 +15,9 @@ public class FileJSON: BaseSink, Storable {
     let fileManager = FileManager.default
 
     public init(fileName: String? = nil) {
-        let fileName = fileName ?? "xray_file_json.json"
+        let fileName = fileName ?? "xray_file.json"
 
-        if let url = fileManager.urls(for: .sharedPublicDirectory,
+        if let url = fileManager.urls(for: .documentDirectory,
                                       in: .userDomainMask).first {
             fileURL = url.appendingPathComponent(fileName,
                                                  isDirectory: false)

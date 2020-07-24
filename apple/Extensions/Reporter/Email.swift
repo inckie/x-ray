@@ -14,16 +14,47 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
     public var emailSubject = "Application Logs"
     public var defaultEmailBody = ""
     public var emailContextData: [String: AnyObject] = [:]
+    public var emailAttachments: [EmailAttachment] = []
+    var mailComposeViewController: MFMailComposeViewController?
+
+    deinit {
+        print("Deinit")
+    }
 
     func requestSendEmail(emails: [String],
-                          sharedFileURL: URL?,
-                          presenter: UIViewController?) {
+                          sharedFileURL: URL? = nil,
+                          contexts: [String: Any]?,
+                          attachments: [EmailAttachment]? = nil,
+                          presenter: UIViewController? = nil) {
+        if (mailComposeViewController?.presentedViewController) != nil {
+            mailComposeViewController?.dismiss(animated: false, completion: { [weak self] in
+                guard let self = self else { return }
+                self.createMailComposerViewController(emails: emails,
+                                                      sharedFileURL: sharedFileURL,
+                                                      contexts: contexts,
+                                                      attachments:attachments,
+                                                      presenter: presenter)
+            })
+        } else {
+            createMailComposerViewController(emails: emails,
+                                             sharedFileURL: sharedFileURL,
+                                             contexts: contexts,
+                                             attachments:attachments,
+                                             presenter: presenter)
+        }
+    }
+
+    func createMailComposerViewController(emails: [String],
+                                          sharedFileURL: URL? = nil,
+                                          contexts: [String: Any]?,
+                                          attachments: [EmailAttachment]? = nil,
+                                          presenter: UIViewController? = nil) {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
-
             mail.setSubject(emailSubject)
             mail.setToRecipients(emails)
-            mail.setMessageBody("Test", isHTML: false)
+            mail.setMessageBody(createMessageBody(contexts: contexts),
+                                isHTML: false)
 
             if let sharedFileURL = sharedFileURL,
                 let data = dataFromURL(url: sharedFileURL) {
@@ -32,9 +63,32 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
                                        fileName: sharedFileURL.lastPathComponent)
             }
 
+            if let attachments = attachments {
+                for attachment in attachments {
+                    mail.addAttachmentData(attachment.data,
+                                           mimeType: attachment.mimeType,
+                                           fileName: attachment.fileName)
+                }
+            }
+
             mail.mailComposeDelegate = self
             presentMailCompose(mail: mail)
+        } else {
+            print("Can not to send email")
         }
+    }
+
+    func createMessageBody(contexts: [String: Any]?) -> String {
+        var retVal = defaultEmailBody
+        guard let contexts = contexts else {
+            return retVal
+        }
+        retVal.append("\n")
+        for context in contexts {
+            retVal.append("\(context.key):\(context.value)\n")
+        }
+        retVal.append("\n")
+        return retVal
     }
 
     func presentMailCompose(mail: MFMailComposeViewController) {

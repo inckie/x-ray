@@ -13,40 +13,22 @@ import xray
 class DetailedLoggerViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var backgroundDataView: UIView!
     @IBOutlet weak var loggerTypeView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var logTypeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var jsonTextView: UITextView!
 
     @IBAction func exportData(_ sender: UIBarButtonItem) {
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.setSubject("Logger Data")
-            mail.setToRecipients(["r.meirman@applicaster.com", "a.kononenko@applicaster.com", "a.smirnov@applicaster.com"])
-            mail.setMessageBody("Test", isHTML: false)
+        if let event = event,
+            let data = event.toJSONString()?.data(using: .utf8),
+            let dateString = dateString {
+            let levelString = event.level.toString()
+            let attachment = EmailAttachment(data: data, mimeType: "application/json", fileName: "\(levelString)_\(dateString).json")
 
-            if let data = event?.toJSONString()?.data(using: .utf8),
-                let levelString = event?.level.toString(),
-                let dateString = dateString {
-                mail.addAttachmentData(data,
-                                       mimeType: "application/json",
-                                       fileName: "\(levelString)_\(dateString).json")
-            }
-
-            if let event = event,
-                let data = defaultEventFormatter.format(event: event).data(using: .utf8),
-                let dateString = dateString {
-                let levelString = event.level.toString()
-
-                mail.addAttachmentData(data,
-                                       mimeType: "text",
-                                       fileName: "\(levelString)_\(dateString).log")
-            }
-
-            mail.mailComposeDelegate = self
-            navigationController?.present(mail,
-                                          animated: true,
-                                          completion: nil)
+            Reporter.requestSendCustomEmail(attachments: [attachment],
+                                            presenter: self)
+        } else {
+            Reporter.requestSendCustomEmail(attachments: nil,
+                                            presenter: self)
         }
     }
 
@@ -81,24 +63,5 @@ class DetailedLoggerViewController: UIViewController, MFMailComposeViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-    }
-
-    func sendEmail() {
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients(["you@yoursite.com"])
-            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
-
-            present(mail, animated: true)
-        } else {
-            // show failure alert
-        }
-    }
-
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true)
     }
 }
