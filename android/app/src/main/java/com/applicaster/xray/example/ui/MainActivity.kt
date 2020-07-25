@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
             // Its also possible to provide file name to the SendActivity intent directly
             Reporting.init("crash@example.com", fileLogSink.file)
-            Reporting.enableForCurrentThread(this)
+            Reporting.enableForCurrentThread(this, true)
 
             // configure XRay notification
 
