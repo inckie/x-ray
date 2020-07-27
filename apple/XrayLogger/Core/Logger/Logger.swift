@@ -41,7 +41,7 @@ public class Logger: NSObject {
                            file: String = #file,
                            function: String = #function,
                            line: Int = #line,
-                           args: CVarArg...) {
+                           args: [CVarArg] = []) {
         let newData = populateData(data: data,
                                    file: file,
                                    function: function,
@@ -65,7 +65,7 @@ public class Logger: NSObject {
                          file: String = #file,
                          function: String = #function,
                          line: Int = #line,
-                         args: CVarArg...) {
+                         args: [CVarArg] = []) {
         let newData = populateData(data: data,
                                    file: file,
                                    function: function,
@@ -89,7 +89,7 @@ public class Logger: NSObject {
                         file: String = #file,
                         function: String = #function,
                         line: Int = #line,
-                        args: CVarArg...) {
+                        args: [CVarArg] = []) {
         let newData = populateData(data: data,
                                    file: file,
                                    function: function,
@@ -113,7 +113,7 @@ public class Logger: NSObject {
                            file: String = #file,
                            function: String = #function,
                            line: Int = #line,
-                           args: CVarArg...) {
+                           args: [CVarArg] = []) {
         let newData = populateData(data: data,
                                    file: file,
                                    function: function,
@@ -138,7 +138,7 @@ public class Logger: NSObject {
                          file: String = #file,
                          function: String = #function,
                          line: Int = #line,
-                         args: CVarArg...) {
+                         args: [CVarArg] = []) {
         let newData = populateData(data: data,
                                    file: file,
                                    function: function,
