@@ -1,6 +1,5 @@
 package com.applicaster.xray.example.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.applicaster.xray.core.Core
+import com.applicaster.xray.example.App
 import com.applicaster.xray.example.R
 import com.applicaster.xray.example.sinks.InMemoryLogSink
 
@@ -16,34 +16,25 @@ import com.applicaster.xray.example.sinks.InMemoryLogSink
  */
 class EventLogFragment : Fragment() {
 
-    private val sink = InMemoryLogSink()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_log_list, container, false)
 
+        // We expect our example Application to provide this sink as InMemoryLogSink
+        val inMemoryLogSink = Core.get().getSink(App.memory_sink_name) as InMemoryLogSink?
+
         // Set the adapter
-        if (view is RecyclerView) {
+        if (view is RecyclerView && null != inMemoryLogSink) {
             with(view) {
-                adapter = EventRecyclerViewAdapter(
+                adapter = EventRecyclerViewAdapter (
                     viewLifecycleOwner,
-                    sink.getLiveData()
+                    inMemoryLogSink.getLiveData()
                 )
             }
         }
         return view
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Core.get().addSink("ui_log", sink)
-    }
-
-    override fun onDetach() {
-        Core.get().removeSink(sink)
-        super.onDetach()
     }
 
     companion object {

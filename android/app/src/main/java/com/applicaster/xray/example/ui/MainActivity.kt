@@ -1,77 +1,21 @@
 package com.applicaster.xray.example.ui
 
-import android.app.PendingIntent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.applicaster.xray.android.contexts.ThreadContext
 import com.applicaster.xray.android.routing.DefaultSinkFilter
-import com.applicaster.xray.android.sinks.ADBSink
-import com.applicaster.xray.android.sinks.PackageFileLogSink
 import com.applicaster.xray.core.Core
 import com.applicaster.xray.core.LogContext
 import com.applicaster.xray.core.LogLevel
 import com.applicaster.xray.core.Logger
 import com.applicaster.xray.crashreporter.Reporting
-import com.applicaster.xray.crashreporter.SendActivity
 import com.applicaster.xray.example.R
 import com.applicaster.xray.example.model.JavaTestClass
 import com.applicaster.xray.example.model.KotlinTestClass
-import com.applicaster.xray.example.sinks.InMemoryLogSink
 import com.applicaster.xray.formatters.message.reflactionformatter.NamedReflectionMessageFormatter
-import com.applicaster.xray.formatters.message.reflactionformatter.ReflectionMessageFormatter
-import com.applicaster.xray.ui.notification.XRayNotification
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        // check if we have already initialized x-ray
-        if (null == Core.get().getSink("adb_sink")) {
-
-            val fileLogSink =
-                PackageFileLogSink(
-                    this,
-                    "default.log"
-                );
-            val errorFileLogSink =
-                PackageFileLogSink(
-                    this,
-                    "errors.log"
-                );
-
-            // Here you can use fileLogSink.getFile() to connect log file to crash reporting module:
-            // Its also possible to provide file name to the SendActivity intent directly
-            Reporting.init("crash@example.com", fileLogSink.file)
-            Reporting.enableForCurrentThread(this, true)
-
-            // configure XRay notification
-
-            // add report sharing button
-            val shareLogIntent = SendActivity.getSendPendingIntent(this)
-            val actions: HashMap<String, PendingIntent> = hashMapOf("Send" to shareLogIntent)
-
-            // here we show Notification UI with custom actions
-            XRayNotification.show(
-                this,
-                101,
-                actions
-            )
-
-            Core.get()
-                .addSink("adb_sink", ADBSink())
-                .addSink(
-                    "memory_sink",
-                    InMemoryLogSink()
-                )
-                .addSink("default_log_sink", fileLogSink)
-                .addSink("error_log_sink", errorFileLogSink)
-                .setFilter("error_log_sink", "", DefaultSinkFilter(LogLevel.error))
-
-            val rootLogger = Logger.get()
-            rootLogger.setContext(ThreadContext())
-            rootLogger.setFormatter(ReflectionMessageFormatter())
-        }
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn_log_some).setOnClickListener { logSomeEvents() }
