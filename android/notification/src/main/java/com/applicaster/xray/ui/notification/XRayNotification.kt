@@ -29,7 +29,7 @@ object XRayNotification {
     private var errors = 0;
     private var warnings = 0;
 
-    fun show(context: Context, notificationId: Int, actions: HashMap<String, PendingIntent>? = null) {
+    fun show(context: Context, notificationId: Int, actions: Map<String, PendingIntent>? = null) {
         if (-1 != currentNotificationId) {
             hide(context)
         }
@@ -78,7 +78,6 @@ object XRayNotification {
                 .setContentIntent(pi)
                 .setAutoCancel(false)
                 .setShowWhen(false)
-                .addAction(0, "Show", pi)
                 .setSound(null)
 
         actions?.forEach {
