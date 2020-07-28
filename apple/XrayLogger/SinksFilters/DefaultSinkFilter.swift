@@ -11,7 +11,7 @@ import Foundation
 public class DefaultSinkFilter: NSObject, SinkFilterProtocol {
     private(set) var minLevel: LogLevel = .debug
 
-    init(level: LogLevel) {
+    public init(level: LogLevel) {
         super.init()
         minLevel = level
     }
