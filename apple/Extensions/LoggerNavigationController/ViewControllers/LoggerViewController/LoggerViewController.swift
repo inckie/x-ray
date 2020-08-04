@@ -71,7 +71,7 @@ class LoggerViewController: UIViewController {
                                        bundle: bundle),
                                  forCellWithReuseIdentifier: cellIdentifier)
 
-        let inMemorySink = XrayLogger.sharedInstance.getSink("inMemorySink") as? InMemory
+        let inMemorySink = XrayLogger.sharedInstance.getSink("InMemorySink") as? InMemory
         inMemorySink?.addObserver(identifier: screenIdentifier,
                                   item: self)
         self.inMemorySink = inMemorySink
