@@ -1,25 +1,18 @@
-package com.applicaster.xray.core.formatting.event;
-
-import android.text.format.DateFormat;
+package com.applicaster.xray.android.formatters;
 
 import androidx.annotation.NonNull;
 
 import com.applicaster.xray.core.Event;
-import com.applicaster.xray.core.LogLevel;
+import com.applicaster.xray.core.formatting.event.IEventFormatter;
 
 import java.util.Map;
 
-public class PlainTextEventFormatter implements IEventFormatter {
-
-    // todo: add format string option
+public class ADBTextEventFormatter implements IEventFormatter {
 
     @NonNull
     @Override
     public String format(@NonNull Event event) {
-        StringBuilder sb = new StringBuilder()
-                .append(DateFormat.format("yyyy-MM-dd HH:mm:ss", event.getTimestamp())).append(" ")
-                .append(LogLevel.fromLevel(event.getLevel()).name()).append(" ")
-                .append(event.getCategory()).append(" ")
+        StringBuilder sb = new StringBuilder(event.getCategory())
                 .append(event.getSubsystem()).append(" ")
                 .append(event.getMessage())
                 .append("\n");
