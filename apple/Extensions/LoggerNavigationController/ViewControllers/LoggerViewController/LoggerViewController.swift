@@ -59,7 +59,6 @@ class LoggerViewController: UIViewController {
         view.autoresizingMask =
             [.flexibleWidth, .flexibleHeight]
         self.view = view
-//        self.view.addSubview(view)
     }
 
     func prepareLogger() {
@@ -126,9 +125,16 @@ extension LoggerViewController: UICollectionViewDataSource {
         let event = dataSource[indexPath.row]
         let formattedDate = dateStringFromEvent(event: event)
         cell.updateCell(event: event,
-                        dateString: formattedDate,
-                        width: collectionView.frame.size.width)
+                        dateString: formattedDate)
         return cell
+    }
+    
+
+}
+
+extension LoggerViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width-10, height: 120)
     }
 }
 
