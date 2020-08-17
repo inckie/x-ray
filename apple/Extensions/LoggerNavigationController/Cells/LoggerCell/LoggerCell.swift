@@ -15,7 +15,6 @@ class LoggerCell: UICollectionViewCell {
     @IBOutlet weak var subsystemLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var logTypeLabel: UILabel!
-    @IBOutlet weak var cellWidthConstraint: NSLayoutConstraint!
 
     override func prepareForReuse() {
         messageLabel.text = ""
@@ -25,8 +24,7 @@ class LoggerCell: UICollectionViewCell {
     }
 
     func updateCell(event: Event,
-                    dateString: String,
-                    width: CGFloat) {
+                    dateString: String) {
         roundCorners(radius: 10)
         messageLabel.text = event.message
         subsystemLabel.text = event.subsystem
@@ -34,7 +32,6 @@ class LoggerCell: UICollectionViewCell {
         loggerTypeView.backgroundColor = event.level.toColor()
         logTypeLabel.text = event.level.toString()
         logTypeLabel.textColor = event.level.toColor()
-        cellWidthConstraint.constant = width
     }
 }
 
