@@ -23,6 +23,9 @@ class LoggerViewController: UIViewController {
     @IBOutlet weak var collectionLayout: UICollectionViewFlowLayout! {
         didSet {
             collectionLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.collectionLayout.invalidateLayout()
+//            }
         }
     }
     
@@ -51,7 +54,7 @@ class LoggerViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        prepareLogger()
+//        xibSetup()
     }
 
     required init?(coder: NSCoder) {
@@ -60,6 +63,16 @@ class LoggerViewController: UIViewController {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        xibSetup()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionViewSetup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         prepareLogger()
     }
 
@@ -73,8 +86,6 @@ class LoggerViewController: UIViewController {
 
     func prepareLogger() {
         title = "Logger Screen"
-        xibSetup()
-        collectionViewSetup()
         
         let inMemorySink = XrayLogger.sharedInstance.getSink("InMemorySink") as? InMemory
         inMemorySink?.addObserver(identifier: screenIdentifier,
@@ -129,19 +140,19 @@ extension LoggerViewController: UICollectionViewDelegate {
     }
 }
 
-//extension LoggerViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        var referenceHeight: CGFloat = 120 // Approximate height of your cell
-//
-//        let sectionInset = collectionLayout.sectionInset
-//        let referenceWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
-//            - sectionInset.left
-//            - sectionInset.right
-//            - collectionView.contentInset.left
-//            - collectionView.contentInset.right
-//        return CGSize(width: referenceWidth, height: referenceHeight)
-//    }
-//}
+extension LoggerViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let referenceHeight: CGFloat = 0 // Approximate height of your cell
+
+        let sectionInset = collectionLayout.sectionInset
+        let referenceWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
+            - sectionInset.left
+            - sectionInset.right
+            - collectionView.contentInset.left
+            - collectionView.contentInset.right
+        return CGSize(width: referenceWidth, height: referenceHeight)
+    }
+}
 
 extension LoggerViewController: UICollectionViewDataSource {
 

@@ -57,30 +57,13 @@ class LoggerCell: UICollectionViewCell {
                     dateString: String,
                     maxWidth: CGFloat) {
         roundCorners(radius: 10)
-        messageLabel.text = event.message
-        subsystemLabel.text = event.subsystem
+        messageLabel.text = event.message + "sfsfsfs df dsf df sd fs df sd sdf gdfgsdfgdfgs dfgsfdgdfgdf g dfdfdfgdfg"
+        subsystemLabel.text = event.subsystem + "sfsfsfs df dsf df sd fs df sd sdf gdfgsdfgdfgs dfgsfdgdfgdf g dfdfdfgdfg"
         dateLabel.text = dateString
         loggerTypeView.backgroundColor = event.level.toColor()
         logTypeLabel.text = event.level.toString()
         logTypeLabel.textColor = event.level.toColor()
         self.maxWidth = maxWidth
     }
-    
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes
-//    {
-//        let attr: UICollectionViewLayoutAttributes = layoutAttributes.copy() as! UICollectionViewLayoutAttributes
-//
-//        var newFrame = attr.frame
-//
-//        let desiredSize = self.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-//        newFrame.size = desiredSize
-//        attr.frame = newFrame
-//        
-//        self.frame = newFrame
-//        self.setNeedsLayout()
-//        self.layoutIfNeeded()
-//
-//        return attr
-//    }
 }
 
