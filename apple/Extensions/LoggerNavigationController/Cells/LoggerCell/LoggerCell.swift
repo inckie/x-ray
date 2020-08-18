@@ -23,47 +23,26 @@ class LoggerCell: UICollectionViewCell {
         loggerTypeView.backgroundColor = UIColor.clear
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            contentView.leftAnchor.constraint(equalTo: leftAnchor),
-            contentView.rightAnchor.constraint(equalTo: rightAnchor),
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-    }
-    
-    // Note: must be strong
-    @IBOutlet private var maxWidthConstraint: NSLayoutConstraint! {
-        didSet {
-            maxWidthConstraint.isActive = false
-        }
-    }
-    
-    var maxWidth: CGFloat? = nil {
-        didSet {
-            guard let maxWidth = maxWidth else {
-                return
-            }
-            maxWidthConstraint.isActive = true
-            maxWidthConstraint.constant = maxWidth
-        }
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        let autoLayoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
+        let targetSize = CGSize(width: layoutAttributes.frame.width, height: 120)
+        let autoLayoutSize = contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
+        let autoLayoutFrame = CGRect(origin: autoLayoutAttributes.frame.origin, size: autoLayoutSize)
+        autoLayoutAttributes.frame = autoLayoutFrame
+        return autoLayoutAttributes
     }
 
     func updateCell(event: Event,
                     dateString: String,
                     maxWidth: CGFloat) {
         roundCorners(radius: 10)
-        messageLabel.text = event.message + "sfsfsfs df dsf df sd fs df sd sdf gdfgsdfgdfgs dfgsfdgdfgdf g dfdfdfgdfg"
-        subsystemLabel.text = event.subsystem + "sfsfsfs df dsf df sd fs df sd sdf gdfgsdfgdfgs dfgsfdgdfgdf g dfdfdfgdfg"
+        messageLabel.text = event.message
+        subsystemLabel.text = event.subsystem
         dateLabel.text = dateString
         loggerTypeView.backgroundColor = event.level.toColor()
         logTypeLabel.text = event.level.toString()
         logTypeLabel.textColor = event.level.toColor()
-        self.maxWidth = maxWidth
+//        self.maxWidth = maxWidth
     }
 }
 

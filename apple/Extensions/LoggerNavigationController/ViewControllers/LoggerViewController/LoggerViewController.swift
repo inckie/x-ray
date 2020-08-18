@@ -18,16 +18,10 @@ struct CollectionViewConstants {
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
+    
+    let customFlowLayout = CustomFlowLayout()
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionLayout: UICollectionViewFlowLayout! {
-        didSet {
-            collectionLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.collectionLayout.invalidateLayout()
-//            }
-        }
-    }
     
     private(set) weak var inMemorySink: InMemory?
 
@@ -68,11 +62,8 @@ class LoggerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionViewSetup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         prepareLogger()
     }
 
@@ -92,14 +83,24 @@ class LoggerViewController: UIViewController {
                                   item: self)
         self.inMemorySink = inMemorySink
         if let events = inMemorySink?.events {
-            dataSource = events
-            collectionView.reloadData()
+            self.dataSource = events
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.collectionView.collectionViewLayout.invalidateLayout()
+            }
         }
     }
     
     func collectionViewSetup() {
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
+        customFlowLayout.sectionInsetReference = .fromContentInset // .fromContentInset is default
+        customFlowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        customFlowLayout.minimumInteritemSpacing = 10
+        customFlowLayout.minimumLineSpacing = 10
+        customFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        customFlowLayout.headerReferenceSize = CGSize(width: 0, height: 0)
+
+        collectionView?.collectionViewLayout = customFlowLayout
+        collectionView?.contentInsetAdjustmentBehavior = .always
         
         let bundle = Bundle(for: type(of: self))
         collectionView?.register(UINib(nibName: cellIdentifier,
@@ -140,20 +141,6 @@ extension LoggerViewController: UICollectionViewDelegate {
     }
 }
 
-extension LoggerViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let referenceHeight: CGFloat = 0 // Approximate height of your cell
-
-        let sectionInset = collectionLayout.sectionInset
-        let referenceWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
-            - sectionInset.left
-            - sectionInset.right
-            - collectionView.contentInset.left
-            - collectionView.contentInset.right
-        return CGSize(width: referenceWidth, height: referenceHeight)
-    }
-}
-
 extension LoggerViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
@@ -180,4 +167,33 @@ extension LoggerViewController: InMemoryObserverProtocol {
         dataSource = eventsList
         collectionView.reloadData()
     }
+}
+
+final class CustomFlowLayout: UICollectionViewFlowLayout {
+
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let layoutAttributesObjects = super.layoutAttributesForElements(in: rect)?.map{ $0.copy() } as? [UICollectionViewLayoutAttributes]
+        layoutAttributesObjects?.forEach({ layoutAttributes in
+            if layoutAttributes.representedElementCategory == .cell {
+                if let newFrame = layoutAttributesForItem(at: layoutAttributes.indexPath)?.frame {
+                    layoutAttributes.frame = newFrame
+                }
+            }
+        })
+        return layoutAttributesObjects
+    }
+
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let collectionView = collectionView else {
+            fatalError()
+        }
+        guard let layoutAttributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else {
+            return nil
+        }
+
+        layoutAttributes.frame.origin.x = sectionInset.left
+        layoutAttributes.frame.size.width = collectionView.safeAreaLayoutGuide.layoutFrame.width - sectionInset.left - sectionInset.right
+        return layoutAttributes
+    }
+
 }

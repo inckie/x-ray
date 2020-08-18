@@ -65,13 +65,14 @@
                                                 <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="Dj7-be-VCz"/>
-                                                    <constraint firstAttribute="height" constant="25" id="kRm-ge-bdn"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="25" id="kRm-ge-bdn"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Hkl-8S-wwf" secondAttribute="trailing" id="0d2-Vy-pg8"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="35" id="6dn-W3-Gfw"/>
                                             <constraint firstItem="DgH-a0-OXB" firstAttribute="top" secondItem="crZ-q0-hcc" secondAttribute="top" constant="5" id="DJ6-sC-DDZ"/>
                                             <constraint firstItem="sDA-XI-jah" firstAttribute="top" secondItem="crZ-q0-hcc" secondAttribute="top" constant="5" id="KwS-Vp-utm"/>
                                             <constraint firstItem="sDA-XI-jah" firstAttribute="leading" secondItem="DgH-a0-OXB" secondAttribute="trailing" constant="10" id="MYE-jc-pkq"/>
@@ -107,7 +108,6 @@
                             <constraint firstItem="AiD-Pa-otB" firstAttribute="leading" secondItem="ZUI-q4-eZc" secondAttribute="trailing" id="Mxl-7n-FXg"/>
                             <constraint firstAttribute="bottom" secondItem="AiD-Pa-otB" secondAttribute="bottom" id="Tcb-7T-AzK"/>
                             <constraint firstItem="AiD-Pa-otB" firstAttribute="leading" secondItem="ZUI-q4-eZc" secondAttribute="trailing" id="TgK-r1-fby"/>
-                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="414" id="d5e-KC-xzB"/>
                             <constraint firstAttribute="bottom" secondItem="ZUI-q4-eZc" secondAttribute="bottom" id="qr8-fG-Tev"/>
                             <constraint firstItem="ZUI-q4-eZc" firstAttribute="top" secondItem="Cei-UK-Y9J" secondAttribute="top" id="qvv-sx-RPV"/>
                         </constraints>
@@ -125,7 +125,6 @@
                 <outlet property="dateLabel" destination="sDA-XI-jah" id="SLF-zG-zgY"/>
                 <outlet property="logTypeLabel" destination="Hkl-8S-wwf" id="hiG-YR-HJB"/>
                 <outlet property="loggerTypeView" destination="ZUI-q4-eZc" id="0kl-S6-4tv"/>
-                <outlet property="maxWidthConstraint" destination="d5e-KC-xzB" id="fYu-Ue-sO3"/>
                 <outlet property="messageLabel" destination="HIf-49-fuO" id="P1g-xP-fP9"/>
                 <outlet property="subsystemLabel" destination="ejS-C7-ZvE" id="2GL-jZ-WyF"/>
             </connections>
