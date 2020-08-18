@@ -11,11 +11,21 @@ import Reporter
 import UIKit
 import XrayLogger
 
+struct CollectionViewConstants {
+    static let cellMargin:CGFloat = 20.0
+}
+
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionLayout: UICollectionViewFlowLayout! {
+        didSet {
+            collectionLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
+    
     private(set) weak var inMemorySink: InMemory?
 
     // IdentifierSink -> Obesrver
@@ -64,12 +74,8 @@ class LoggerViewController: UIViewController {
     func prepareLogger() {
         title = "Logger Screen"
         xibSetup()
-
-        let bundle = Bundle(for: type(of: self))
-        collectionView?.register(UINib(nibName: cellIdentifier,
-                                       bundle: bundle),
-                                 forCellWithReuseIdentifier: cellIdentifier)
-
+        collectionViewSetup()
+        
         let inMemorySink = XrayLogger.sharedInstance.getSink("InMemorySink") as? InMemory
         inMemorySink?.addObserver(identifier: screenIdentifier,
                                   item: self)
@@ -78,6 +84,16 @@ class LoggerViewController: UIViewController {
             dataSource = events
             collectionView.reloadData()
         }
+    }
+    
+    func collectionViewSetup() {
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        
+        let bundle = Bundle(for: type(of: self))
+        collectionView?.register(UINib(nibName: cellIdentifier,
+                                       bundle: bundle),
+                                 forCellWithReuseIdentifier: cellIdentifier)
     }
 
     func loadViewFromNib() -> UIView? {
@@ -113,7 +129,22 @@ extension LoggerViewController: UICollectionViewDelegate {
     }
 }
 
+//extension LoggerViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        var referenceHeight: CGFloat = 120 // Approximate height of your cell
+//
+//        let sectionInset = collectionLayout.sectionInset
+//        let referenceWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
+//            - sectionInset.left
+//            - sectionInset.right
+//            - collectionView.contentInset.left
+//            - collectionView.contentInset.right
+//        return CGSize(width: referenceWidth, height: referenceHeight)
+//    }
+//}
+
 extension LoggerViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
@@ -125,16 +156,10 @@ extension LoggerViewController: UICollectionViewDataSource {
         let event = dataSource[indexPath.row]
         let formattedDate = dateStringFromEvent(event: event)
         cell.updateCell(event: event,
-                        dateString: formattedDate)
+                        dateString: formattedDate,
+                        maxWidth: collectionView.bounds.width)
+
         return cell
-    }
-    
-
-}
-
-extension LoggerViewController : UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width-10, height: 120)
     }
 }
 

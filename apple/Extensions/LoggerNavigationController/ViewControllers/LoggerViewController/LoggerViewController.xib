@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoggerViewController" customModule="LoggerInfo" customModuleProvider="target">
             <connections>
+                <outlet property="collectionLayout" destination="mtn-Co-oF2" id="9Q6-xh-EYd"/>
                 <outlet property="collectionView" destination="DYV-C0-pBf" id="2an-5k-G0k"/>
                 <outlet property="view" destination="iN0-l3-epB" id="TCL-WJ-zdx"/>
             </connections>
@@ -35,7 +36,7 @@
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DYV-C0-pBf">
                     <rect key="frame" x="10" y="0.0" width="355" height="623"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="mtn-Co-oF2">
+                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="mtn-Co-oF2">
                         <size key="itemSize" width="345" height="120"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
