@@ -33,8 +33,7 @@ class LoggerCell: UICollectionViewCell {
     }
 
     func updateCell(event: Event,
-                    dateString: String,
-                    maxWidth: CGFloat) {
+                    dateString: String) {
         roundCorners(radius: 10)
         messageLabel.text = event.message
         subsystemLabel.text = event.subsystem
@@ -42,7 +41,6 @@ class LoggerCell: UICollectionViewCell {
         loggerTypeView.backgroundColor = event.level.toColor()
         logTypeLabel.text = event.level.toString()
         logTypeLabel.textColor = event.level.toColor()
-//        self.maxWidth = maxWidth
     }
 }
 

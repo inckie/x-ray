@@ -134,8 +134,7 @@ extension LoggerViewController: UICollectionViewDataSource {
         let event = dataSource[indexPath.row]
         let formattedDate = dateStringFromEvent(event: event)
         cell.updateCell(event: event,
-                        dateString: formattedDate,
-                        maxWidth: collectionView.bounds.width)
+                        dateString: formattedDate)
 
         return cell
     }
