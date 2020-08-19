@@ -14,6 +14,7 @@ import XrayLogger
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
+    
 
     @IBOutlet weak var collectionView: UICollectionView!
     private(set) weak var inMemorySink: InMemory?
@@ -39,17 +40,15 @@ class LoggerViewController: UIViewController {
         inMemorySink = nil
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        prepareLogger()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
+        xibSetup()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        collectionViewSetup()
         prepareLogger()
     }
 
@@ -63,21 +62,30 @@ class LoggerViewController: UIViewController {
 
     func prepareLogger() {
         title = "Logger Screen"
-        xibSetup()
-
-        let bundle = Bundle(for: type(of: self))
-        collectionView?.register(UINib(nibName: cellIdentifier,
-                                       bundle: bundle),
-                                 forCellWithReuseIdentifier: cellIdentifier)
-
+        
         let inMemorySink = XrayLogger.sharedInstance.getSink("InMemorySink") as? InMemory
         inMemorySink?.addObserver(identifier: screenIdentifier,
                                   item: self)
         self.inMemorySink = inMemorySink
         if let events = inMemorySink?.events {
-            dataSource = events
-            collectionView.reloadData()
+            self.dataSource = events
+
+            //invalidate layout during presentation anumation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.collectionView.collectionViewLayout.invalidateLayout()
+            }
         }
+    }
+    
+    func collectionViewSetup() {
+        let collectionViewFlowLayout = LoggerViewCollectionFlowLayout()
+        collectionView?.collectionViewLayout = collectionViewFlowLayout
+        collectionView?.contentInsetAdjustmentBehavior = .always
+        
+        let bundle = Bundle(for: type(of: self))
+        collectionView?.register(UINib(nibName: cellIdentifier,
+                                       bundle: bundle),
+                                 forCellWithReuseIdentifier: cellIdentifier)
     }
 
     func loadViewFromNib() -> UIView? {
@@ -114,6 +122,7 @@ extension LoggerViewController: UICollectionViewDelegate {
 }
 
 extension LoggerViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
@@ -126,15 +135,8 @@ extension LoggerViewController: UICollectionViewDataSource {
         let formattedDate = dateStringFromEvent(event: event)
         cell.updateCell(event: event,
                         dateString: formattedDate)
+
         return cell
-    }
-    
-
-}
-
-extension LoggerViewController : UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width-10, height: 120)
     }
 }
 

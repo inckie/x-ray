@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 public class LoggerNavigationController: UINavigationController {
     public static func loggerNavigationController() -> UINavigationController {
+        let bundle = Bundle(for: Self.self)
         let loggerViewController = LoggerViewController(nibName: "LoggerViewController",
-                                                        bundle: nil)
+                                                        bundle: bundle)
         return UINavigationController(rootViewController: loggerViewController)
     }
 }
