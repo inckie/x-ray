@@ -11,18 +11,12 @@ import Reporter
 import UIKit
 import XrayLogger
 
-struct CollectionViewConstants {
-    static let cellMargin:CGFloat = 20.0
-}
-
 class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
     
-    let customFlowLayout = CustomFlowLayout()
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
     private(set) weak var inMemorySink: InMemory?
 
     // IdentifierSink -> Obesrver
@@ -44,15 +38,6 @@ class LoggerViewController: UIViewController {
     deinit {
         inMemorySink?.removeObserver(identifier: screenIdentifier)
         inMemorySink = nil
-    }
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//        xibSetup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
 
     override func awakeFromNib() {
@@ -85,6 +70,7 @@ class LoggerViewController: UIViewController {
         if let events = inMemorySink?.events {
             self.dataSource = events
 
+            //invalidate layout during presentation anumation
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
@@ -92,14 +78,8 @@ class LoggerViewController: UIViewController {
     }
     
     func collectionViewSetup() {
-        customFlowLayout.sectionInsetReference = .fromContentInset // .fromContentInset is default
-        customFlowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        customFlowLayout.minimumInteritemSpacing = 10
-        customFlowLayout.minimumLineSpacing = 10
-        customFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-        customFlowLayout.headerReferenceSize = CGSize(width: 0, height: 0)
-
-        collectionView?.collectionViewLayout = customFlowLayout
+        let collectionViewFlowLayout = LoggerViewCollectionFlowLayout()
+        collectionView?.collectionViewLayout = collectionViewFlowLayout
         collectionView?.contentInsetAdjustmentBehavior = .always
         
         let bundle = Bundle(for: type(of: self))
@@ -167,33 +147,4 @@ extension LoggerViewController: InMemoryObserverProtocol {
         dataSource = eventsList
         collectionView.reloadData()
     }
-}
-
-final class CustomFlowLayout: UICollectionViewFlowLayout {
-
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let layoutAttributesObjects = super.layoutAttributesForElements(in: rect)?.map{ $0.copy() } as? [UICollectionViewLayoutAttributes]
-        layoutAttributesObjects?.forEach({ layoutAttributes in
-            if layoutAttributes.representedElementCategory == .cell {
-                if let newFrame = layoutAttributesForItem(at: layoutAttributes.indexPath)?.frame {
-                    layoutAttributes.frame = newFrame
-                }
-            }
-        })
-        return layoutAttributesObjects
-    }
-
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let collectionView = collectionView else {
-            fatalError()
-        }
-        guard let layoutAttributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else {
-            return nil
-        }
-
-        layoutAttributes.frame.origin.x = sectionInset.left
-        layoutAttributes.frame.size.width = collectionView.safeAreaLayoutGuide.layoutFrame.width - sectionInset.left - sectionInset.right
-        return layoutAttributes
-    }
-
 }
