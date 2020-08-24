@@ -11,6 +11,7 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
     }
 }
 
@@ -18,9 +19,14 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            credentials{
+                username System.getenv("MAVEN_USERNAME")
+                password System.getenv("MAVEN_PASSWORD")
+            }
+            url 'https://dl.bintray.com/applicaster-ltd/maven'
+        }
     }
-    group = 'com.applicaster.xray'
-    version = '0.0.1'
 }
 
 task clean(type: Delete) {
