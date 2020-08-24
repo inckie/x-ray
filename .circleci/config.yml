@@ -1,10 +1,10 @@
 references:
-  workspace_root: &workspace_root ~/applicaster/x-ray/android
-  cache_file: &cache_file gradle-cache-v1-{{ checksum "build.gradle" }}
+  workspace_root: &workspace_root ~/applicaster/x-ray
+  cache_file: &cache_file gradle-cache-v1-{{ checksum "android/build.gradle" }}
   container_config: &container_config
     working_directory: *workspace_root
     shell: /bin/bash --login
-    resource_class: large
+    resource_class: medium
     docker:
       - image: circleci/android:api-29-node
     environment: &environment
@@ -29,6 +29,7 @@ jobs:
 
       - run:
           name: Download Android Dependencies
+          working_directory: android
           command: ./gradlew androidDependencies
 
       - save_cache:
@@ -39,24 +40,29 @@ jobs:
 
       - run:
           name: Lint check
+          working_directory: android
           command: ./gradlew lint
 
       - run:
           name: Build xray-core
+          working_directory: android
           command: ./gradlew :xray-core:assembleRelease
 
       - run:
           name: Build xray-notification
+          working_directory: android
           command: ./gradlew :xray-notification:assembleRelease
 
       - run:
           name: Build xray-crashreporter
+          working_directory: android
           command: ./gradlew :xray-crashreporter:assembleRelease
 
       - run:
           name: Upload Bintray
+          working_directory: android
           command: |
-            if [ $CIRCLE_TAG ] && [ PUBLISH_ARTIFACTS ]; then
+            if [ $CIRCLE_TAG ] && [ $PUBLISH_ARTIFACTS ]; then
               ./gradlew :xray-core:bintrayUpload
               ./gradlew :xray-notification:bintrayUpload
               ./gradlew :xray-crashreporter:bintrayUpload
