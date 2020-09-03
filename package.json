@@ -13,6 +13,9 @@
   "scripts": {},
   "files": [
     "android",
-    "apple"
+    "apple/Extensions",
+    "apple/*.podspec",
+    "apple/ReactNative",
+    "apple/XrayLogger"
   ]
 }
