@@ -10,9 +10,21 @@ import Foundation
 import UIKit
 public class LoggerNavigationController: UINavigationController {
     public static func loggerNavigationController() -> UINavigationController {
+        let navController = UINavigationController(rootViewController: loggerViewController())
+        return navController
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        setViewControllers([LoggerNavigationController.loggerViewController()],
+                           animated: false)
+    }
+
+    static func loggerViewController() -> LoggerViewController {
         let bundle = Bundle(for: Self.self)
         let loggerViewController = LoggerViewController(nibName: "LoggerViewController",
                                                         bundle: bundle)
-        return UINavigationController(rootViewController: loggerViewController)
+        return loggerViewController
     }
 }

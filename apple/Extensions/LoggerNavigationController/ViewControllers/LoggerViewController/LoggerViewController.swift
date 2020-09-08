@@ -45,13 +45,12 @@ class LoggerViewController: UIViewController {
         xibSetup()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         collectionViewSetup()
-        prepareLogger()
+         prepareLogger()
     }
-
+    
     func xibSetup() {
         guard let view = loadViewFromNib() else { return }
         view.frame = self.view.bounds
