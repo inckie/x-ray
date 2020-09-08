@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: '0.0.1' }
 
   s.resources = [
-    'Extensions/LoggerNavigationController/**/*.xib',
-    'Extensions/LoggerNavigationController/**/*.png'
+    '**/*.xib',
+    '**/*.png'
   ]
   s.source_files = 'Extensions/LoggerNavigationController/**/*.{swift}'
   s.dependency 'XrayLogger'
