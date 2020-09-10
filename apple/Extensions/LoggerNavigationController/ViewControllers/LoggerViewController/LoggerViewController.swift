@@ -143,6 +143,11 @@ extension LoggerViewController: SortLogsViewDelegate {
         SortLogsHelper.saveDataToUserDefaults(dataToSave: sortParams)
         filteredDataSource = filterDataSource()
         collectionView.reloadData()
+
+        collectionView.performBatchUpdates(nil) { [weak self] _ in
+            guard let self = self else { return }
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 
     func initilizeSortData() {
