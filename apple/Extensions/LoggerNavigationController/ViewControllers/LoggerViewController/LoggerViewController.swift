@@ -141,12 +141,18 @@ extension LoggerViewController: SortLogsViewDelegate {
     func userPushButon(logType: LogLevel, selected: Bool) {
         sortParams[logType.rawValue] = selected
         SortLogsHelper.saveDataToUserDefaults(dataToSave: sortParams)
-        filteredDataSource = filterDataSource()
-        collectionView.reloadData()
-
-        collectionView.performBatchUpdates(nil) { [weak self] _ in
-            guard let self = self else { return }
-            self.collectionView.collectionViewLayout.invalidateLayout()
+        let newFilteredDataSource = filterDataSource()
+        if filteredDataSource != newFilteredDataSource {
+            filteredDataSource = newFilteredDataSource
+            collectionView.reloadData()
+            
+            collectionView.performBatchUpdates(nil) { [weak self] _ in
+                guard let self = self else { return }
+                self.collectionView.collectionViewLayout.invalidateLayout()
+                self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                 at: .centeredVertically,
+                                                 animated: false)
+            }
         }
     }
 
