@@ -48,7 +48,6 @@ class DetailedLoggerViewController: UIViewController, MFMailComposeViewControlle
     func prepareUI() {
         dateLabel.text = dateString
         loggerTypeView.backgroundColor = event?.level.toColor()
-        backgroundDataView.backgroundColor = UIColor.white
         backgroundDataView.roundCorners(radius: 10)
         if let event = event {
             logTypeLabel.text = event.level.toString()

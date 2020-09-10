@@ -22,7 +22,7 @@ final class LoggerViewCollectionFlowLayout: UICollectionViewFlowLayout {
         self.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         self.minimumInteritemSpacing = 10
         self.minimumLineSpacing = 10
-        self.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         self.headerReferenceSize = CGSize(width: 0, height: 0)
     }
     
