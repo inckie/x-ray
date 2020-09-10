@@ -48,10 +48,6 @@ class LoggerViewController: UIViewController {
         prepareLogger()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     func xibSetup() {
         guard let view = loadViewFromNib() else { return }
         view.frame = self.view.bounds
@@ -145,7 +141,7 @@ extension LoggerViewController: SortLogsViewDelegate {
         if filteredDataSource != newFilteredDataSource {
             filteredDataSource = newFilteredDataSource
             collectionView.reloadData()
-            
+
             collectionView.performBatchUpdates(nil) { [weak self] _ in
                 guard let self = self else { return }
                 self.collectionView.collectionViewLayout.invalidateLayout()
