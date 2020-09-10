@@ -16,13 +16,15 @@ class LoggerViewController: UIViewController {
     private let screenIdentifier = "LoggerScreen"
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var sortLogsView: SortLogsView!
+
     private(set) weak var inMemorySink: InMemory?
 
-    // IdentifierSink -> Obesrver
-    var dataSource: [Event] = []
+    var originalDataSource: [Event] = []
+    var filteredDataSource: [Event] = []
 
     var formatter: EventFormatterProtocol?
-
+    var sortParams = SortLogsHelper.dataFromUserDefaults()
     var asynchronously: Bool {
         get {
             return false
@@ -35,19 +37,19 @@ class LoggerViewController: UIViewController {
     public var format = "yyyy-MM-dd HH:mm:ssZ"
 
     deinit {
-        inMemorySink?.removeObserver(identifier: screenIdentifier)
         inMemorySink = nil
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         xibSetup()
+        initilizeSortData()
+        collectionViewSetup()
+        prepareLogger()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionViewSetup()
-        prepareLogger()
     }
 
     func xibSetup() {
@@ -62,12 +64,10 @@ class LoggerViewController: UIViewController {
         title = "Logger Screen"
 
         let inMemorySink = XrayLogger.sharedInstance.getSink("InMemorySink") as? InMemory
-        inMemorySink?.addObserver(identifier: screenIdentifier,
-                                  item: self)
         self.inMemorySink = inMemorySink
         if let events = inMemorySink?.events {
-            dataSource = events
-
+            originalDataSource = events
+            filteredDataSource = filterDataSource()
             // invalidate layout during presentation anumation
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.collectionView.collectionViewLayout.invalidateLayout()
@@ -111,7 +111,7 @@ extension LoggerViewController: UICollectionViewDelegate {
         let bundle = Bundle(for: type(of: self))
         let detailedViewController = DetailedLoggerViewController(nibName: "DetailedLoggerViewController",
                                                                   bundle: bundle)
-        let event = dataSource[indexPath.row]
+        let event = filteredDataSource[indexPath.row]
         detailedViewController.event = event
         detailedViewController.dateString = dateStringFromEvent(event: event)
         navigationController?.pushViewController(detailedViewController,
@@ -122,13 +122,13 @@ extension LoggerViewController: UICollectionViewDelegate {
 extension LoggerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return filteredDataSource.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier,
                                                       for: indexPath) as! LoggerCell
-        let event = dataSource[indexPath.row]
+        let event = filteredDataSource[indexPath.row]
         let formattedDate = dateStringFromEvent(event: event)
         cell.updateCell(event: event,
                         dateString: formattedDate)
@@ -137,10 +137,25 @@ extension LoggerViewController: UICollectionViewDataSource {
     }
 }
 
-extension LoggerViewController: InMemoryObserverProtocol {
-    func eventRecieved(event: Event,
-                       eventsList: [Event]) {
-        dataSource = eventsList
+extension LoggerViewController: SortLogsViewDelegate {
+    func userPushButon(logType: LogLevel, selected: Bool) {
+        sortParams[logType.rawValue] = selected
+        SortLogsHelper.saveDataToUserDefaults(dataToSave: sortParams)
+        filteredDataSource = filterDataSource()
         collectionView.reloadData()
+    }
+
+    func initilizeSortData() {
+        sortLogsView.delegate = self
+        sortLogsView.initializeButtons(defaultStates: sortParams)
+    }
+
+    func filterDataSource() -> [Event] {
+        return originalDataSource.filter { (event) -> Bool in
+            if let selected = sortParams[event.level.rawValue] {
+                return selected
+            }
+            return false
+        }
     }
 }
