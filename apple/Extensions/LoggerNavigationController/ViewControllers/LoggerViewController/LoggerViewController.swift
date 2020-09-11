@@ -15,6 +15,7 @@ class LoggerViewController: UIViewController {
     private let cellIdentifier = "LoggerCell"
     private let screenIdentifier = "LoggerScreen"
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var sortLogsView: SortLogsView!
 
@@ -35,6 +36,7 @@ class LoggerViewController: UIViewController {
 
     let dateFormatter = DateFormatter()
     public var format = "yyyy-MM-dd HH:mm:ssZ"
+    var subSystemFilter: String?
 
     deinit {
         inMemorySink = nil
@@ -100,6 +102,24 @@ class LoggerViewController: UIViewController {
     @IBAction func exportData(_ sender: UIBarButtonItem) {
         Reporter.requestSendEmail()
     }
+
+    func reloadCollectionViewWithFilters() {
+        let newFilteredDataSource = filterDataSource()
+        if filteredDataSource != newFilteredDataSource {
+            filteredDataSource = newFilteredDataSource
+            collectionView.reloadData()
+
+            collectionView.performBatchUpdates(nil) { [weak self] _ in
+                guard let self = self else { return }
+                self.collectionView.collectionViewLayout.invalidateLayout()
+                if self.filteredDataSource.count > 0 {
+                    self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                     at: .centeredVertically,
+                                                     animated: false)
+                }
+            }
+        }
+    }
 }
 
 extension LoggerViewController: UICollectionViewDelegate {
@@ -137,19 +157,7 @@ extension LoggerViewController: SortLogsViewDelegate {
     func userPushButon(logType: LogLevel, selected: Bool) {
         sortParams[logType.rawValue] = selected
         SortLogsHelper.saveDataToUserDefaults(dataToSave: sortParams)
-        let newFilteredDataSource = filterDataSource()
-        if filteredDataSource != newFilteredDataSource {
-            filteredDataSource = newFilteredDataSource
-            collectionView.reloadData()
-
-            collectionView.performBatchUpdates(nil) { [weak self] _ in
-                guard let self = self else { return }
-                self.collectionView.collectionViewLayout.invalidateLayout()
-                self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
-                                                 at: .centeredVertically,
-                                                 animated: false)
-            }
-        }
+        reloadCollectionViewWithFilters()
     }
 
     func initilizeSortData() {
@@ -160,9 +168,39 @@ extension LoggerViewController: SortLogsViewDelegate {
     func filterDataSource() -> [Event] {
         return originalDataSource.filter { (event) -> Bool in
             if let selected = sortParams[event.level.rawValue] {
-                return selected
+                if let subSystemFilter = subSystemFilter {
+                    return event.subsystem.contains(subSystemFilter) && selected == true
+                } else {
+                    return selected
+                }
             }
             return false
+        }
+    }
+}
+
+extension LoggerViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if let text = searchBar.text,
+            text.count > 0 {
+            searchBar.text = searchBar.text?.lowercased().trimmingCharacters(in: .whitespaces)
+            subSystemFilter = searchBar.text?.lowercased()
+            // TODO: maybe not check when less than 3 char
+        } else {
+            subSystemFilter = nil
+        }
+        reloadCollectionViewWithFilters()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
         }
     }
 }
