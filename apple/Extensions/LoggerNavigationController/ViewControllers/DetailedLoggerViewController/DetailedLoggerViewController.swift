@@ -60,6 +60,7 @@ class DetailedLoggerViewController: UIViewController, MFMailComposeViewControlle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Single Log"
         prepareUI()
     }
 }
