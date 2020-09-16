@@ -61,7 +61,7 @@ class LoggerViewController: UIViewController {
     func prepareLogger() {
         title = "Logger Screen"
 
-        let inMemorySink = XrayLogger.sharedInstance.getSink("InMemorySink") as? InMemory
+        let inMemorySink = Xray.sharedInstance.getSink("InMemorySink") as? InMemory
         self.inMemorySink = inMemorySink
         if let events = inMemorySink?.events {
             originalDataSource = events
