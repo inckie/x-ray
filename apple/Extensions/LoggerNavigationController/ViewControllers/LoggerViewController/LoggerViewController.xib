@@ -29,40 +29,40 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eue-RX-Mda" customClass="LogButton" customModule="LoggerInfo" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="67" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                                    <state key="normal" title="Button"/>
+                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                    <state key="normal" title="VERBOSE"/>
                                     <connections>
                                         <action selector="handleLogType:" destination="20q-sV-6nt" eventType="touchUpInside" id="x49-be-3Yf"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oyh-9M-74Q" customClass="LogButton" customModule="LoggerInfo" customModuleProvider="target">
                                     <rect key="frame" x="72" y="0.0" width="67" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                                    <state key="normal" title="Button"/>
+                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                    <state key="normal" title="DEBUG"/>
                                     <connections>
                                         <action selector="handleLogType:" destination="20q-sV-6nt" eventType="touchUpInside" id="tZ0-lR-pBI"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNP-HS-ZrH" customClass="LogButton" customModule="LoggerInfo" customModuleProvider="target">
                                     <rect key="frame" x="144" y="0.0" width="67" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                                    <state key="normal" title="Button"/>
+                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                    <state key="normal" title="INFO"/>
                                     <connections>
                                         <action selector="handleLogType:" destination="20q-sV-6nt" eventType="touchUpInside" id="zMd-dX-DeZ"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qd4-ZT-qAg" customClass="LogButton" customModule="LoggerInfo" customModuleProvider="target">
                                     <rect key="frame" x="216" y="0.0" width="67" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                                    <state key="normal" title="Button"/>
+                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                    <state key="normal" title="WARNING"/>
                                     <connections>
                                         <action selector="handleLogType:" destination="20q-sV-6nt" eventType="touchUpInside" id="ScU-FW-BSl"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3M-rV-RU0" customClass="LogButton" customModule="LoggerInfo" customModuleProvider="target">
                                     <rect key="frame" x="288" y="0.0" width="67" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                                    <state key="normal" title="Button"/>
+                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="13"/>
+                                    <state key="normal" title="ERROR"/>
                                     <connections>
                                         <action selector="handleLogType:" destination="20q-sV-6nt" eventType="touchUpInside" id="JQc-I1-s1L"/>
                                     </connections>
@@ -108,7 +108,7 @@
                         <constraint firstAttribute="height" constant="44" id="oWN-6e-f5c"/>
                     </constraints>
                     <items>
-                        <barButtonItem title="Export logs" id="Rrt-Ih-dTJ">
+                        <barButtonItem title="Export" id="Rrt-Ih-dTJ">
                             <connections>
                                 <action selector="exportData:" destination="-1" id="QRL-3Z-Y9P"/>
                             </connections>

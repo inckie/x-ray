@@ -1,5 +1,5 @@
 //
-//  XrayLogger.swift
+//  Xray.swift
 //  xray
 //
 //  Created by Anton Kononenko on 7/9/20.
@@ -46,8 +46,8 @@ public enum LogLevel: NSInteger {
     }
 }
 
-public class XrayLogger: NSObject {
-    public static let sharedInstance = XrayLogger()
+public class Xray: NSObject {
+    public static let sharedInstance = Xray()
 
     private let mapper = Mapper()
 
@@ -120,7 +120,7 @@ public class XrayLogger: NSObject {
     }
 }
 
-extension XrayLogger {
+extension Xray {
     func submit(event: Event) {
         let mapping = getMapping(event: event)
         if mapping.isEmpty == false {
