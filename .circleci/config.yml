@@ -59,6 +59,11 @@ jobs:
           command: ./gradlew :xray-crashreporter:assembleRelease
 
       - run:
+          name: Build xray-ui
+          working_directory: android
+          command: ./gradlew :xray-ui:assembleRelease
+
+      - run:
           name: Upload Bintray
           working_directory: android
           command: |
@@ -66,6 +71,7 @@ jobs:
               ./gradlew :xray-core:bintrayUpload
               ./gradlew :xray-notification:bintrayUpload
               ./gradlew :xray-crashreporter:bintrayUpload
+              ./gradlew :xray-ui:bintrayUpload
             fi
 
   publish_bintray:

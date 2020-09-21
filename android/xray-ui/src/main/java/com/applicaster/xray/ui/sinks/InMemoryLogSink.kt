@@ -1,4 +1,4 @@
-package com.applicaster.xray.example.sinks
+package com.applicaster.xray.ui.sinks
 
 import android.os.Handler
 import android.os.Looper
@@ -12,11 +12,11 @@ class InMemoryLogSink : ISink {
     private val events: MutableList<Event> = ArrayList()
     private val handler = Handler(Looper.getMainLooper())
     private val liveData: MutableLiveData<List<Event>> =
-        object : MutableLiveData<List<Event>>() {
-            init {
-                value = events
+            object : MutableLiveData<List<Event>>() {
+                init {
+                    value = events
+                }
             }
-        }
 
     override fun log(event: Event) {
         handler.post { add(event) }

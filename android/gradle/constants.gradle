@@ -6,14 +6,14 @@ def xrayAPI(dependencies, projectName) {
         // pass dependency to POM builder
         def dependencyNode = new Node(null, 'dependency')
         dependencyNode.appendNode('groupId', project.ext.GROUP)
-        dependencyNode.appendNode('artifactId', projectName)
+        dependencyNode.appendNode('artifactId', projectName.substring(1))
         dependencyNode.appendNode('version', project.ext.releaseVersion)
         project.ext.xrayDependencies += dependencyNode
     }
 }
 
 project.ext {
-    releaseVersion = '0.0.4-alpha'
+    releaseVersion = '0.0.11-alpha'
     releaseVersionCode = 1
     minSdkVersion = 19
     appTargetSdkVersion = 29

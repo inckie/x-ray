@@ -1,4 +1,4 @@
-package com.applicaster.xray.example.utility
+package com.applicaster.xray.ui.utility
 
 import com.applicaster.xray.core.Event
 import com.google.gson.GsonBuilder
