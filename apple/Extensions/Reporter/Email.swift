@@ -70,7 +70,7 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
             mail.mailComposeDelegate = self
             presentController(vc: mail)
         } else {
-            let alert = UIAlertController(title: "Can not send email", message: "Please check if your device has configured email", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Cannot send email", message: "Please check if your device has email configured", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             presentController(vc: alert)
