@@ -68,9 +68,12 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
             }
 
             mail.mailComposeDelegate = self
-            presentMailCompose(mail: mail)
+            presentController(vc: mail)
         } else {
-            print("Can not to send email")
+            let alert = UIAlertController(title: "Can not send email", message: "Please check if your device has configured email", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            presentController(vc: alert)
         }
     }
 
@@ -87,9 +90,9 @@ class Email: NSObject, MFMailComposeViewControllerDelegate {
         return retVal
     }
 
-    func presentMailCompose(mail: MFMailComposeViewController) {
+    func presentController(vc: UIViewController) {
         if let viewController = UIApplication.topViewController() {
-            viewController.present(mail,
+            viewController.present(vc,
                                    animated: true,
                                    completion: nil)
         }
