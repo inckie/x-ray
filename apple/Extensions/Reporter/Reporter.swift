@@ -26,7 +26,7 @@ public class Reporter {
 
     public static func requestSendEmail() {
         guard let sharedEmails = sharedEmails else {
-            print("Can not send email, at least one sender must be defined")
+            print("Cannot send email, at least one sender must be defined")
             return
         }
         sharedInstance.email.requestSendEmail(emails: sharedEmails,
@@ -37,7 +37,7 @@ public class Reporter {
 
     public static func requestSendCustomEmail(attachments: [EmailAttachment]? = nil) {
         guard let emails = sharedEmails else {
-            print("Can not send email, at least one sender must be defined")
+            print("Cannot send email, at least one sender must be defined")
             return
         }
 
