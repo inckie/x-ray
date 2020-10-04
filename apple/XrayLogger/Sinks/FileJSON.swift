@@ -16,7 +16,17 @@ public class FileJSON: BaseSink, Storable {
     let fileManager = FileManager.default
     let defaultsSuite: String = "Xray_FileJSON"
     let defaultsAppVersionKey: String = "current_application_version"
-
+    var cleanLogfileEvent: Event {
+        return Event(category: "",
+                     subsystem: "Sink.FileJSON",
+                     timestamp: UInt(Date().timeIntervalSince1970),
+                     level: .verbose,
+                     message: "Events log cleaned",
+                     data: nil,
+                     context: nil,
+                     exception: nil)
+    }
+    
     public init(fileName: String? = nil) {
         let fileName = fileName ?? "xray_file.json"
 
@@ -75,6 +85,9 @@ public class FileJSON: BaseSink, Storable {
     private func deleteLogFileIfNeeded(url: URL) {
         if isFileSizeLimitRiched(url: url) == true {
             _ = deleteLogFile()
+            
+            //save event of log file cleanup
+            log(event: cleanLogfileEvent)
         }
     }
 
