@@ -58,6 +58,19 @@ class LoggerViewController: UIViewController {
         prepareLogger()
     }
 
+//
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            layout.estimatedItemSize = CGSize(width: self.collectionView.frame.size.width, height: 200)
+//            layout.invalidateLayout()
+//        }
+//
+//    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+
     func xibSetup() {
         guard let view = loadViewFromNib() else { return }
         view.frame = self.view.bounds
@@ -74,19 +87,13 @@ class LoggerViewController: UIViewController {
         if let events = inMemorySink?.events {
             originalDataSource = events
             filterDataSource()
-            // invalidate layout during presentation animation
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.collectionView.collectionViewLayout.invalidateLayout()
-            }
+//            collectionView.reloadData()
         }
     }
 
     func collectionViewSetup() {
-        let collectionViewFlowLayout = LoggerViewCollectionFlowLayout()
-        collectionView?.collectionViewLayout = collectionViewFlowLayout
-        collectionView?.contentInsetAdjustmentBehavior = .always
-
         let bundle = Bundle(for: type(of: self))
+
         collectionView?.register(UINib(nibName: cellIdentifier,
                                        bundle: bundle),
                                  forCellWithReuseIdentifier: cellIdentifier)
@@ -110,7 +117,7 @@ class LoggerViewController: UIViewController {
     @IBAction func exportData(_ sender: UIBarButtonItem) {
         Reporter.requestSendEmail()
     }
-    
+
     @IBAction func close(_ sender: UIBarButtonItem) {
         let presenter = UIApplication.shared.keyWindow?.rootViewController
         presenter?.presentedViewController?.dismiss(animated: true, completion: nil)
@@ -135,8 +142,10 @@ class LoggerViewController: UIViewController {
             DataSortFilterHelper.saveDataToUserDefaults(dataToSave: filterModels)
             filterDataSource()
             collectionView.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.collectionView.collectionViewLayout.invalidateLayout()
+            if self.filteredDataSourceByType.count > 0 {
+                self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                 at: .top,
+                                                 animated: false)
             }
         }
     }
@@ -189,6 +198,12 @@ extension LoggerViewController: UICollectionViewDataSource {
     }
 }
 
+extension LoggerViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.size.width, height: 120)
+    }
+}
+
 extension LoggerViewController: SortLogsViewDelegate {
     func userPushButon(logType: LogLevel, selected: Bool) {
         sortParams[logType.rawValue] = selected
@@ -201,15 +216,10 @@ extension LoggerViewController: SortLogsViewDelegate {
         if filteredDataSourceByType != newFilteredDataSource {
             filteredDataSourceByType = newFilteredDataSource
             collectionView.reloadData()
-
-            collectionView.performBatchUpdates(nil) { [weak self] _ in
-                guard let self = self else { return }
-                self.collectionView.collectionViewLayout.invalidateLayout()
-                if self.filteredDataSourceByType.count > 0 {
-                    self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
-                                                     at: .centeredVertically,
-                                                     animated: false)
-                }
+            if self.filteredDataSourceByType.count > 0 {
+                self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                 at: .top,
+                                                 animated: false)
             }
         }
     }
