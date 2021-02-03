@@ -12,21 +12,19 @@ import MessageUI
 public protocol StorableSinkDelegate {
     func getLogFileUrl(_ completion: ((URL?) -> Void)?)
     func deleteLogFile()
+    func getDefaultContexts() -> [String: String]?
 }
 
 public class Reporter {
     public static let sharedInstance = Reporter()
     public private(set) static var sharedEmails: [String]?
     public private(set) static var sharedLogFileSinkDelegate: StorableSinkDelegate?
-    public private(set) static var sharedContexts: [String: Any]?
     var email = Email()
 
     public static func setDefaultData(emails: [String],
-                                      logFileSinkDelegate: StorableSinkDelegate?,
-                                      contexts: [String: Any]?) {
+                                      logFileSinkDelegate: StorableSinkDelegate?) {
         sharedEmails = emails
         sharedLogFileSinkDelegate = logFileSinkDelegate
-        sharedContexts = contexts
     }
 
     public static func requestSendEmail() {
@@ -41,12 +39,12 @@ public class Reporter {
             sharedInstance.email.presentController(vc: alert)
             return
         }
-
+        
         sharedLogFileSinkDelegate?.getLogFileUrl({ url in
             if let url = url {
                 sharedInstance.email.requestSendEmail(emails: sharedEmails,
                                                       sharedFileURL: url,
-                                                      contexts: sharedContexts,
+                                                      contexts: contexts,
                                                       attachments: nil,
                                                       completion: {
                                                           sharedLogFileSinkDelegate?.deleteLogFile()
@@ -63,10 +61,14 @@ public class Reporter {
 
         sharedInstance.email.requestSendEmail(emails: emails,
                                               sharedFileURL: nil,
-                                              contexts: sharedContexts,
+                                              contexts: contexts,
                                               attachments: attachments,
                                               completion: {
                                                   sharedLogFileSinkDelegate?.deleteLogFile()
                                               })
+    }
+    
+    static var contexts:[String: Any]? {
+        return sharedLogFileSinkDelegate?.getDefaultContexts()
     }
 }
