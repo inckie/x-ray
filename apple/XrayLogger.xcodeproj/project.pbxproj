@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,7 +16,7 @@
 		4066C04424B76F7200E05A01 /* XrayLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C04324B76F7200E05A01 /* XrayLoggerTests.swift */; };
 		4066C04624B76F7200E05A01 /* xray.h in Headers */ = {isa = PBXBuildFile; fileRef = 4066C03824B76F7100E05A01 /* xray.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4066C05124B76FBA00E05A01 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05024B76FBA00E05A01 /* Event.swift */; };
-		4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05224B7785300E05A01 /* XrayLogger.swift */; };
+		4066C05324B7785300E05A01 /* Xray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05224B7785300E05A01 /* Xray.swift */; };
 		4066C05624B81B1B00E05A01 /* SinkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066C05524B81B1B00E05A01 /* SinkProtocol.swift */; };
 		408E9A5B24BE5A2300E4736A /* BaseSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A5A24BE5A2300E4736A /* BaseSink.swift */; };
 		408E9A5D24BF4F4100E4736A /* EventFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A5C24BF4F4100E4736A /* EventFormatterProtocol.swift */; };
@@ -24,6 +24,7 @@
 		408E9A6424BF5E2A00E4736A /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A6324BF5E2A00E4736A /* Console.swift */; };
 		408E9A6824BF721B00E4736A /* DefaultSinkFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A6724BF721B00E4736A /* DefaultSinkFilter.swift */; };
 		408E9A6B24BF73B600E4736A /* DisabledSinkFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408E9A6A24BF73B600E4736A /* DisabledSinkFilter.swift */; };
+		40A5BBCC26F5230800649521 /* LocalServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5BBCB26F5230800649521 /* LocalServer.swift */; };
 		40E697F024B8C4ED004A0A05 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */; };
 		40E697F224B8C502004A0A05 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E697F124B8C502004A0A05 /* Logger.swift */; };
 		40F4627E24CA1D9B00D7046C /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F4627D24CA1D9B00D7046C /* Storable.swift */; };
@@ -62,7 +63,7 @@
 		4066C04324B76F7200E05A01 /* XrayLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayLoggerTests.swift; sourceTree = "<group>"; };
 		4066C04524B76F7200E05A01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4066C05024B76FBA00E05A01 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		4066C05224B7785300E05A01 /* XrayLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayLogger.swift; sourceTree = "<group>"; };
+		4066C05224B7785300E05A01 /* Xray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xray.swift; sourceTree = "<group>"; };
 		4066C05524B81B1B00E05A01 /* SinkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkProtocol.swift; sourceTree = "<group>"; };
 		408E9A5A24BE5A2300E4736A /* BaseSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSink.swift; sourceTree = "<group>"; };
 		408E9A5C24BF4F4100E4736A /* EventFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFormatterProtocol.swift; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		408E9A6324BF5E2A00E4736A /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		408E9A6724BF721B00E4736A /* DefaultSinkFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSinkFilter.swift; sourceTree = "<group>"; };
 		408E9A6A24BF73B600E4736A /* DisabledSinkFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledSinkFilter.swift; sourceTree = "<group>"; };
+		40A5BBCB26F5230800649521 /* LocalServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServer.swift; sourceTree = "<group>"; };
 		40E697EF24B8C4ED004A0A05 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
 		40E697F124B8C502004A0A05 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		40F4627D24CA1D9B00D7046C /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
@@ -206,7 +208,7 @@
 				40E697F324B8C6C7004A0A05 /* Logger */,
 				40E697EE24B8C4D0004A0A05 /* Events */,
 				4066C05424B81AFD00E05A01 /* Protocols */,
-				4066C05224B7785300E05A01 /* XrayLogger.swift */,
+				4066C05224B7785300E05A01 /* Xray.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				40F4628C24CA1FB900D7046C /* FileJSON.swift */,
+				40A5BBCB26F5230800649521 /* LocalServer.swift */,
 				40F4628D24CA1FB900D7046C /* FileLog.swift */,
 				40F4628B24CA1FB900D7046C /* InMemory.swift */,
 				408E9A6324BF5E2A00E4736A /* Console.swift */,
@@ -288,6 +291,7 @@
 		40F4628824CA1F6300D7046C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				40FBBCF424B91DF800BB6423 /* Mapper.swift */,
 				40F4628924CA1F6300D7046C /* LoggerUtils.swift */,
 			);
 			path = Utils;
@@ -315,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				40F4628824CA1F6300D7046C /* Utils */,
-				40FBBCF424B91DF800BB6423 /* Mapper.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -376,7 +379,6 @@
 				4066C03A24B76F7200E05A01 /* Sources */,
 				4066C03B24B76F7200E05A01 /* Frameworks */,
 				4066C03C24B76F7200E05A01 /* Resources */,
-				E1C9A3F6401BB9EBBE220F8A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -488,23 +490,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E1C9A3F6401BB9EBBE220F8A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XrayLogger-XrayLoggerTests/Pods-XrayLogger-XrayLoggerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -523,9 +508,10 @@
 				4066C05124B76FBA00E05A01 /* Event.swift in Sources */,
 				40F4628F24CA1FB900D7046C /* FileJSON.swift in Sources */,
 				408E9A5B24BE5A2300E4736A /* BaseSink.swift in Sources */,
-				4066C05324B7785300E05A01 /* XrayLogger.swift in Sources */,
+				4066C05324B7785300E05A01 /* Xray.swift in Sources */,
 				4066467124BCB984005832AC /* SinkFilterProtocol.swift in Sources */,
 				40F4629024CA1FB900D7046C /* FileLog.swift in Sources */,
+				40A5BBCC26F5230800649521 /* LocalServer.swift in Sources */,
 				408E9A6B24BF73B600E4736A /* DisabledSinkFilter.swift in Sources */,
 				40FBBCF524B91DF800BB6423 /* Mapper.swift in Sources */,
 				408E9A6024BF56A500E4736A /* DefaultEventFormatter.swift in Sources */,
