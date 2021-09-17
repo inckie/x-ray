@@ -7,8 +7,6 @@ target 'XrayLogger' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'SwiftyBeaver'
-
   target 'XrayLoggerTests' do
     # Pods for testing
   end
