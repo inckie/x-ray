@@ -10,6 +10,11 @@ import Foundation
 
 public class LocalServer: BaseSink {
     public var syncAfterEachWrite: Bool = false
+    let localHostUrlString: String
+
+    public init(localHostUrlString: String) {
+        self.localHostUrlString = localHostUrlString
+    }
 
     override public func log(event: Event) {
         let dict = event.toDictionary()
@@ -21,7 +26,7 @@ public class LocalServer: BaseSink {
                                                   options: [])
 
             let session = URLSession.shared
-            guard let url = URL(string: "localhost:9080") else {
+            guard let url = URL(string: "http://\(localHostUrlString)/postEvent") else {
                 return
             }
             var request = URLRequest(url: url)
@@ -29,9 +34,12 @@ public class LocalServer: BaseSink {
             request.setValue("application/json",
                              forHTTPHeaderField: "Content-Type")
             request.httpBody = data
-            let task = session.dataTask(with: request){ data, response, error in
-                print(data, response, error)
+            let task = session.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print(error)
+                }
             }
+            task.resume()
         } catch {
             print(error)
         }
