@@ -16,7 +16,9 @@ Pod::Spec.new do |s|
   s.author = { 'a.kononenko@applicaster.com' => 'a.kononenko@applicaster.com' }
   s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: '0.0.1' }
   s.dependency 'XrayLogger'
-  s.source_files = [
+  s.ios.source_files = [
     'Extensions/Reporter/**/*.{swift}'
   ]
+  s.tvos.source_files = 'Extensions/Reporter/dummy.swift'
+  
 end
