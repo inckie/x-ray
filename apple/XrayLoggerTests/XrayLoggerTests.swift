@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import xray
+@testable import XrayLogger
 
 class XrayLogger: XCTestCase {
 

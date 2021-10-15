@@ -96,7 +96,8 @@ public enum NetworkRequestStatusCode: NSInteger {
 
 public class Xray: NSObject {
     public static let sharedInstance = Xray()
-
+    private let queue = DispatchQueue(label: "XrayQueue")
+    
     private let mapper = Mapper()
 
     public private(set) var sinks: [String: SinkProtocol] = [:] {
@@ -123,7 +124,7 @@ public class Xray: NSObject {
     /// returns boolean about success
     @discardableResult
     open func getSink(_ indentifier: String) -> SinkProtocol? {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             guard let sink = sinks[indentifier] else {
                 return nil
             }
@@ -134,7 +135,7 @@ public class Xray: NSObject {
     /// returns boolean about success
     @discardableResult
     open func removeSink(by indentifier: String) -> Bool {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             guard sinks[indentifier] != nil else {
                 return false
             }
@@ -146,7 +147,7 @@ public class Xray: NSObject {
     /// returns boolean about success
     @discardableResult
     open func removeSink(by sink: SinkProtocol) -> Bool {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             let itemToDelete = sinks.first { (item) -> Bool in
                 // CHeck if it is working
                 item.value === sink
@@ -162,7 +163,7 @@ public class Xray: NSObject {
 
     /// if you need to start fresh
     open func reset() {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             sinks.removeAll()
         }
     }
@@ -188,7 +189,7 @@ extension Xray {
     }
 
     func getMapping(event: Event) -> [SinkProtocol] {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             var retVal: [SinkProtocol] = []
             guard let enabledSinks = mapper.getMapping(loggerSubsystem: event.subsystem,
                                                        category: event.category,
@@ -207,7 +208,7 @@ extension Xray {
     func hasSinks(loggerSubsystem: String,
                   category: String,
                   logLevel: LogLevel) -> Bool {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             mapper.hasSinks(loggerSubsystem: loggerSubsystem,
                             category: category,
                             logLevel: logLevel)
@@ -217,7 +218,7 @@ extension Xray {
     public func setFilter(loggerSubsystem: String,
                           sinkIdentifier: String,
                           filter: SinkFilterProtocol?) {
-        DispatchQueue.global(qos: .default).sync {
+        queue.sync {
             mapper.setFilter(loggerSubsystem: loggerSubsystem,
                              sinkIdentifier: sinkIdentifier,
                              filter: filter)
