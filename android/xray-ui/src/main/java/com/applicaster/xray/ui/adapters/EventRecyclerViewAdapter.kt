@@ -34,7 +34,7 @@ class EventRecyclerViewAdapter(
 
     private var values: List<Event> = observableEventList.value!!
 
-    private var gson = GsonBuilder().setPrettyPrinting().create()
+    private var gson = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create()
 
     // No IdentityHashSet available and we can't provide custom compare function in set in Java
     // Comparing the entire Event is not needed, and we can't use indexes
