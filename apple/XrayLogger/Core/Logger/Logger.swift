@@ -9,6 +9,9 @@
 import Foundation
 
 public class Logger: NSObject {
+    private let concurrentQueue = DispatchQueue(label: "logger.concurrent",
+                                                attributes: .concurrent)
+
     static let rootLogger = Logger(subsystem: "",
                                    parent: nil)
     public let subsystem: String
@@ -31,7 +34,9 @@ public class Logger: NSObject {
     func createChildLogger(subsystem: String) -> Logger {
         let childLogger = Logger(subsystem: subsystem,
                                  parent: self)
-        children[subsystem] = childLogger
+        concurrentQueue.async(flags: .barrier) {
+            self.children[subsystem] = childLogger
+        }
         return childLogger
     }
 
@@ -42,21 +47,22 @@ public class Logger: NSObject {
                            function: String = #function,
                            line: Int = #line,
                            args: [CVarArg] = []) {
-        let newData = populateData(data: data,
-                                   file: file,
-                                   function: function,
-                                   line: line,
-                                   includeCallStackSymbols: false)
-
-        EventBuilder.submit(subsystem: subsystem,
-                            logLevel: .verbose,
-                            category: category,
-                            data: newData,
-                            context: getFullContext(),
-                            messageFormatter: resolveMessageFormatter(),
-                            message: message,
-                            exception: nil,
-                            args: args)
+        concurrentQueue.sync {
+            let newData = populateData(data: data,
+                                       file: file,
+                                       function: function,
+                                       line: line,
+                                       includeCallStackSymbols: false)
+            EventBuilder.submit(subsystem: subsystem,
+                                logLevel: .verbose,
+                                category: category,
+                                data: newData,
+                                context: getFullContext(),
+                                messageFormatter: resolveMessageFormatter(),
+                                message: message,
+                                exception: nil,
+                                args: args)
+        }
     }
 
     public func debugLog(message: String,
@@ -66,21 +72,23 @@ public class Logger: NSObject {
                          function: String = #function,
                          line: Int = #line,
                          args: [CVarArg] = []) {
-        let newData = populateData(data: data,
-                                   file: file,
-                                   function: function,
-                                   line: line,
-                                   includeCallStackSymbols: false)
+        concurrentQueue.sync {
+            let newData = populateData(data: data,
+                                       file: file,
+                                       function: function,
+                                       line: line,
+                                       includeCallStackSymbols: false)
 
-        EventBuilder.submit(subsystem: subsystem,
-                            logLevel: .debug,
-                            category: category,
-                            data: newData,
-                            context: getFullContext(),
-                            messageFormatter: resolveMessageFormatter(),
-                            message: message,
-                            exception: nil,
-                            args: args)
+            EventBuilder.submit(subsystem: subsystem,
+                                logLevel: .debug,
+                                category: category,
+                                data: newData,
+                                context: getFullContext(),
+                                messageFormatter: resolveMessageFormatter(),
+                                message: message,
+                                exception: nil,
+                                args: args)
+        }
     }
 
     public func infoLog(message: String,
@@ -90,21 +98,23 @@ public class Logger: NSObject {
                         function: String = #function,
                         line: Int = #line,
                         args: [CVarArg] = []) {
-        let newData = populateData(data: data,
-                                   file: file,
-                                   function: function,
-                                   line: line,
-                                   includeCallStackSymbols: false)
+        concurrentQueue.sync {
+            let newData = populateData(data: data,
+                                       file: file,
+                                       function: function,
+                                       line: line,
+                                       includeCallStackSymbols: false)
 
-        EventBuilder.submit(subsystem: subsystem,
-                            logLevel: .info,
-                            category: category,
-                            data: newData,
-                            context: getFullContext(),
-                            messageFormatter: resolveMessageFormatter(),
-                            message: message,
-                            exception: nil,
-                            args: args)
+            EventBuilder.submit(subsystem: subsystem,
+                                logLevel: .info,
+                                category: category,
+                                data: newData,
+                                context: getFullContext(),
+                                messageFormatter: resolveMessageFormatter(),
+                                message: message,
+                                exception: nil,
+                                args: args)
+        }
     }
 
     public func warningLog(message: String,
@@ -114,21 +124,23 @@ public class Logger: NSObject {
                            function: String = #function,
                            line: Int = #line,
                            args: [CVarArg] = []) {
-        let newData = populateData(data: data,
-                                   file: file,
-                                   function: function,
-                                   line: line,
-                                   includeCallStackSymbols: false)
+        concurrentQueue.sync {
+            let newData = populateData(data: data,
+                                       file: file,
+                                       function: function,
+                                       line: line,
+                                       includeCallStackSymbols: false)
 
-        EventBuilder.submit(subsystem: subsystem,
-                            logLevel: .warning,
-                            category: category,
-                            data: newData,
-                            context: getFullContext(),
-                            messageFormatter: resolveMessageFormatter(),
-                            message: message,
-                            exception: nil,
-                            args: args)
+            EventBuilder.submit(subsystem: subsystem,
+                                logLevel: .warning,
+                                category: category,
+                                data: newData,
+                                context: getFullContext(),
+                                messageFormatter: resolveMessageFormatter(),
+                                message: message,
+                                exception: nil,
+                                args: args)
+        }
     }
 
     public func errorLog(message: String,
@@ -139,73 +151,81 @@ public class Logger: NSObject {
                          function: String = #function,
                          line: Int = #line,
                          args: [CVarArg] = []) {
-        let newData = populateData(data: data,
-                                   file: file,
-                                   function: function,
-                                   line: line,
-                                   includeCallStackSymbols: false)
+        concurrentQueue.sync {
+            let newData = populateData(data: data,
+                                       file: file,
+                                       function: function,
+                                       line: line,
+                                       includeCallStackSymbols: false)
 
-        EventBuilder.submit(subsystem: subsystem,
-                            logLevel: .error,
-                            category: category,
-                            data: newData,
-                            context: getFullContext(),
-                            messageFormatter: resolveMessageFormatter(),
-                            message: message,
-                            exception: exception,
-                            args: args)
-    }
-
-    func resolveMessageFormatter() -> MessageFormatterProtocol? {
-        DispatchQueue.global(qos: .default).sync {
-            guard let messageFormatter = messageFormatter else {
-                return parent != nil ? parent?.resolveMessageFormatter() : nil
-            }
-
-            return messageFormatter
+            EventBuilder.submit(subsystem: subsystem,
+                                logLevel: .error,
+                                category: category,
+                                data: newData,
+                                context: getFullContext(),
+                                messageFormatter: resolveMessageFormatter(),
+                                message: message,
+                                exception: exception,
+                                args: args)
         }
     }
 
-    func getFullContext() -> [String: Any] {
+    private func resolveMessageFormatter() -> MessageFormatterProtocol? {
+        guard let messageFormatter = messageFormatter else {
+            return parent != nil ? parent?.resolveMessageFormatter() : nil
+        }
+
+        return messageFormatter
+    }
+
+    private func getFullContext() -> [String: Any] {
         var retVal: [String: Any] = [:]
-        if let parent = parent {
-            retVal.merge(parent.getFullContext()) { _, new in new }
+        concurrentQueue.sync {
+            if let parent = parent {
+                retVal.merge(parent.getFullContext()) { _, new in new }
+            }
+            retVal.merge(context) { _, new in new }
         }
-        retVal.merge(context) { _, new in new }
         return retVal
     }
 
     public static func getLogger(for subsystem: String? = nil) -> Logger? {
         guard let subsystem = subsystem,
-            subsystem.isEmpty == false else {
+              subsystem.isEmpty == false else {
             return rootLogger
         }
         return rootLogger.child(for: subsystem)
     }
 
-    func getLogger(for subsystem: String) -> Logger? {
+    private func getLogger(for subsystem: String) -> Logger? {
         if self.subsystem == subsystem {
             return self
         }
+
         return child(for: subsystem)
     }
 
-    func child(for subsystem: String) -> Logger? {
-        if let searchedSubsystem = children[subsystem] {
+    private func child(for subsystem: String) -> Logger? {
+        var searchedSubsystem: Logger?
+        concurrentQueue.sync {
+            var searchedSubsystem = children[subsystem]
+        }
+        if let searchedSubsystem = searchedSubsystem {
             return searchedSubsystem
         }
 
-        if let nextSubsystemLevel = LoggerUtils.getNextSubsystem(subsystem: subsystem,
-                                                                 parentSubsystem: self.subsystem) {
-            return childInNextSubsystemLevel(targetSubsystem: subsystem,
-                                             nextSubsystemToSearch: nextSubsystemLevel)
+        return concurrentQueue.sync {
+            if let nextSubsystemLevel = LoggerUtils.getNextSubsystem(subsystem: subsystem,
+                                                                     parentSubsystem: self.subsystem) {
+                return childInNextSubsystemLevel(targetSubsystem: subsystem,
+                                                 nextSubsystemToSearch: nextSubsystemLevel)
+            }
+            return nil
         }
-
-        return nil
     }
 
-    func childInNextSubsystemLevel(targetSubsystem: String,
-                                   nextSubsystemToSearch: String) -> Logger? {
+    private func childInNextSubsystemLevel(targetSubsystem: String,
+                                           nextSubsystemToSearch: String) -> Logger? {
         if let searchedItem = children[nextSubsystemToSearch] {
             return searchedItem.getLogger(for: targetSubsystem)
         } else {
@@ -214,11 +234,11 @@ public class Logger: NSObject {
         }
     }
 
-    func populateData(data: [String: Any]?,
-                      file: String,
-                      function: String,
-                      line: Int,
-                      includeCallStackSymbols: Bool = false) -> [String: Any]? {
+    private func populateData(data: [String: Any]?,
+                              file: String,
+                              function: String,
+                              line: Int,
+                              includeCallStackSymbols: Bool = false) -> [String: Any]? {
         guard let data = data else {
             return nil
         }
