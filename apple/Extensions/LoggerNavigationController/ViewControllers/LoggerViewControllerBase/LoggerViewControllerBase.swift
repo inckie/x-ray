@@ -20,10 +20,10 @@ public enum LoggerViewType {
 public class LoggerViewControllerBase: UIViewController {
     private let screenIdentifier = "LoggerScreen"
     var className: String = ""
-    
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var resetFilterBarButtonItem: UIBarButtonItem!
+
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var resetFilterBarButtonItem: UIBarButtonItem!
 
     public weak var activeSink: BaseSink?
 
@@ -36,7 +36,11 @@ public class LoggerViewControllerBase: UIViewController {
     // Filtered models by filter DataSortFilterModel and log type buttons
     var filteredDataSourceByType: [Event] = []
 
-    var filterModels: [DataSortFilterModel] = []
+    var filterModels: [DataSortFilterModel] {
+        LoggerFiltersViewController.filters.map({ (key: LoggerFiltersViewController.FilterType, value: String) in
+            DataSortFilterModel(type: key, filterText: value, isEnabled: true)
+        })
+    }
 
     var formatter: EventFormatterProtocol?
     var asynchronously: Bool {
@@ -46,10 +50,10 @@ public class LoggerViewControllerBase: UIViewController {
         set(newValue) {
         }
     }
-    
+
     var sortParams: [Int: Bool] = [:]
     var loggerType: LoggerViewType = .undefined
-    
+
     let dateFormatter = DateFormatter()
     public var format = "yyyy-MM-dd HH:mm:ssZ"
 
@@ -57,25 +61,29 @@ public class LoggerViewControllerBase: UIViewController {
         activeSink = nil
     }
 
-    public override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
         className = "\(type(of: self))"
-        
+
         xibSetup()
-        filtersSetup()
         initilizeSortData()
         collectionViewSetup()
         prepareLogger()
     }
 
-    public override func viewDidLayoutSubviews() {
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+    }
+
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
 
-    func filtersSetup() {
-        filterModels = DataSortFilterHelper.dataFromUserDefaults(source: className)
-    }
-    
     func xibSetup() {
         guard let view = loadViewFromNib() else { return }
         view.frame = self.view.bounds
@@ -85,21 +93,21 @@ public class LoggerViewControllerBase: UIViewController {
     }
 
     func prepareLogger() {
-        //override in child classes
+        // override in child classes
     }
-    
+
     func getSortParams() -> [Int: Bool] {
-        //override in child classes
+        // override in child classes
         return [:]
     }
-    
+
     func getCellIdentifier() -> String {
-        //override in child classes
+        // override in child classes
         return "undefined"
     }
-    
+
     func initilizeSortData() {
-        //override in child classes
+        // override in child classes
         sortParams = getSortParams()
     }
 
@@ -111,7 +119,7 @@ public class LoggerViewControllerBase: UIViewController {
                                  forCellWithReuseIdentifier: getCellIdentifier())
     }
 
-    //override in child classes
+    // override in child classes
     func loadViewFromNib() -> UIView? {
         let nibName = className
         let bundle = Bundle(for: type(of: self))
@@ -137,29 +145,53 @@ public class LoggerViewControllerBase: UIViewController {
     }
 
     @IBAction func presentFilterViewController(_ sender: UIBarButtonItem) {
-        let filterViewController = FilterViewController(nibName: "FilterViewController",
-                                                        bundle: Bundle(for: type(of: self)))
-        filterViewController.filterModels = filterModels
-        filterViewController.delegate = self
-        navigationController?.pushViewController(filterViewController,
-                                                 animated: true)
+        let vc = LoggerFiltersViewController(nibName: "LoggerFiltersViewController",
+                                             bundle: Bundle(for: type(of: self)))
+
+        struct Params {
+            static let initialPopupHeight = 430.0
+        }
+
+        vc.applyFilters = { [weak self] _ in
+            self?.applyNewFilters()
+        }
+
+        vc.keyboardHeightChanged = { [weak self] keyboardHeight in
+            // handle keyboard presentation change
+            let updatedHeight = Params.initialPopupHeight + keyboardHeight
+            guard let popupVC = self?.presentedViewController as? PopupViewController else {
+                return
+            }
+            UIView.animate(withDuration: 1.2) {
+                popupVC.heightConstraint?.constant = updatedHeight
+            }
+        }
+
+        let popupVC = PopupViewController(contentController: vc,
+                                          position: .bottom(0),
+                                          popupWidth: view.frame.width,
+                                          popupHeight: Params.initialPopupHeight)
+        popupVC.cornerRadius = 15
+        popupVC.backgroundAlpha = 0.0
+        popupVC.backgroundColor = .clear
+        popupVC.canTapOutsideToDismiss = true
+        popupVC.shadowEnabled = true
+        popupVC.modalPresentationStyle = .popover
+        present(popupVC, animated: true, completion: nil)
     }
 
     @IBAction func resetFilter(_ sender: UIBarButtonItem) {
-        applyNewFilters(newData: [])
+        LoggerFiltersViewController.filters = [:]
+        applyNewFilters()
     }
 
-    func applyNewFilters(newData: [DataSortFilterModel]) {
-        if filterModels != newData {
-            filterModels = newData
-            DataSortFilterHelper.saveDataToUserDefaults(source: className, dataToSave: filterModels)
-            filterDataSource()
-            collectionView.reloadData()
-            if self.filteredDataSourceByType.count > 0 {
-                self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
-                                                 at: .top,
-                                                 animated: false)
-            }
+    func applyNewFilters() {
+        filterDataSource()
+        collectionView.reloadData()
+        if filteredDataSourceByType.count > 0 {
+            collectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                        at: .top,
+                                        animated: false)
         }
     }
 
@@ -171,7 +203,7 @@ public class LoggerViewControllerBase: UIViewController {
     }
 
     func filterDataSourceByType() -> [Event] {
-        //override in child classes
+        // override in child classes
         return []
     }
 }
@@ -192,7 +224,7 @@ extension LoggerViewControllerBase: UICollectionViewDelegate {
 
 extension LoggerViewControllerBase: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
+                               numberOfItemsInSection section: Int) -> Int {
         return filteredDataSourceByType.count
     }
 
@@ -202,7 +234,7 @@ extension LoggerViewControllerBase: UICollectionViewDataSource {
         let event = filteredDataSourceByType[indexPath.row]
         let formattedDate = dateStringFromEvent(event: event)
         cell?.updateCell(event: event,
-                        dateString: formattedDate)
+                         dateString: formattedDate)
 
         return cell as! UICollectionViewCell
     }
@@ -211,11 +243,5 @@ extension LoggerViewControllerBase: UICollectionViewDataSource {
 extension LoggerViewControllerBase: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width, height: 120)
-    }
-}
-
-extension LoggerViewControllerBase: FilterViewControllerDelegate {
-    func userDidSaveNewFilterData(filterModels: [DataSortFilterModel]) {
-        applyNewFilters(newData: filterModels)
     }
 }

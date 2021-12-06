@@ -33,15 +33,15 @@ public enum LogLevel: NSInteger {
     public func toColor() -> UIColor {
         switch self {
         case .verbose:
-            return UIColor(red: 252 / 255, green: 218 / 255, blue: 157 / 255, alpha: 1)
+            return UIColor(red: 0 / 255, green: 153 / 255, blue: 153 / 255, alpha: 1)
         case .debug:
-            return UIColor(red: 50 / 255, green: 172 / 255, blue: 65 / 255, alpha: 1)
+            return UIColor(red: 0 / 255, green: 76 / 255, blue: 153 / 255, alpha: 1)
         case .info:
-            return UIColor(red: 56 / 255, green: 128 / 255, blue: 248 / 255, alpha: 1)
+            return UIColor(red: 153 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
         case .warning:
-            return UIColor(red: 232 / 255, green: 129 / 255, blue: 26 / 255, alpha: 1)
+            return UIColor(red: 153 / 255, green: 76 / 255, blue: 0 / 255, alpha: 1)
         case .error:
-            return UIColor(red: 228 / 255, green: 35 / 255, blue: 40 / 255, alpha: 1)
+            return UIColor(red: 153 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
         }
     }
 }
@@ -80,13 +80,13 @@ public enum NetworkRequestStatusCode: NSInteger {
     public func toColor() -> UIColor {
         switch self {
         case .x200:
-            return UIColor(red: 50 / 255, green: 172 / 255, blue: 65 / 255, alpha: 1)
+            return UIColor(red: 76 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
         case .x300:
-            return UIColor(red: 252 / 255, green: 218 / 255, blue: 157 / 255, alpha: 1)
+            return UIColor(red: 153 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
         case .x400:
-            return UIColor(red: 232 / 255, green: 129 / 255, blue: 26 / 255, alpha: 1)
+            return UIColor(red: 153 / 255, green: 76 / 255, blue: 0 / 255, alpha: 1)
         case .x500:
-            return UIColor(red: 228 / 255, green: 35 / 255, blue: 40 / 255, alpha: 1)
+            return UIColor(red: 153 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
         default:
             return UIColor.white
         }

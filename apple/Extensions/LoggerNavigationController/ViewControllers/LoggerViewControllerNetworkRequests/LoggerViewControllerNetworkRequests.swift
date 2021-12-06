@@ -11,7 +11,7 @@ import Reporter
 import UIKit
 import XrayLogger
 
-class LoggerViewControllerNetworkRequests: LoggerViewControllerBase {
+public class LoggerViewControllerNetworkRequests: LoggerViewControllerBase {
     @IBOutlet var sortNetworkRequestsView: SortNetworkRequestsView!
 
     override func prepareLogger() {

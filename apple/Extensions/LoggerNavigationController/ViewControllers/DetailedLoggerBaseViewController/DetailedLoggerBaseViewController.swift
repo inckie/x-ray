@@ -58,6 +58,15 @@ class DetailedLoggerBaseViewController: UIViewController {
         super.init(coder: coder)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+    }
+    
     @IBAction func exportData(_ sender: UIBarButtonItem) {
         if let event = event,
             let data = event.toJSONString()?.data(using: .utf8),

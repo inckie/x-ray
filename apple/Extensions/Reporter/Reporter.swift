@@ -74,6 +74,8 @@ public class Reporter {
     static func presentAlertUnableToSendMail() {
         let alert = UIAlertController(title: "Cannot send email", message: "Please check if your device has email configured", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.view.tintColor = .darkGray
+
         sharedInstance.email.presentController(vc: alert)
     }
     
