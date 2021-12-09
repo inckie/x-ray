@@ -1,6 +1,6 @@
 //
 //  LoggerCell.swift
-//  ExampleProject
+//  LoggerInfo
 //
 //  Created by Anton Kononenko on 7/20/20.
 //  Copyright © 2020 Applicaster. All rights reserved.

@@ -36,18 +36,18 @@ enum DetailedLoggerSections: Int {
 }
 
 class DetailedLoggerBaseViewController: UIViewController {
-
-    @IBOutlet weak var backgroundDataView: UIView!
-    @IBOutlet weak var loggerTypeView: UIView!
-    @IBOutlet weak var logTypeLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var backgroundDataView: UIView!
+    @IBOutlet var loggerTypeView: UIView!
+    @IBOutlet var logTypeLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var toolbar: UIToolbar!
 
     let defaultEventFormatter = DefaultEventFormatter()
     var dateString: String?
     var event: Event?
     var loggerType: LoggerViewType = .undefined
-    
+
     override init(nibName nibNameOrNil: String?,
                   bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil,
@@ -57,20 +57,20 @@ class DetailedLoggerBaseViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    override func viewDidLoad() {
+
+    override public func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if #available(iOS 13.0, *) {
             // Always adopt a light interface style.
             overrideUserInterfaceStyle = .light
         }
     }
-    
+
     @IBAction func exportData(_ sender: UIBarButtonItem) {
         if let event = event,
-            let data = event.toJSONString()?.data(using: .utf8),
-            let dateString = dateString {
+           let data = event.toJSONString()?.data(using: .utf8),
+           let dateString = dateString {
             let levelString = event.level.toString()
             let attachment = EmailAttachment(data: data,
                                              mimeType: "application/json",
@@ -81,7 +81,7 @@ class DetailedLoggerBaseViewController: UIViewController {
             Reporter.requestSendCustomEmail(attachments: nil)
         }
     }
-    
+
     func prepareUI() {
         dateLabel.text = dateString
         backgroundDataView.roundCorners(radius: 10)
@@ -107,4 +107,3 @@ class DetailedLoggerBaseViewController: UIViewController {
         }
     }
 }
-

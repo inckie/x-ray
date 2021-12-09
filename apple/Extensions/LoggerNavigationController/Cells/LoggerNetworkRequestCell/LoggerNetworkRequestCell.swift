@@ -1,6 +1,6 @@
 //
 //  LoggerNetworkRequestCell.swift
-//  ExampleProject
+//  LoggerInfo
 //
 //  Created by Alex Zchut on 2/28/21.
 //  Copyright © 2021 Applicaster. All rights reserved.

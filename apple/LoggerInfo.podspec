@@ -25,4 +25,5 @@ Pod::Spec.new do |s|
 
   s.ios.dependency 'XrayLogger'
   s.ios.dependency 'Reporter'
+  s.ios.dependency 'AccordionSwift', '2.0.5'
 end

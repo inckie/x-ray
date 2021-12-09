@@ -16,6 +16,7 @@
                 <outlet property="jsonTextView" destination="RoB-bJ-fFf" id="Psg-YU-2rJ"/>
                 <outlet property="logTypeLabel" destination="9VF-yU-owu" id="Kh4-so-jr6"/>
                 <outlet property="loggerTypeView" destination="l2l-Pq-Igi" id="HsG-qT-Dsn"/>
+                <outlet property="toolbar" destination="qbC-MK-2vl" id="BST-E7-f2P"/>
                 <outlet property="view" destination="iN0-l3-epB" id="qO7-X7-Nfb"/>
             </connections>
         </placeholder>
@@ -25,10 +26,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LjJ-st-Enm">
-                    <rect key="frame" x="10" y="64" width="394" height="657"/>
+                    <rect key="frame" x="10" y="59" width="394" height="662"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2l-Pq-Igi">
-                            <rect key="frame" x="0.0" y="0.0" width="15" height="657"/>
+                            <rect key="frame" x="0.0" y="0.0" width="15" height="662"/>
                             <color key="backgroundColor" systemColor="systemPurpleColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="15" id="fdF-z5-px7"/>
@@ -58,7 +59,7 @@
                             </constraints>
                         </stackView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-bJ-fFf">
-                            <rect key="frame" x="23" y="48" width="363" height="601"/>
+                            <rect key="frame" x="23" y="48" width="363" height="606"/>
                             <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                             <color key="textColor" systemColor="darkTextColor"/>
@@ -81,9 +82,9 @@
                     </constraints>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbC-MK-2vl">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="eYe-ga-SGy"/>
+                        <constraint firstAttribute="height" priority="750" constant="49" id="eYe-ga-SGy"/>
                     </constraints>
                     <items>
                         <barButtonItem title="Export Single Log" id="EcJ-V8-Set">
@@ -103,6 +104,7 @@
                 <constraint firstItem="LjJ-st-Enm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="FX6-px-Qbu"/>
                 <constraint firstItem="qbC-MK-2vl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Hc1-nL-1qJ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="LjJ-st-Enm" secondAttribute="bottom" constant="15" id="Zge-oN-ZZG"/>
+                <constraint firstItem="LjJ-st-Enm" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" priority="750" constant="15" id="b4D-Wa-GlH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qbC-MK-2vl" secondAttribute="trailing" id="r9m-70-MuJ"/>
                 <constraint firstItem="qbC-MK-2vl" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="yZB-Gi-JiD"/>
             </constraints>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventItemCell" id="b1N-TP-I2I" customClass="EventItemCell" customModule="LoggerInfo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b1N-TP-I2I" id="q9R-B0-1Mz">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="687-TY-plC">
+                        <rect key="frame" x="16" y="11" width="382" height="22"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldG-1i-07h">
+                                <rect key="frame" x="0.0" y="0.0" width="362" height="22"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <color key="textColor" red="0.17254901959999999" green="0.2156862745" blue="0.26274509800000001" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ldG-1i-07h" secondAttribute="trailing" constant="20" id="085-BW-EQd"/>
+                            <constraint firstAttribute="bottom" secondItem="ldG-1i-07h" secondAttribute="bottom" id="0So-C1-V3m"/>
+                            <constraint firstItem="ldG-1i-07h" firstAttribute="top" secondItem="687-TY-plC" secondAttribute="top" id="11d-LP-oJc"/>
+                            <constraint firstItem="ldG-1i-07h" firstAttribute="leading" secondItem="687-TY-plC" secondAttribute="leading" id="Exy-TS-HW2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="687-TY-plC" firstAttribute="leading" secondItem="q9R-B0-1Mz" secondAttribute="leadingMargin" id="CnZ-f3-1FY"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="687-TY-plC" secondAttribute="bottom" id="ZLB-8c-BtC"/>
+                    <constraint firstItem="687-TY-plC" firstAttribute="top" secondItem="q9R-B0-1Mz" secondAttribute="topMargin" id="eBd-Rg-ziT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="687-TY-plC" secondAttribute="trailing" id="jkQ-Sc-McC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="keyLabel" destination="ldG-1i-07h" id="ao1-kI-xlz"/>
+            </connections>
+            <point key="canvasLocation" x="-469" y="15"/>
+        </tableViewCell>
+    </objects>
+</document>

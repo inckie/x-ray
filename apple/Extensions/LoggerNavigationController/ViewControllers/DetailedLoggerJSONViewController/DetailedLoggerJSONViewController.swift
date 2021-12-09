@@ -11,18 +11,24 @@ import UIKit
 import XrayLogger
 
 class DetailedLoggerJSONViewController: DetailedLoggerBaseViewController {
-    @IBOutlet weak var jsonTextView: UITextView!
+    var parentTitle: String?
+    var dataObject: Any?
+
+    @IBOutlet var jsonTextView: UITextView!
 
     override func prepareUI() {
         super.prepareUI()
-        if let prettyPrintedJson = event?.toJSONString(options: .prettyPrinted) {
+        if let dataObject = dataObject {
+            jsonTextView.text = JSONHelper.convertObjectToJSONString(object: dataObject, options: .prettyPrinted)
+            toolbar.removeFromSuperview()
+        } else if let prettyPrintedJson = event?.toJSONString(options: .prettyPrinted) {
             jsonTextView.text = prettyPrintedJson
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Single Log JSON"
+        title = parentTitle ?? "Single Log JSON"
         prepareUI()
     }
 }

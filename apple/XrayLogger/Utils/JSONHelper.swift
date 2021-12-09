@@ -8,8 +8,8 @@
 
 import Foundation
 
-class JSONHelper {
-    class func convertObjectToJSONString(object: Any,
+public class JSONHelper {
+    public class func convertObjectToJSONString(object: Any,
                                          options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: object,
@@ -22,7 +22,7 @@ class JSONHelper {
         }
     }
 
-    class func convertStringToDictionary(text: String) -> [String: AnyObject]? {
+    public class func convertStringToDictionary(text: String) -> [String: AnyObject]? {
         if let data = text.data(using: .utf8) {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]

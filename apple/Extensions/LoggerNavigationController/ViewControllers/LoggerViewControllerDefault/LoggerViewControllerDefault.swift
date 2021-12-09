@@ -17,7 +17,7 @@ class LoggerViewControllerDefault: LoggerViewControllerBase {
     override func prepareLogger() {
         title = "Logger"
         loggerType = .logger
-        
+
         let activeSink = Xray.sharedInstance.getSink("InMemorySink") as? InMemory
         self.activeSink = activeSink
         if let events = activeSink?.events {
@@ -25,18 +25,17 @@ class LoggerViewControllerDefault: LoggerViewControllerBase {
             filterDataSource()
         }
     }
-    
-    override func getSortParams() -> [Int : Bool] {
+
+    override func getSortParams() -> [Int: Bool] {
         return SortLogsHelper.dataFromUserDefaults()
     }
-    
-    
+
     override func initilizeSortData() {
         super.initilizeSortData()
         sortLogsView.delegate = self
         sortLogsView.initializeButtons(defaultStates: sortParams)
     }
-    
+
     override func filterDataSourceByType() -> [Event] {
         return filteredDataSource.filter { (event) -> Bool in
             if let selected = sortParams[event.level.rawValue] {
@@ -45,7 +44,7 @@ class LoggerViewControllerDefault: LoggerViewControllerBase {
             return false
         }
     }
-    
+
     override func getCellIdentifier() -> String {
         return "LoggerCell"
     }
