@@ -15,7 +15,7 @@ references:
 version: 2
 jobs:
 
-  build_android: &build_steps
+  build: &build_steps
     <<: *container_config
     steps:
       - checkout
@@ -124,31 +124,13 @@ workflows:
   version: 2
   test-n-deploy:
     jobs:
-      - build_android:
+      - build:
           filters:
             tags:
               only: /.*/
-      - hold_publish_bintray:
-          requires:
-            - build_android
-          type: approval
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
-      - publish_bintray:
-          requires:
-            - build_android
-            - hold_publish_bintray
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
       - hold_publish_npm:
           requires:
-            - build_android
+            - build
           type: approval
           filters:
             tags:
@@ -157,7 +139,7 @@ workflows:
               ignore: /.*/
       - publish_npm:
           requires:
-            - build_android
+            - build
             - hold_publish_npm
           filters:
             tags:
