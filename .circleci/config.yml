@@ -101,7 +101,7 @@ jobs:
               then
                 if [[ 1 = is_release_tag ]]
                 then
-                    npx npm-shell-login
+                    # npx npm-shell-login
                     npm version $CIRCLE_TAG --allow-same-version
                     npm publish . --no-git-tag-version
                 else
@@ -112,7 +112,7 @@ jobs:
               then
                     echo "alpha/beta/rc tag expected, got stable release tag"
                 else
-                    npx npm-shell-login
+                    # npx npm-shell-login
                     npm version $CIRCLE_TAG --allow-same-version
                     npm publish . --no-git-tag-version --tag next
                 fi
