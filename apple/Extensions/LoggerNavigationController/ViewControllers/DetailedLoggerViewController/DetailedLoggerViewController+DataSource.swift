@@ -136,8 +136,9 @@ extension DetailedLoggerViewController {
             nil
         }
 
-        let contextMenuConfigurationForChildCellAtIndexPath = { (_: UITableView, _: IndexPath, _: EventItem?) -> NSObject? in
-            nil
+        let contextMenuConfigurationForChildCellAtIndexPath = { (tableView: UITableView, indexPath: IndexPath, model: EventItem?) -> NSObject? in
+            LoggerHelper.createContextMenuConfiguration(forChild: (tableView: tableView, indexPath: indexPath, model: model),
+                                                        in: dataSource)
         }
 
         let contextMenuConfigurationForParentCellAtIndexPath = { (_: UITableView, _: IndexPath, _: ParentCellModel?) -> NSObject? in
