@@ -50,6 +50,23 @@ public class Reporter {
             }
         })
     }
+    
+    public static func requestExport(presentOn presenter: UIViewController) {
+        sharedLogFileSinkDelegate?.getLogFileUrl({ url in
+            if let url = url {
+                let activityViewController = UIActivityViewController(activityItems: [url],
+                                                                       applicationActivities: nil)
+                 activityViewController.completionWithItemsHandler = { _, success, _, error in
+                     activityViewController.dismiss(animated: true) {
+                         // remove file
+                         sharedLogFileSinkDelegate?.deleteLogFile()
+                     }
+                 }
+
+                 presenter.present(activityViewController, animated: true)
+            }
+        })
+    }
 
     public static func requestSendCustomEmail(attachments: [EmailAttachment]? = nil) {
         guard let emails = sharedEmails else {
