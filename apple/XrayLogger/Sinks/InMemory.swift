@@ -61,17 +61,20 @@ public class InMemory: BaseSink {
 
 extension InMemory: Storable {
     public func generateLogsToSingleFileUrl(_ completion: ((URL?) -> Void)?) {
-
         guard let documentsFolder = fileManager.urls(for: .cachesDirectory,
-                                                   in: .userDomainMask).first else {
+                                                     in: .userDomainMask).first else {
             completion?(nil)
             return
         }
         let singleLogsFileUrl = documentsFolder.appendingPathComponent(singleLogsFileName,
                                                                        isDirectory: false)
         var success = false
+        let context = events.first?.context ?? [:]
+        let content: [String: Any] = ["context": context,
+                                      "events": events.compactMap { $0.toDictionary(shouldIncludeContext: false) }]
+
         do {
-            let data = try JSONSerialization.data(withJSONObject: events.compactMap { $0.toDictionary() },
+            let data = try JSONSerialization.data(withJSONObject: content,
                                                   options: [])
             try data.write(to: singleLogsFileUrl,
                            options: [])
@@ -80,11 +83,10 @@ extension InMemory: Storable {
         } catch {
             print(error)
         }
-        
 
         completion?(success ? singleLogsFileUrl : nil)
     }
-    
+
     public func deleteSingleFileUrl() {
         guard let documentsFolder = fileManager.urls(for: .cachesDirectory,
                                                      in: .userDomainMask).first else {

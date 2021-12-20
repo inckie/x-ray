@@ -49,7 +49,7 @@ import Foundation
         super.init()
     }
 
-    public func toDictionary() -> [String: Any] {
+    public func toDictionary(shouldIncludeContext: Bool = true) -> [String: Any] {
         var dictionary: [String: Any] = [
             CodingKeys.category.rawValue: category,
             CodingKeys.subsystem.rawValue: subsystem,
@@ -61,7 +61,7 @@ import Foundation
             dictionary[CodingKeys.data.rawValue] = data
         }
 
-        if let context = context {
+        if let context = context, shouldIncludeContext == true {
             dictionary[CodingKeys.context.rawValue] = context
         }
         return dictionary
