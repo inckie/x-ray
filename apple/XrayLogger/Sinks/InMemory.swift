@@ -16,6 +16,8 @@ public protocol InMemoryObserverProtocol: NSObjectProtocol {
 public class InMemory: BaseSink {
     public var events: [Event] = []
     var observers: [String: InMemoryObserverProtocol] = [:]
+    fileprivate let singleLogsFileName = "XrayLogs.json"
+    let fileManager = FileManager.default
 
     override public var asynchronously: Bool {
         get {
@@ -54,5 +56,42 @@ public class InMemory: BaseSink {
         let mappedEvents = events.map({ $0.toDictionary() })
         return JSONHelper.convertObjectToJSONString(object: mappedEvents,
                                                     options: opt)
+    }
+}
+
+extension InMemory: Storable {
+    public func generateLogsToSingleFileUrl(_ completion: ((URL?) -> Void)?) {
+
+        guard let documentsFolder = fileManager.urls(for: .cachesDirectory,
+                                                   in: .userDomainMask).first else {
+            completion?(nil)
+            return
+        }
+        let singleLogsFileUrl = documentsFolder.appendingPathComponent(singleLogsFileName,
+                                                                       isDirectory: false)
+        var success = false
+        do {
+            let data = try JSONSerialization.data(withJSONObject: events.compactMap { $0.toDictionary() },
+                                                  options: [])
+            try data.write(to: singleLogsFileUrl,
+                           options: [])
+            success = true
+
+        } catch {
+            print(error)
+        }
+        
+
+        completion?(success ? singleLogsFileUrl : nil)
+    }
+    
+    public func deleteSingleFileUrl() {
+        guard let documentsFolder = fileManager.urls(for: .cachesDirectory,
+                                                     in: .userDomainMask).first else {
+            return
+        }
+        let singleLogsFileUrl = documentsFolder.appendingPathComponent(singleLogsFileName,
+                                                                       isDirectory: false)
+        _ = FileManagerHelper.deleteLogFile(url: singleLogsFileUrl)
     }
 }
