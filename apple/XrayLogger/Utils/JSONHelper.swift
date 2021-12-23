@@ -33,4 +33,20 @@ public class JSONHelper {
         }
         return nil
     }
+    
+    @discardableResult
+    public class func writeObjectToFile(object: Any, at url:URL) -> Bool {
+        var retValue = false
+        do {
+            let data = try JSONSerialization.data(withJSONObject: object,
+                                                  options: [])
+            try data.write(to: url,
+                           options: [])
+            retValue = true
+
+        } catch let error {
+            print(error)
+        }
+        return retValue
+    }
 }

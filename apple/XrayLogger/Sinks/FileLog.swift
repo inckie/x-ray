@@ -16,16 +16,10 @@ public class FileLog: BaseSink {
     public init(folderName: String? = nil) {
         let folderName = folderName ?? "XrayTxtLogs"
 
-        if let url = fileManager.urls(for: .documentDirectory,
-                                      in: .userDomainMask).first {
+        if let url = fileManager.documentFolder {
             let dataPath = url.appendingPathComponent(folderName)
-            if !fileManager.fileExists(atPath: dataPath.absoluteString) {
-                do {
-                    try fileManager.createDirectory(atPath: dataPath.path,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-                    logsFolderURL = dataPath
-                } catch {}
+            if fileManager.createDirectoryIfNeeded(at: dataPath) {
+                logsFolderURL = dataPath
             }
         }
 
@@ -61,11 +55,11 @@ public class FileLog: BaseSink {
 extension FileLog: Storable {
     public func generateLogsToSingleFileUrl(_ completion: ((URL?) -> Void)?) {
         guard let logsFolderURL = logsFolderURL,
-            let documentsFolder = fileManager.urls(for: .documentDirectory,
-                                                   in: .userDomainMask).first,
-            let filePaths = try? fileManager.contentsOfDirectory(at: logsFolderURL,
-                                                                 includingPropertiesForKeys: nil,
-                                                                 options: []) else {
+              let documentsFolder = fileManager.urls(for: .documentDirectory,
+                                                     in: .userDomainMask).first,
+              let filePaths = try? fileManager.contentsOfDirectory(at: logsFolderURL,
+                                                                   includingPropertiesForKeys: nil,
+                                                                   options: []) else {
             completion?(nil)
             return
         }

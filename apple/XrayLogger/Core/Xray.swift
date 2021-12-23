@@ -8,96 +8,10 @@
 
 import UIKit
 
-public enum LogLevel: NSInteger {
-    case verbose
-    case debug
-    case info
-    case warning
-    case error
-
-    public func toString() -> String {
-        switch self {
-        case .verbose:
-            return "VERBOSE"
-        case .debug:
-            return "DEBUG"
-        case .info:
-            return "INFO"
-        case .warning:
-            return "WARNING"
-        case .error:
-            return "ERROR"
-        }
-    }
-
-    public func toColor() -> UIColor {
-        switch self {
-        case .verbose:
-            return UIColor(red: 0 / 255, green: 153 / 255, blue: 153 / 255, alpha: 1)
-        case .debug:
-            return UIColor(red: 0 / 255, green: 76 / 255, blue: 153 / 255, alpha: 1)
-        case .info:
-            return UIColor(red: 153 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
-        case .warning:
-            return UIColor(red: 153 / 255, green: 76 / 255, blue: 0 / 255, alpha: 1)
-        case .error:
-            return UIColor(red: 153 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
-        }
-    }
-}
-
-public enum NetworkRequestStatusCode: NSInteger {
-    case x000 = 0
-    case x200 = 200
-    case x300 = 300
-    case x400 = 400
-    case x500 = 500
-
-    public init?(statusCode: String) {
-        let stringValue = "\(statusCode.first ?? "1")00"
-        guard let intValue = Int(stringValue),
-              let value = NetworkRequestStatusCode(rawValue: intValue) else {
-            return nil
-        }
-        self = value
-    }
-    
-    public func toString() -> String {
-        switch self {
-        case .x200:
-            return "2xx"
-        case .x300:
-            return "3xx"
-        case .x400:
-            return "4xx"
-        case .x500:
-            return "5xx"
-        default:
-            return "0"
-        }
-    }
-
-    public func toColor() -> UIColor {
-        switch self {
-        case .x200:
-            return UIColor(red: 76 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
-        case .x300:
-            return UIColor(red: 153 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
-        case .x400:
-            return UIColor(red: 153 / 255, green: 76 / 255, blue: 0 / 255, alpha: 1)
-        case .x500:
-            return UIColor(red: 153 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
-        default:
-            return UIColor.white
-        }
-    }
-}
-
-
 public class Xray: NSObject {
     public static let sharedInstance = Xray()
     private let queue = DispatchQueue(label: "XrayQueue")
-    
+
     private let mapper = Mapper()
 
     public private(set) var sinks: [String: SinkProtocol] = [:] {

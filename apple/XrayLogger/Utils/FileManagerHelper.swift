@@ -20,19 +20,15 @@ class FileManagerHelper {
         do {
             if fileManager.fileExists(atPath: url.path) == false {
                 let directoryURL = url.deletingLastPathComponent()
-                if fileManager.fileExists(atPath: directoryURL.path) == false {
-                    try fileManager.createDirectory(
-                        at: directoryURL,
-                        withIntermediateDirectories: true
-                    )
-                }
-                fileManager.createFile(atPath: url.path, contents: nil)
+                if fileManager.createDirectoryIfNeeded(at: directoryURL) {
+                    fileManager.createFile(atPath: url.path, contents: nil)
 
-                #if os(iOS) || os(watchOS)
-                    var attributes = try fileManager.attributesOfItem(atPath: url.path)
-                    attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
-                    try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
-                #endif
+                    #if os(iOS) || os(watchOS)
+                        var attributes = try fileManager.attributesOfItem(atPath: url.path)
+                        attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
+                        try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
+                    #endif
+                }
             }
             write(data: data,
                   to: url,

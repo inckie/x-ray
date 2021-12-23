@@ -37,17 +37,19 @@ public class Reporter {
             presentAlertUnableToSendMail()
             return
         }
-        
+
         sharedLogFileSinkDelegate?.getLogFileUrl({ url in
-            if let url = url {
-                sharedInstance.email.requestSendEmail(emails: sharedEmails,
-                                                      sharedFileURL: url,
-                                                      contexts: contexts,
-                                                      attachments: nil,
-                                                      completion: {
-                                                          sharedLogFileSinkDelegate?.deleteLogFile()
-                                                      })
+            guard let url = url else {
+                presentAlertNoLogFileToSend()
+                return
             }
+            sharedInstance.email.requestSendEmail(emails: sharedEmails,
+                                                  sharedFileURL: url,
+                                                  contexts: contexts,
+                                                  attachments: nil,
+                                                  completion: {
+                                                      sharedLogFileSinkDelegate?.deleteLogFile()
+                                                  })
         })
     }
 
@@ -56,7 +58,7 @@ public class Reporter {
             print("Cannot send email, at least one sender must be defined")
             return
         }
-        
+
         guard sharedInstance.email.canSendMail() else {
             presentAlertUnableToSendMail()
             return
@@ -70,7 +72,7 @@ public class Reporter {
                                                   sharedLogFileSinkDelegate?.deleteLogFile()
                                               })
     }
-    
+
     static func presentAlertUnableToSendMail() {
         let alert = UIAlertController(title: "Cannot send email", message: "Please check if your device has email configured", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -78,8 +80,16 @@ public class Reporter {
 
         sharedInstance.email.presentController(vc: alert)
     }
-    
-    static var contexts:[String: Any]? {
+
+    static func presentAlertNoLogFileToSend() {
+        let alert = UIAlertController(title: "Unable to export", message: "No logs are defined for export, please check log level settings", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.view.tintColor = .darkGray
+
+        sharedInstance.email.presentController(vc: alert)
+    }
+
+    static var contexts: [String: Any]? {
         return sharedLogFileSinkDelegate?.getDefaultContexts()
     }
 }

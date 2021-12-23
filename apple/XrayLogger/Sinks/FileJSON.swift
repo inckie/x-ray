@@ -31,16 +31,11 @@ public class FileJSON: BaseSink {
     public init(folderName: String? = nil) {
         let folderName = folderName ?? "XrayJsonLogs"
 
-        if let url = fileManager.urls(for: .documentDirectory,
-                                      in: .userDomainMask).first {
+        if let url = fileManager.documentFolder {
             let dataPath = url.appendingPathComponent(folderName)
-            if !fileManager.fileExists(atPath: dataPath.absoluteString) {
-                do {
-                    try fileManager.createDirectory(atPath: dataPath.path,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-                    logsFolderURL = dataPath
-                } catch {}
+
+            if fileManager.createDirectoryIfNeeded(at: dataPath) {
+                logsFolderURL = dataPath
             }
         }
 
@@ -59,15 +54,7 @@ public class FileJSON: BaseSink {
             return
         }
         let fileUrl = logsFolderURL.appendingPathComponent("\(UUID().uuidString).json")
-        do {
-            let data = try JSONSerialization.data(withJSONObject: dict,
-                                                  options: [])
-            try data.write(to: fileUrl,
-                           options: [])
-
-        } catch {
-            print(error)
-        }
+        JSONHelper.writeObjectToFile(object: dict, at: fileUrl)
     }
 
     public func deleteLogsFolderContent(at path: URL) {
@@ -93,8 +80,8 @@ public class FileJSON: BaseSink {
 
     private func isFolderSizeLimitRiched(at path: URL) -> Bool {
         guard let maxLogFileSizeInMB = maxLogFileSizeInMB,
-            let fileSizeInMB = FileManagerHelper.fileSizeInMB(forURL: path),
-            fileSizeInMB > maxLogFileSizeInMB else {
+              let fileSizeInMB = FileManagerHelper.fileSizeInMB(forURL: path),
+              fileSizeInMB > maxLogFileSizeInMB else {
             return false
         }
         return true
@@ -132,47 +119,54 @@ public class FileJSON: BaseSink {
 
 extension FileJSON: Storable {
     public func generateLogsToSingleFileUrl(_ completion: ((URL?) -> Void)?) {
-
         guard let logsFolderURL = logsFolderURL,
-            let documentsFolder = fileManager.urls(for: .documentDirectory,
-                                                   in: .userDomainMask).first,
-            let filePaths = try? fileManager.contentsOfDirectory(at: logsFolderURL,
-                                                                 includingPropertiesForKeys: nil,
-                                                                 options: []) else {
+              let cacheFolder = fileManager.cacheFolder,
+              let filePaths = try? fileManager.contentsOfDirectory(at: logsFolderURL,
+                                                                   includingPropertiesForKeys: nil,
+                                                                   options: []),
+              filePaths.count > 0 else {
             completion?(nil)
             return
         }
 
+        let contextKey = "context"
         var events: [[String: Any]] = []
         for filePath in filePaths {
             let fileEvent = getEvent(fromFile: filePath)
             events.append(fileEvent)
         }
 
-        let singleLogsFileUrl = documentsFolder.appendingPathComponent(singleLogsFileName,
-                                                                       isDirectory: false)
-        var success = false
-        do {
-            let data = try JSONSerialization.data(withJSONObject: events,
-                                                  options: [])
-            try data.write(to: singleLogsFileUrl,
-                           options: [])
-            success = true
-
-        } catch {
-            print(error)
+        if let firstEventWithContext = events.first(where: { event in
+            guard let eventContext = event[contextKey] as? [String: Any],
+                  eventContext.count > 0 else {
+                return false
+            }
+            return true
+        }) {
+            // remove context from events
+            events = events.compactMap({ event in
+                var updatedEvent = event
+                updatedEvent.removeValue(forKey: contextKey)
+                return updatedEvent
+            })
+            // create new event with context
+            let contextEvent = createContextEvent(with: firstEventWithContext)
+            events.append(contextEvent)
         }
+
+        let singleLogsFileUrl = cacheFolder.appendingPathComponent(singleLogsFileName,
+                                                                   isDirectory: false)
+        let success = JSONHelper.writeObjectToFile(object: events, at: singleLogsFileUrl)
 
         completion?(success ? singleLogsFileUrl : nil)
     }
-    
+
     public func deleteSingleFileUrl() {
-        guard let documentsFolder = fileManager.urls(for: .documentDirectory,
-                                                     in: .userDomainMask).first else {
+        guard let cacheFolder = fileManager.cacheFolder else {
             return
         }
-        let singleLogsFileUrl = documentsFolder.appendingPathComponent(singleLogsFileName,
-                                                                       isDirectory: false)
+        let singleLogsFileUrl = cacheFolder.appendingPathComponent(singleLogsFileName,
+                                                                   isDirectory: false)
         _ = FileManagerHelper.deleteLogFile(url: singleLogsFileUrl)
     }
 
