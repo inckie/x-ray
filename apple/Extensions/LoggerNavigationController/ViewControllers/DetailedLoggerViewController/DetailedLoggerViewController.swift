@@ -53,6 +53,6 @@ class DetailedLoggerViewController: DetailedLoggerBaseViewController {
         configDataSourceForEvent()
 
         prepareUI()
-        title = "Single Log"
+        title = "Event Details"
     }
 }

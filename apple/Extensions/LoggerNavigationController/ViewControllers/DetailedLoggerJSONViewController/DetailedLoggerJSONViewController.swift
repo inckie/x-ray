@@ -28,7 +28,7 @@ class DetailedLoggerJSONViewController: DetailedLoggerBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = parentTitle ?? "Single Log JSON"
+        title = parentTitle ?? "Json output"
         prepareUI()
     }
 }

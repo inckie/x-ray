@@ -72,3 +72,19 @@ extension LoggerViewControllerNetworkRequests: SortNetworkRequestsViewDelegate {
         }
     }
 }
+
+extension LoggerViewControllerNetworkRequests {
+    override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let event = filteredDataSourceByType[indexPath.row]
+
+        let bundle = Bundle(for: type(of: self))
+        let viewController = NetworkRequestResponseJsonViewController(nibName: "NetworkRequestResponseJsonViewController",
+                                                                              bundle: bundle)
+        viewController.event = event
+        viewController.parentTitle = "Network Request"
+        viewController.loggerType = loggerType
+        viewController.dateString = dateStringFromEvent(event: event)
+        navigationController?.pushViewController(viewController,
+                                                 animated: true)
+    }
+}

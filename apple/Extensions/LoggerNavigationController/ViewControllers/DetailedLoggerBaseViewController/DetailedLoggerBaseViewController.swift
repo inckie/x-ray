@@ -38,8 +38,8 @@ enum DetailedLoggerSections: Int {
 class DetailedLoggerBaseViewController: UIViewController {
     @IBOutlet var backgroundDataView: UIView!
     @IBOutlet var loggerTypeView: UIView!
-    @IBOutlet var logTypeLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var logTypeLabel: UILabel?
+    @IBOutlet var dateLabel: UILabel?
     @IBOutlet var tableView: UITableView!
     @IBOutlet var toolbar: UIToolbar!
 
@@ -83,22 +83,22 @@ class DetailedLoggerBaseViewController: UIViewController {
     }
 
     func prepareUI() {
-        dateLabel.text = dateString
+        dateLabel?.text = dateString
         backgroundDataView.roundCorners(radius: 10)
         if let event = event {
             switch loggerType {
             case .logger:
-                logTypeLabel.text = event.level.toString()
-                logTypeLabel.textColor = event.level.toColor()
+                logTypeLabel?.text = event.level.toString()
+                logTypeLabel?.textColor = event.level.toColor()
                 loggerTypeView.backgroundColor = event.level.toColor()
             case .networkRequests:
                 if let statusCodeString = event.networkRequestStatusCode,
                    let networkRequestStatusCode = NetworkRequestStatusCode(statusCode: statusCodeString),
                    let httpStatusCode = HTTPStatusCode(rawValue: Int(networkRequestStatusCode.rawValue)) {
-                    logTypeLabel.text = httpStatusCode.description
-                    logTypeLabel.textColor = networkRequestStatusCode.toColor()
+                    logTypeLabel?.text = httpStatusCode.description
+                    logTypeLabel?.textColor = networkRequestStatusCode.toColor()
                     loggerTypeView.backgroundColor = networkRequestStatusCode.toColor()
-                    dateLabel.text = ""
+                    dateLabel?.text = ""
                 }
 
             default:
