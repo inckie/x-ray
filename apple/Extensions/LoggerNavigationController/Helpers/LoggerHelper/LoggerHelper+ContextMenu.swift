@@ -23,7 +23,7 @@ extension LoggerHelper {
     }
 
     public static func createContextMenuConfiguration(forChild data: ChildContextMenuData,
-                                                      in dataSource: DataSource<Parent<EventParent, EventItem>>) -> UIContextMenuConfiguration? {
+                                                      in dataSource: DataSource<Parent<EventParent, EventItem>>) -> NSObject? {
         guard #available(iOS 13, *) else {
             return nil
         }
