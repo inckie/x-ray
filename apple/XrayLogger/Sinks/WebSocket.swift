@@ -59,7 +59,7 @@ public class WebSocket: BaseSink {
     
     func connect() {
         let session = URLSession.shared
-        socket = session.webSocketTask(with: URL(string: "ws://\(localHostUrlString)/socket")!)
+        socket = session.webSocketTask(with: URL(string: localHostUrlString)!)
         listen()
         socket?.resume()
     }
