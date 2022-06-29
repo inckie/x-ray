@@ -58,7 +58,7 @@ public class Console: BaseSink {
             return .info
         case .debug:
             return .debug
-        case .verbose:
+        case .verbose, .undefined:
             return .default
         case .warning:
             return .error

@@ -8,7 +8,8 @@
 
 import Foundation
 
-public enum LogLevel: NSInteger {
+public enum LogLevel: NSInteger, CaseIterable {
+    case undefined = 0
     case verbose
     case debug
     case info
@@ -27,12 +28,14 @@ public enum LogLevel: NSInteger {
             return "WARNING"
         case .error:
             return "ERROR"
+        case .undefined:
+            return "OFF"
         }
     }
 
     public func toColor() -> UIColor {
         switch self {
-        case .verbose:
+        case .verbose, .undefined:
             return UIColor(red: 0 / 255, green: 153 / 255, blue: 153 / 255, alpha: 1)
         case .debug:
             return UIColor(red: 0 / 255, green: 76 / 255, blue: 153 / 255, alpha: 1)
@@ -43,5 +46,23 @@ public enum LogLevel: NSInteger {
         case .error:
             return UIColor(red: 153 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
         }
+    }
+
+    public static var allDefinedCased: [LogLevel] {
+        LogLevel.allCases.filter { $0 != .undefined }
+    }
+}
+
+extension LogLevel: Identifiable {
+    public var id: Self { self }
+}
+
+extension LogLevel: Equatable, Comparable {
+    public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+
+    public static func == (lhs: LogLevel, rhs: LogLevel) -> Bool {
+        lhs.rawValue == rhs.rawValue
     }
 }

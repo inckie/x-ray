@@ -13,11 +13,11 @@ enum DataSortFilterModelKeys: String {
     case isEnabled
 }
 
-struct DataSortFilterModel: Equatable {
+public struct DataSortFilterModel: Equatable {
     let type: LoggerFiltersViewController.FilterType
     var filterText: String?
 
-    init(type: LoggerFiltersViewController.FilterType,
+    public init(type: LoggerFiltersViewController.FilterType,
          filterText: String? = nil,
          isEnabled: Bool) {
         self.type = type

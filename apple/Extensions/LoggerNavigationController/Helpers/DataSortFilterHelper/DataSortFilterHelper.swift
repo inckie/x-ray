@@ -10,8 +10,8 @@ import XrayLogger
 
 let filterModelsStorageKey = "xrayLoggerFilterModels"
 
-class DataSortFilterHelper {
-    static func filterDataSource(filterData: [DataSortFilterModel],
+public class DataSortFilterHelper {
+    public static func filterDataSource(filterData: [DataSortFilterModel],
                                  allEvents: [Event]) -> [Event] {
         var filteredEvents: [Event] = allEvents
         for filterModel in filterData {

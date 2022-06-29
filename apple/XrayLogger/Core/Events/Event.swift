@@ -66,7 +66,30 @@ import Foundation
         }
         return dictionary
     }
+    
+    public var uuidString: String? {
+        var retValue: String?
+        if let value = self.data?["uuid"] as? String {
+            retValue = value
+        } else if let value = networkRequestUuidString {
+            retValue = value
+        }
+        return retValue
+    }
+    
+    var networkRequestUuidString: String? {
+        guard let request = self.data?["request"] as? [String: Any],
+              let headers = request["httpHeaderFieldsDescription"] as? [String: Any],
+              let value = headers["requestUUID"] as? String else {
+              return nil
+        }
+        return value
+    }
 
+    public var isNetworkRequest: Bool {
+        return networkRequestStatusCode != nil
+    }
+    
     public var networkRequestStatusCode: String? {
         return data?[CodingKeys.statusCode.rawValue] as? String
     }
