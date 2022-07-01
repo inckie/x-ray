@@ -10,7 +10,11 @@ import Foundation
 
 public class JSONHelper {
     public class func convertObjectToJSONString(object: Any,
-                                         options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String? {
+                                                options opt: JSONSerialization.WritingOptions = .prettyPrinted) -> String? {
+        guard JSONSerialization.isValidJSONObject(object) else {
+            return nil
+        }
+        
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: object,
                                                       options: opt)
@@ -33,9 +37,9 @@ public class JSONHelper {
         }
         return nil
     }
-    
+
     @discardableResult
-    public class func writeObjectToFile(object: Any, at url:URL) -> Bool {
+    public class func writeObjectToFile(object: Any, at url: URL) -> Bool {
         var retValue = false
         do {
             let data = try JSONSerialization.data(withJSONObject: object,
