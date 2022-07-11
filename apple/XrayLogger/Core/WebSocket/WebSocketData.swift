@@ -12,10 +12,17 @@ enum WSMessageType: String, Codable {
   case event
   // Server to client types
   case handshake
+  // Command event to client
+  case command
 }
 
 struct WSMessageTypeData: Codable {
   let type: WSMessageType
+}
+
+struct WSCommand: Codable {
+    var type: WSMessageType = .command
+    let command: String
 }
 
 struct WSHandshake: Codable {

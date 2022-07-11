@@ -13,10 +13,12 @@ public class WebSocket: BaseSink {
         case undefined
         case notConnected = 57
     }
+
     var socket: URLSessionWebSocketTask?
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     let localHostUrlString: String
+    public var commandReceivedAction: ((_ command: String) -> Void)?
 
     public init(localHostUrlString: String) {
         self.localHostUrlString = localHostUrlString
@@ -27,18 +29,18 @@ public class WebSocket: BaseSink {
 
     override public func log(event: Event) {
         guard localHostUrlString.count > 0,
-            let eventJsonString = event.toJSONString() else {
+              let eventJsonString = event.toJSONString() else {
             return
         }
-        
+
         do {
             let message = WSMessageEvent(id: UUID(), event: eventJsonString)
             let data = try encoder.encode(message)
 
             socket?.send(.data(data)) { err in
                 if err != nil,
-                    let error = err as? NSError {
-                    if let knownError = ErrorCodes.init(rawValue: error.code) {
+                   let error = err as? NSError {
+                    if let knownError = ErrorCodes(rawValue: error.code) {
                         switch knownError {
                         case .notConnected:
                             self.connect()
@@ -46,8 +48,7 @@ public class WebSocket: BaseSink {
                         default:
                             break
                         }
-                    }
-                    else {
+                    } else {
                         print(err.debugDescription)
                     }
                 }
@@ -56,7 +57,7 @@ public class WebSocket: BaseSink {
             print(error)
         }
     }
-    
+
     func connect() {
         let session = URLSession.shared
         socket = session.webSocketTask(with: URL(string: localHostUrlString)!)
@@ -93,6 +94,11 @@ public class WebSocket: BaseSink {
             case .handshake:
                 let message = try JSONDecoder().decode(WSHandshake.self, from: data)
                 print("WebSocketHandshake message id: \(message.id)")
+            case .command:
+                let message = try JSONDecoder().decode(WSCommand.self, from: data)
+                DispatchQueue.main.async { [weak self] in
+                    self?.commandRecievedAction?(message.command)
+                }
             default:
                 break
             }

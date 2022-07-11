@@ -9,12 +9,12 @@
 import Foundation
 
 public enum LogLevel: NSInteger, CaseIterable {
-    case undefined = 0
     case verbose
     case debug
     case info
     case warning
     case error
+    case undefined
 
     public func toString() -> String {
         switch self {
