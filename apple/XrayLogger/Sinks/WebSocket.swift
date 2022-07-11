@@ -97,7 +97,7 @@ public class WebSocket: BaseSink {
             case .command:
                 let message = try JSONDecoder().decode(WSCommand.self, from: data)
                 DispatchQueue.main.async { [weak self] in
-                    self?.commandRecievedAction?(message.command)
+                    self?.commandReceivedAction?(message.command)
                 }
             default:
                 break
