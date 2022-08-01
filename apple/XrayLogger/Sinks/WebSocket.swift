@@ -58,6 +58,36 @@ public class WebSocket: BaseSink {
         }
     }
 
+    public func sendStorageData(data: [String: [String: [String: String]]]) {
+        guard localHostUrlString.count > 0 else {
+            return
+        }
+
+        do {
+            let message = WSStorage(id: UUID(), data: data)
+
+            let data = try encoder.encode(message)
+
+            socket?.send(.data(data)) { err in
+                if err != nil,
+                   let error = err as? NSError {
+                    if let knownError = ErrorCodes(rawValue: error.code) {
+                        switch knownError {
+                        case .notConnected:
+                            self.connect()
+                        default:
+                            break
+                        }
+                    } else {
+                        print(err.debugDescription)
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+
     func connect() {
         let session = URLSession.shared
         socket = session.webSocketTask(with: URL(string: localHostUrlString)!)

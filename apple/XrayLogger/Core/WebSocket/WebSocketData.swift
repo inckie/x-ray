@@ -8,16 +8,17 @@
 import Foundation
 
 enum WSMessageType: String, Codable {
-  // Client to server types
-  case event
-  // Server to client types
-  case handshake
-  // Command event to client
-  case command
+    // Client to server types
+    case event
+    // Server to client types
+    case handshake
+    // Command event to client
+    case command
+    case storage
 }
 
 struct WSMessageTypeData: Codable {
-  let type: WSMessageType
+    let type: WSMessageType
 }
 
 struct WSCommand: Codable {
@@ -26,11 +27,18 @@ struct WSCommand: Codable {
 }
 
 struct WSHandshake: Codable {
-  let id: UUID
+    let id: UUID
+}
+
+struct WSStorage: Codable {
+    let id: UUID
+    var type: WSMessageType = .storage
+    let data: [String:[String:[String:String]]]
 }
 
 struct WSMessageEvent: Codable {
-  var type: WSMessageType = .event
-  let id: UUID
-  let event: String
+    var type: WSMessageType = .event
+    let id: UUID
+    let event: String
 }
+
