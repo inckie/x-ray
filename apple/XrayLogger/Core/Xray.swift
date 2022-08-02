@@ -11,7 +11,16 @@ import UIKit
 public class Xray: NSObject {
     public static let sharedInstance = Xray()
     private let queue = DispatchQueue(label: "XrayQueue")
-
+    
+    private var pendingEvents: [Event] = []
+    private var hasSinks = false {
+        didSet {
+            if hasSinks == true, hasSinks != oldValue {
+                processPendingEventsOnce()
+            }
+        }
+    }
+    
     private let mapper = Mapper()
 
     public private(set) var sinks: [String: SinkProtocol] = [:] {
@@ -87,6 +96,7 @@ extension Xray {
     func submit(event: Event) {
         let mapping = getMapping(event: event)
         if mapping.isEmpty == false {
+            hasSinks = true
             for sink in mapping {
                 if sink.asynchronously {
                     sink.queue.async {
@@ -100,8 +110,24 @@ extension Xray {
                 }
             }
         }
+        else {
+            addToPendingEvents(event: event)
+        }
+    }
+    
+    func processPendingEventsOnce() {
+        DispatchQueue.once(token: "proceessPendingEvents") {
+            pendingEvents.forEach { event in
+                submit(event: event)
+            }
+            pendingEvents.removeAll()
+        }
     }
 
+    func addToPendingEvents(event: Event) {
+        pendingEvents.append(event)
+    }
+    
     func getMapping(event: Event) -> [SinkProtocol] {
         queue.sync {
             var retVal: [SinkProtocol] = []
