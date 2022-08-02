@@ -69,7 +69,7 @@ import Foundation
     
     public var uuidString: String? {
         var retValue: String?
-        if let value = self.data?["uuid"] as? String {
+        if let value = self.data?["event_uuid"] as? String {
             retValue = value
         } else if let value = networkRequestUuidString {
             retValue = value
