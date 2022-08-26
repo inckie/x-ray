@@ -5,7 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Handler
@@ -21,18 +20,18 @@ object XRayNotification {
     private const val CHANNEL_ID = "xray.notification"
     private val CHANNEL_NAME: CharSequence = "X Ray logging"
 
-    private const val requestCode = 1
-
     private var currentNotificationId = -1
     private var channelCreated = false
 
     private var errors = 0;
     private var warnings = 0;
 
-    fun show(context: Context,
-             notificationId: Int,
-             pi: PendingIntent? = null,
-             actions: Map<String, PendingIntent>? = null) {
+    fun show(
+        context: Context,
+        notificationId: Int,
+        pi: PendingIntent? = null,
+        actions: Map<String, PendingIntent>? = null
+    ) {
         if (-1 != currentNotificationId) {
             hide(context)
         }
@@ -58,22 +57,22 @@ object XRayNotification {
             channelCreated = true
         }
 
-        val notificationBuilder =
-                NotificationCompat.Builder(context, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_xray_notification)
-                        .setLargeIcon(
-                                BitmapFactory.decodeResource(
-                                        context.resources,
-                                        R.drawable.ic_xray_notification
-                                )
-                        )
-                        .setContentTitle("X-Ray logger")
-                        .setOnlyAlertOnce(true)
-                        .setContentIntent(pi
-                                ?: NotificationReceiver.getIntent(context, "com.applicaster.xray.show.ui"))
-                        .setAutoCancel(false)
-                        .setShowWhen(false)
-                        .setSound(null)
+        val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_xray_notification)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    context.resources,
+                    R.drawable.ic_xray_notification
+                )
+            )
+            .setContentTitle("X-Ray logger")
+            .setOnlyAlertOnce(true)
+            .setContentIntent(
+                pi?: NotificationReceiver.getIntent(context, "com.applicaster.xray.show.ui")
+            )
+            .setAutoCancel(false)
+            .setShowWhen(false)
+            .setSound(null)
 
         actions?.forEach {
             notificationBuilder.addAction(0, it.key, it.value)

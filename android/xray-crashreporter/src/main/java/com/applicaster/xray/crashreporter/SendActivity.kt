@@ -3,6 +3,7 @@ package com.applicaster.xray.crashreporter
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
@@ -25,6 +26,11 @@ class SendActivity : AppCompatActivity() {
 
     companion object {
 
+        private val intentFlag = when {
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.S -> PendingIntent.FLAG_CANCEL_CURRENT
+            else -> PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
+        }
+
         private const val sendAction = "com.applicaster.xray.send"
         private const val fileExtra = "attachment_filename"
 
@@ -35,7 +41,7 @@ class SendActivity : AppCompatActivity() {
                 0,
                 Intent(context, SendActivity::class.java)
                     .setAction(sendAction),
-                PendingIntent.FLAG_CANCEL_CURRENT
+                intentFlag
             )!!
 
         @JvmStatic
@@ -46,7 +52,7 @@ class SendActivity : AppCompatActivity() {
                 Intent(context, SendActivity::class.java)
                     .setAction(sendAction)
                     .putExtra(fileExtra, fileName),
-                PendingIntent.FLAG_CANCEL_CURRENT
+                intentFlag
             )!!
     }
 

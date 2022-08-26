@@ -12,14 +12,17 @@ def xrayAPI(dependencies, projectName) {
     }
 }
 
+def getExtOrDefault(name, defaultValue) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultValue
+}
+
 project.ext {
     releaseVersion = '0.0.11-alpha'
     releaseVersionCode = 1
-    minSdkVersion = 19
-    appTargetSdkVersion = 29
-    targetSdkVersion = 29
-    compileSdkVersion = 29
-    buildToolsVersion = "29.0.3"
+    minSdkVersion = getExtOrDefault("minSdkVersion", 19)
+    targetSdkVersion = getExtOrDefault("targetSdkVersion", 31)
+    compileSdkVersion = getExtOrDefault("compileSdkVersion", 31)
+    buildToolsVersion = getExtOrDefault("buildToolsVersion", "31.0.0")
     xrayAPI = this.&xrayAPI // https://stackoverflow.com/a/23290820
 
     xrayDependencies =[]

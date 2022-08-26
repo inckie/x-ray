@@ -3,6 +3,7 @@ package com.applicaster.xray.example
 import android.app.Application
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import com.applicaster.xray.android.contexts.ThreadContext
 import com.applicaster.xray.android.routing.DefaultSinkFilter
 import com.applicaster.xray.android.sinks.ADBSink
@@ -51,13 +52,19 @@ class App : Application() {
         // configure XRay notification
 
         // add log view and report sharing buttons
+
+        val intentFlag = when {
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.S -> PendingIntent.FLAG_CANCEL_CURRENT
+            else -> PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
+        }
+
         val shareLogIntent = SendActivity.getSendPendingIntent(this)
         val showLogIntent = PendingIntent.getActivity(
             this,
             0,
             Intent(this, MainActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_CLEAR_TASK),
-            PendingIntent.FLAG_CANCEL_CURRENT
+            intentFlag
         )!!
 
         // actions order is kept in the UI

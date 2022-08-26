@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:name="App"
         android:theme="@style/AppTheme">
-        <activity android:name="com.applicaster.xray.example.ui.MainActivity">
+        <activity android:name="com.applicaster.xray.example.ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
