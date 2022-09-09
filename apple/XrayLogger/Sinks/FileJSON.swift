@@ -20,7 +20,7 @@ public class FileJSON: BaseSink {
     var cleanLogfileEvent: Event {
         return Event(category: "",
                      subsystem: "Sink.FileJSON",
-                     timestamp: UInt(Date().timeIntervalSince1970),
+                     timestamp: Date().millisecondsSince1970,
                      level: .verbose,
                      message: "Events log cleaned",
                      data: nil,

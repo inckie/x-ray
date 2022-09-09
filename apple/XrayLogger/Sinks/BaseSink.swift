@@ -37,7 +37,7 @@ public class BaseSink: NSObject, SinkProtocol {
     public func createContextEvent(with eventData: [String: Any]) -> [String: Any] {
         let event = Event(category: "",
                           subsystem: "",
-                          timestamp: UInt(Date().timeIntervalSince1970),
+                          timestamp: Date().millisecondsSince1970,
                           message: "Initial event with context",
                           data: nil,
                           context: eventData["context"] as? [String: Any],

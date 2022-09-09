@@ -26,7 +26,7 @@ public class EventBuilder: NSObject {
                                  args: args)
         let event = Event(category: category,
                           subsystem: subsystem,
-                          timestamp: UInt(round(NSDate().timeIntervalSince1970)),
+                          timestamp: Date().millisecondsSince1970,
                           level: logLevel,
                           message: newMessage,
                           data: newData,

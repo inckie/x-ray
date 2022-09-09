@@ -11,7 +11,7 @@ import Foundation
 @objc public class Event: NSObject {
     public let category: String
     public let subsystem: String
-    public let timestamp: UInt // UTC
+    public let timestamp: Int64
     public let level: LogLevel
     public let message: String
     public let data: [String: Any]?
@@ -32,7 +32,7 @@ import Foundation
 
     init(category: String,
          subsystem: String,
-         timestamp: UInt,
+         timestamp: Int64,
          level: LogLevel = .debug,
          message: String,
          data: [String: Any]?,

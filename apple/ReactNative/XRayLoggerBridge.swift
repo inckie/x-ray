@@ -40,7 +40,7 @@ class XRayLoggerBridge: NSObject, RCTBridgeModule {
         let newSubsystem = "\(Bundle.main.bundleIdentifier!)/quick_brick/\(subsystem)"
         let event = Event(category: category,
                           subsystem: newSubsystem,
-                          timestamp: UInt(round(NSDate().timeIntervalSince1970)),
+                          timestamp: Date().millisecondsSince1970,
                           level: logLevel,
                           message: message,
                           data: eventData["data"] as? [String: Any],
