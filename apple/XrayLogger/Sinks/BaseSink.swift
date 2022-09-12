@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class BaseSink: NSObject, SinkProtocol {
+open class BaseSink: NSObject, SinkProtocol {
     public var queue: DispatchQueue = {
         let uuid = NSUUID().uuidString
         let queueLabel = "sink-\(uuid)"
@@ -19,7 +19,7 @@ public class BaseSink: NSObject, SinkProtocol {
 
     public var formatter: EventFormatterProtocol? = DefaultEventFormatter()
 
-    public func log(event: Event) {
+    open func log(event: Event) {
         // Shoulds be implemented on top lovel
     }
 
