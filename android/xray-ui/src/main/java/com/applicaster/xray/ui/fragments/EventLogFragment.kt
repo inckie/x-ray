@@ -244,7 +244,7 @@ class EventLogFragment : Fragment() {
             val json = GsonHolder.gson.toJson(events)
             if (ShareTarget.intent == target) {
                 ctx.openFileOutput("events.json", 0).use { it.write(json.toByteArray()) }
-                Reporting.sendLogReport(activity!!, ctx.getFileStreamPath("events.json"))
+                Reporting.sendLogReport(requireActivity(), ctx.getFileStreamPath("events.json"))
             } else {
                 val file = SharedFileHelper.saveToDownloads(
                     ctx,

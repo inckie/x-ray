@@ -74,7 +74,7 @@ class FileLogFragment : Fragment() {
             fileName = it.getString(ARG_FILE_NAME, fileName)
         }
 
-        file = if (TextUtils.isEmpty(fileName)) null else activity!!.getFileStreamPath(fileName)
+        file = if (TextUtils.isEmpty(fileName)) null else requireActivity().getFileStreamPath(fileName)
         logView = view.findViewById(R.id.lbl_log)
         btnSend = view.findViewById(R.id.btn_send)
         btnSend?.setOnClickListener { send() }
@@ -161,8 +161,8 @@ class FileLogFragment : Fragment() {
         if (true != file?.exists()) return
 
         val items = arrayOf(
-            view!!.resources.getString(R.string.xray_btn_share_target_file),
-            view!!.resources.getString(R.string.xray_btn_share_target_intent)
+            requireView().resources.getString(R.string.xray_btn_share_target_file),
+            requireView().resources.getString(R.string.xray_btn_share_target_intent)
         )
 
         AlertDialog.Builder(logView!!.context)
@@ -170,8 +170,8 @@ class FileLogFragment : Fragment() {
             .setNegativeButton(android.R.string.cancel, null)
             .setSingleChoiceItems(items, -1) { d, which ->
                 when (which) {
-                    1 -> Reporting.sendLogReport(activity!!, file)
-                    else -> copyLogFile(activity!!, file!!)
+                    1 -> Reporting.sendLogReport(requireActivity(), file)
+                    else -> copyLogFile(requireActivity(), file!!)
                 }
                 d.dismiss()
             }
