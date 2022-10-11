@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'ReactNative' do |sp|
     sp.dependency 'React'
+    sp.dependency 'React-Core'
 
     sp.source_files = [
       'ReactNative/**/*.{swift}',
