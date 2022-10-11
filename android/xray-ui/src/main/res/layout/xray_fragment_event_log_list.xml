@@ -20,7 +20,7 @@
         <ToggleButton
             android:id="@+id/tb_filter"
             android:layout_width="52dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:drawableTop="@drawable/ic_baseline_filter_list_24"
             android:textOff=""
             android:textOn=""
@@ -29,7 +29,7 @@
         <ToggleButton
             android:id="@+id/tb_search"
             android:layout_width="52dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:drawableTop="@drawable/ic_baseline_search_24"
             android:textOff=""
             android:textOn=""
@@ -111,4 +111,35 @@
         app:stackFromEnd="true"
         tools:context="com.applicaster.xray.ui.fragments.EventLogFragment"
         tools:listitem="@layout/xray_fragment_event_log_entry" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_first_page_24" />
+
+        <ImageButton
+            android:id="@+id/btn_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_last_page_24" />
+    </LinearLayout>
+
+
 </LinearLayout>

@@ -1,12 +1,11 @@
 package com.applicaster.xray.ui.notification
 
-import android.content.BroadcastReceiver
-import android.content.Intent
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
-import com.applicaster.xray.ui.notification.NotificationReceiver
 
 /**
  * Dummy class to receive intents that are not handled by anyone else.

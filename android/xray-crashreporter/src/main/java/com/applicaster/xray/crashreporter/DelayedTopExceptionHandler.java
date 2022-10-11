@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.Thread.UncaughtExceptionHandler;
 
 public class DelayedTopExceptionHandler extends BaseTopExceptionHandler {
 

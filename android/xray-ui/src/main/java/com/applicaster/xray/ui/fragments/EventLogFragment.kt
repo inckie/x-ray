@@ -189,6 +189,21 @@ class EventLogFragment : Fragment() {
             view.findViewById<View>(R.id.btn_share).setOnClickListener {
                 share(view.context, inMemoryLogSink.getLiveData(), filteredList)
             }
+
+            view.findViewById<View>(R.id.btn_clear).setOnClickListener {
+                filteredList.hideCurrent()
+            }
+
+            view.findViewById<View>(R.id.btn_end).setOnClickListener {
+                val count = list.adapter?.itemCount ?: 0
+                if(count > 0) {
+                    list.scrollToPosition(count - 1)
+                }
+            }
+
+            view.findViewById<View>(R.id.btn_start).setOnClickListener {
+                list.scrollToPosition(0)
+            }
         }
 
         view.setTag(R.id.fragment_title_tag, getString(R.string.tab_title_events))

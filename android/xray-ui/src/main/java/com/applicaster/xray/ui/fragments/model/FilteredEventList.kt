@@ -44,9 +44,21 @@ class FilteredEventList(
         }
         get() = filter.level
 
+    private var _skip = 0
+    var skip: Int
+        set(value) {
+            _skip = value
+            update()
+        }
+        get() = _skip
+
+    fun hideCurrent() {
+        skip = originalList.value!!.size
+    }
+
     private fun update() {
         // Assuming we are in the main thread
-        value = originalList.value!!.filter { filter.filter(it) }
+        value = originalList.value!!.drop(_skip).filter { filter.filter(it) }
     }
 
     init {
