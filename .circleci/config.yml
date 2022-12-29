@@ -27,41 +27,41 @@ jobs:
           name: Install react-native from npm
           command: npm install react-native@${REACT_NATIVE_VERSION}
 
-      # - run:
-      #     name: Download Android Dependencies
-      #     working_directory: android
-      #     command: ./gradlew androidDependencies
+      - run:
+          name: Download Android Dependencies
+          working_directory: android
+          command: ./gradlew androidDependencies
 
       - save_cache:
           paths:
-            # - ~/.gradle
+            - ~/.gradle
             - ./node_modules
           key: *cache_file
 
-      # - run:
-      #     name: Lint check
-      #     working_directory: android
-      #     command: ./gradlew lint
+      - run:
+          name: Lint check
+          working_directory: android
+          command: ./gradlew lint
 
-      # - run:
-      #     name: Build xray-core
-      #     working_directory: android
-      #     command: ./gradlew :xray-core:assembleRelease
+      - run:
+          name: Build xray-core
+          working_directory: android
+          command: ./gradlew :xray-core:assembleRelease
 
-      # - run:
-      #     name: Build xray-notification
-      #     working_directory: android
-      #     command: ./gradlew :xray-notification:assembleRelease
+      - run:
+          name: Build xray-notification
+          working_directory: android
+          command: ./gradlew :xray-notification:assembleRelease
 
-      # - run:
-      #     name: Build xray-crashreporter
-      #     working_directory: android
-      #     command: ./gradlew :xray-crashreporter:assembleRelease
+      - run:
+          name: Build xray-crashreporter
+          working_directory: android
+          command: ./gradlew :xray-crashreporter:assembleRelease
 
-      # - run:
-      #     name: Build xray-ui
-      #     working_directory: android
-      #     command: ./gradlew :xray-ui:assembleRelease
+      - run:
+          name: Build xray-ui
+          working_directory: android
+          command: ./gradlew :xray-ui:assembleRelease
 
       # - run:
       #     name: Upload Bintray

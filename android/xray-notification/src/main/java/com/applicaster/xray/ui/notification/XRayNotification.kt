@@ -74,7 +74,8 @@ object XRayNotification {
             .setShowWhen(false)
             .setSound(null)
 
-        actions?.forEach {
+        // bug in AGP, forEach detected as Java one, and fails lint (requires some Google libraries updates)
+        actions?.map {
             notificationBuilder.addAction(0, it.key, it.value)
         }
 
