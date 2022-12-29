@@ -13,6 +13,12 @@
     <string name="xray_btn_share_target_intent">To application</string>
     <string name="xray_dlg_title_share_events">Share events</string>
 
+    <plurals name="xray_lbl_d_events_hidden">
+        <item quantity="zero" formatted="true">No event hidden</item>
+        <item quantity="one" formatted="true">%d event hidden</item>
+        <item quantity="other" formatted="true">%d events hidden</item>
+    </plurals>
+
     <!-- https://stackoverflow.com/a/52308875 -->
     <attr name="sink_name" format="string|reference" />
     <attr name="file_name" format="string|reference" />

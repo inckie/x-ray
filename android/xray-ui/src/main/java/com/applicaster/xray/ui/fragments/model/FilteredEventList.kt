@@ -9,48 +9,54 @@ import com.applicaster.xray.core.LogLevel
 
 class FilteredEventList(
     owner: LifecycleOwner,
-    private val originalList: LiveData<List<Event>>
+    private val originalList: LiveData<List<Event>>,
+    state: FilteredListState? = null
 ) : MutableLiveData<List<Event>>(), Observer<List<Event>> {
 
-    private class Filter {
-        var subsystem: String = ""
-        var category: String = ""
+    data class Filter(
+        var subsystem: String = "",
+        var category: String = "",
         var level: LogLevel = LogLevel.verbose
+    ) {
         fun filter(event: Event): Boolean = event.level >= level.level
                 && (subsystem.isBlank() or event.subsystem.contains(subsystem, true))
                 && (category.isBlank() or event.category.contains(category, true))
     }
 
-    private val filter = Filter()
+    data class FilteredListState(
+        val filter: Filter = Filter(),
+        var skip: Int = 0
+    )
+
+    private val state = state ?: FilteredListState()
 
     var subsystem: String
         set(value) {
-            filter.subsystem = value
+            state.filter.subsystem = value
             update()
         }
-        get() = filter.subsystem
+        get() = state.filter.subsystem
 
     var category: String
         set(value) {
-            filter.category = value
+            state.filter.category = value
             update()
         }
-        get() = filter.category
+        get() = state.filter.category
 
     var level: LogLevel
         set(value) {
-            filter.level = value
+            state.filter.level = value
             update()
         }
-        get() = filter.level
+        get() = state.filter.level
 
-    private var _skip = 0
     var skip: Int
         set(value) {
-            _skip = value
+            state.skip = value
             update()
         }
-        get() = _skip
+        get() = state.skip
 
     fun hideCurrent() {
         skip = originalList.value!!.size
@@ -58,7 +64,7 @@ class FilteredEventList(
 
     private fun update() {
         // Assuming we are in the main thread
-        value = originalList.value!!.drop(_skip).filter { filter.filter(it) }
+        value = originalList.value!!.drop(skip).filter { state.filter.filter(it) }
     }
 
     init {

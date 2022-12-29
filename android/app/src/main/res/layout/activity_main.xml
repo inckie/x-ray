@@ -39,7 +39,7 @@
             app:file_name="default.log" />
 
         <fragment
-            android:id="@+id/errro_logfile_fragment"
+            android:id="@+id/error_logfile_fragment"
             android:name="com.applicaster.xray.ui.fragments.FileLogFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

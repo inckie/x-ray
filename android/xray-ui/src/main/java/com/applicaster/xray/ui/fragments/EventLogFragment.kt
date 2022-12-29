@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger
 class EventLogFragment : Fragment() {
 
     private var inMemorySinkName: String? = null
-    private var defaultLevel: Int = LogLevel.info.level
+    private var defaultLevel: LogLevel = LogLevel.info
 
     private lateinit var searchState: SearchState // can be local, but member for debugging
 
@@ -46,7 +46,7 @@ class EventLogFragment : Fragment() {
         }
         if(ta.hasValue(R.styleable.EventLogFragment_MembersInjector_default_level)){
             ta.getString(R.styleable.EventLogFragment_MembersInjector_default_level)?.toIntOrNull()?.let {
-                defaultLevel = LogLevel.fromLevel(it).level
+                defaultLevel = LogLevel.fromLevel(it)
             }
         }
         ta.recycle()
@@ -71,9 +71,13 @@ class EventLogFragment : Fragment() {
 
         // todo: show message if sink is missing
         if (null != inMemoryLogSink) {
-
             // Wrap original list to filtered one
-            val filteredList = FilteredEventList(viewLifecycleOwner, inMemoryLogSink.getLiveData())
+            val filteredList = FilteredEventList(
+                viewLifecycleOwner,
+                inMemoryLogSink.getLiveData(),
+                filters.getOrPut(id) { // use owned filter state so it will be persisted
+                    FilteredEventList.FilteredListState(FilteredEventList.Filter(level = defaultLevel))
+                })
             // Here I rely on the fact that the EventRecyclerViewAdapter below will be notified after SearchState.
             // Its not very good, since its not guaranteed, I just know that these observers are stored as a linked list internally.
             searchState = SearchState(filteredList, viewLifecycleOwner)
@@ -85,7 +89,7 @@ class EventLogFragment : Fragment() {
                         android.R.layout.simple_list_item_1,
                         LogLevel.values()
                 )
-                setSelection(defaultLevel)
+                setSelection(filteredList.level.level)
                 onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {
                     }
@@ -117,11 +121,13 @@ class EventLogFragment : Fragment() {
                 }
 
             val edSubsystem = filter.findViewById<EditText>(R.id.ed_subsystem)
+            edSubsystem.setText(filteredList.subsystem)
             edSubsystem.doAfterTextChanged {
                 filteredList.subsystem = it.toString()
             }
 
             val edCategory = filter.findViewById<EditText>(R.id.ed_category)
+            edCategory.setText(filteredList.category)
             edCategory.doAfterTextChanged {
                 filteredList.category = it.toString()
             }
@@ -190,8 +196,23 @@ class EventLogFragment : Fragment() {
                 share(view.context, inMemoryLogSink.getLiveData(), filteredList)
             }
 
+            // todo: show special first list entry instead
+            val lblEventsHidden = view.findViewById<TextView>(R.id.lbl_events_hidden)
+            fun updateHiddenCnt() {
+                lblEventsHidden.text = resources.getQuantityString(
+                    R.plurals.xray_lbl_d_events_hidden,
+                    filteredList.skip,
+                    filteredList.skip
+                )
+            }
+            updateHiddenCnt()
+            lblEventsHidden.setOnClickListener {
+                filteredList.skip = 0
+                updateHiddenCnt()
+            }
             view.findViewById<View>(R.id.btn_clear).setOnClickListener {
                 filteredList.hideCurrent()
+                updateHiddenCnt()
             }
 
             view.findViewById<View>(R.id.btn_end).setOnClickListener {
@@ -286,6 +307,8 @@ class EventLogFragment : Fragment() {
                 putString(ARG_SINK_NAME, sinkName)
             }
         }
+
+        private val filters = mutableMapOf<Int, FilteredEventList.FilteredListState>()
 
         private const val ARG_SINK_NAME: String = "sink_name"
         private const val TAG: String = "EventLogFragment"
