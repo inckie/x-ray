@@ -6,8 +6,9 @@ import androidx.lifecycle.Observer
 import com.applicaster.xray.core.Event
 
 // Don't want to make it observable yet
-class SearchState(private var list: LiveData<List<Event>>,
-                  lifecycleOwner: LifecycleOwner
+class SearchState(
+    private var list: LiveData<List<Event>>,
+    lifecycleOwner: LifecycleOwner
 ) : Observer<List<Event>> {
 
     enum class SearchFields(val flag: Int) {
@@ -16,7 +17,10 @@ class SearchState(private var list: LiveData<List<Event>>,
         SUBSYSTEM(1 shl 2),
         CONTEXT  (1 shl 3),
         DATA     (1 shl 4),
-        ALL      (MESSAGE.flag or CATEGORY.flag or SUBSYSTEM.flag or CONTEXT.flag or DATA.flag)
+        ALL      (MESSAGE.flag or CATEGORY.flag or SUBSYSTEM.flag or CONTEXT.flag or DATA.flag);
+
+        // better than int extension
+        fun isSet(mask: Int): Boolean = 0 != flag and mask
     }
 
     init {
@@ -54,23 +58,19 @@ class SearchState(private var list: LiveData<List<Event>>,
         }
     }
 
-    fun next(): Boolean {
-        return when {
-            current + 1 >= result.size -> false
-            else -> {
-                ++current
-                true
-            }
+    fun next(): Boolean = when {
+        current + 1 >= result.size -> false
+        else -> {
+            ++current
+            true
         }
     }
 
-    fun prev(): Boolean {
-        return when {
-            current <= 0 -> false
-            else -> {
-                --current
-                true
-            }
+    fun prev(): Boolean = when {
+        current <= 0 -> false
+        else -> {
+            --current
+            true
         }
     }
 
@@ -88,21 +88,21 @@ class SearchState(private var list: LiveData<List<Event>>,
     }
 
     private fun isMatch(it: Event): Boolean {
-        if (0 != searchMask and SearchFields.MESSAGE.flag)
+        if (SearchFields.MESSAGE.isSet(searchMask))
             if (it.message.contains(text, ignoreCase = true))
                 return true
-        if (0 != searchMask and SearchFields.SUBSYSTEM.flag)
+        if (SearchFields.SUBSYSTEM.isSet(searchMask))
             if (it.subsystem.contains(text, ignoreCase = true))
                 return true
-        if (0 != searchMask and SearchFields.CATEGORY.flag)
+        if (SearchFields.CATEGORY.isSet(searchMask))
             if (it.category.contains(text, ignoreCase = true))
                 return true
         // simplified
-        if (0 != searchMask and SearchFields.CONTEXT.flag && null != it.context)
+        if (SearchFields.CONTEXT.isSet(searchMask) && null != it.context)
             if (it.context.toString().contains(text, ignoreCase = true))
                 return true
         // simplified
-        if (0 != searchMask and SearchFields.DATA.flag && null != it.data)
+        if (SearchFields.DATA.isSet(searchMask) && null != it.data)
             if (it.data.toString().contains(text, ignoreCase = true))
                 return true
         return false
