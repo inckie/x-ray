@@ -78,6 +78,10 @@ import Foundation
     }
     
     var networkRequestUuidString: String? {
+        guard isNetworkRequest else {
+            return nil
+        }
+        
         if let request = self.data?["request"] as? [String: Any],
               let headers = request["httpHeaderFieldsDescription"] as? [String: Any],
               let value = headers["requestUUID"] as? String {
@@ -90,7 +94,7 @@ import Foundation
     }
 
     public var isNetworkRequest: Bool {
-        return networkRequestStatusCode != nil
+        return subsystem == "network_requests"
     }
     
     public var networkRequestStatusCode: String? {
