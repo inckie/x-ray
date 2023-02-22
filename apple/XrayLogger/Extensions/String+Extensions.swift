@@ -25,6 +25,13 @@ extension String {
         return parentSubsystem
     }
 
+    func md5() -> String {
+        guard let data = data(using: .utf8) else {
+            return ""
+        }
+        return data.md5
+    }
+    
 //    func isSubsystemPathCorrupeted() -> Bool {
 //        let regexLiteral = "^(?:[.\\/\\\\ ](?![.\\/\\\\\\n])|[^<>:\"|?*.\\/\\\\ \\n])+$"
 //
