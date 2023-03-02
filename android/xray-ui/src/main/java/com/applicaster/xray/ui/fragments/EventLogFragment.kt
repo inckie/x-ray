@@ -69,8 +69,14 @@ class EventLogFragment : Fragment() {
             Core.get().getSink(it) as? InMemoryLogSink?
         }
 
-        // todo: show message if sink is missing
-        if (null != inMemoryLogSink) {
+        // todo: update without recreating the fragment
+        if (null == inMemoryLogSink) {
+            view.findViewById<TextView>(R.id.lbl_sink_missing)?.apply{
+                text = resources.getString(R.string.xray_lbl_sink_missing_s, inMemorySinkName)
+                visibility = View.VISIBLE
+            }
+            view.findViewById<View>(R.id.cnt_main_view)?.visibility = View.GONE
+        } else {
             // Wrap original list to filtered one
             val filteredList = FilteredEventList(
                 viewLifecycleOwner,
@@ -85,9 +91,9 @@ class EventLogFragment : Fragment() {
             // Setup log level filter spinner
             view.findViewById<Spinner>(R.id.cb_filter).apply {
                 adapter = ArrayAdapter(
-                        context,
-                        android.R.layout.simple_list_item_1,
-                        LogLevel.values()
+                    context,
+                    android.R.layout.simple_list_item_1,
+                    LogLevel.values()
                 )
                 setSelection(filteredList.level.level)
                 onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -95,10 +101,10 @@ class EventLogFragment : Fragment() {
                     }
 
                     override fun onItemSelected(
-                            parent: AdapterView<*>?,
-                            view: View?,
-                            position: Int,
-                            id: Long
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
                     ) {
                         filteredList.level = LogLevel.values()[position]
                     }
@@ -109,16 +115,16 @@ class EventLogFragment : Fragment() {
             val list = view.findViewById<RecyclerView>(R.id.list)
             list.apply {
                 adapter = EventRecyclerViewAdapter(
-                        viewLifecycleOwner,
-                        filteredList,
-                        searchState)
+                    viewLifecycleOwner,
+                    filteredList,
+                    searchState)
             }
 
             val filter = view.findViewById<LinearLayout>(R.id.cnt_filter)
             val bntFilter = view.findViewById<ToggleButton>(R.id.tb_filter)
             bntFilter.setOnCheckedChangeListener { _, isChecked ->
-                    filter.visibility = if (isChecked) View.VISIBLE else View.GONE
-                }
+                filter.visibility = if (isChecked) View.VISIBLE else View.GONE
+            }
 
             val edSubsystem = filter.findViewById<EditText>(R.id.ed_subsystem)
             edSubsystem.setText(filteredList.subsystem)
@@ -169,8 +175,7 @@ class EventLogFragment : Fragment() {
                     .toBooleanArray()
 
                 val l = object
-                    : DialogInterface.OnMultiChoiceClickListener
-                    , DialogInterface.OnClickListener {
+                    : DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnClickListener {
 
                     private var newMask = mask
 
