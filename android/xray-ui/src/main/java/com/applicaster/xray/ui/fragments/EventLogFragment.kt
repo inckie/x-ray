@@ -20,6 +20,7 @@ import com.applicaster.xray.core.LogLevel
 import com.applicaster.xray.crashreporter.Reporting
 import com.applicaster.xray.ui.R
 import com.applicaster.xray.ui.adapters.EventRecyclerViewAdapter
+import com.applicaster.xray.ui.adapters.EventRecyclerViewAdapter.IEventActionProvider
 import com.applicaster.xray.ui.fragments.model.FilteredEventList
 import com.applicaster.xray.ui.fragments.model.SearchState
 import com.applicaster.xray.ui.sinks.InMemoryLogSink
@@ -31,7 +32,13 @@ import java.util.concurrent.atomic.AtomicInteger
 /**
  * A fragment representing a list of Items.
  */
-class EventLogFragment : Fragment() {
+open class EventLogFragment : Fragment() {
+
+    interface EventAction: IEventActionProvider.IEventAction {
+        fun isApplicable(event: Event) : Boolean
+    }
+
+    private lateinit var actionProvider: IEventActionProvider
 
     private var inMemorySinkName: String? = null
     private var defaultLevel: LogLevel = LogLevel.info
@@ -50,7 +57,20 @@ class EventLogFragment : Fragment() {
             }
         }
         ta.recycle()
+        actionProvider = makeEventActionProvider()
     }
+
+    // make default (non-dynamic) action provider
+    open fun makeEventActionProvider() = object : IEventActionProvider {
+
+        private val providers = createActions()
+
+        override fun provide(event: Event): List<IEventActionProvider.IEventAction> =
+            providers.filter { it.isApplicable(event) }
+    }
+
+    // actions for default action provider implementation
+    open fun createActions() = listOf<EventAction>()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -117,7 +137,9 @@ class EventLogFragment : Fragment() {
                 adapter = EventRecyclerViewAdapter(
                     viewLifecycleOwner,
                     filteredList,
-                    searchState)
+                    searchState,
+                    actionProvider
+                )
             }
 
             val filter = view.findViewById<LinearLayout>(R.id.cnt_filter)

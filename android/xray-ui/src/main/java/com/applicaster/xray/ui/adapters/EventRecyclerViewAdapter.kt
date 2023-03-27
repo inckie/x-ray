@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
@@ -29,7 +31,8 @@ import java.util.*
 class EventRecyclerViewAdapter(
     owner: LifecycleOwner,
     observableEventList: LiveData<List<Event>>,
-    private val searchState: SearchState
+    private val searchState: SearchState,
+    private val actionProvider: IEventActionProvider? = null
 ) : RecyclerView.Adapter<EventRecyclerViewAdapter.ViewHolder>(), Observer<List<Event>> {
 
     private var values: List<Event> = observableEventList.value!!
@@ -42,6 +45,16 @@ class EventRecyclerViewAdapter(
 
     init {
         observableEventList.observe(owner, this)
+    }
+
+    interface IEventActionProvider {
+
+        interface IEventAction {
+            fun name(): String
+            fun apply(event: Event)
+        }
+
+        fun provide(event: Event): List<IEventAction>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,6 +79,7 @@ class EventRecyclerViewAdapter(
         private val subsystem: TextView = view.lbl_subsystem
         private val category: TextView = view.lbl_category
         private val colorTag: View = view.view_color_tag
+        private val actions: LinearLayout = view.cnt_actions
 
         private var event: Event? = null
 
@@ -127,6 +141,15 @@ class EventRecyclerViewAdapter(
                     else -> searchColorDefault
                 }
             )
+            actionProvider?.provide(item)?.let {
+                actions.removeAllViews()
+                it.forEach { Button(actions.context).apply {
+                    text = it.name()
+                    layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    setOnClickListener { _ -> it.apply(item) }
+                    actions.addView(this)
+                }}
+            }
         }
 
         private fun hasDetails(item: Event) =
