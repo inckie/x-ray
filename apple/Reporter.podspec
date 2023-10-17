@@ -1,8 +1,10 @@
 # frozen_string_literal: true
+package = JSON.parse(File.read(File.join("../package.json")))
+version = package['version']
 
 Pod::Spec.new do |s|
   s.name = 'Reporter'
-  s.version = '0.0.1'
+  s.version = version
   s.summary = 'Logger Reporter'
   s.ios.deployment_target = '12.0'
   s.tvos.deployment_target = '12.0'
@@ -14,7 +16,7 @@ Pod::Spec.new do |s|
   s.homepage = 'git@github.com:applicaster/x-ray.git'
   s.license = 'Appache 2.0'
   s.author = { 'a.kononenko@applicaster.com' => 'a.kononenko@applicaster.com' }
-  s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: '0.0.1' }
+  s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: version }
   s.dependency 'XrayLogger'
   s.ios.source_files = [
     'Extensions/Reporter/**/*.{swift}'
