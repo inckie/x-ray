@@ -24,7 +24,6 @@ import com.applicaster.xray.ui.R
 import com.applicaster.xray.ui.fragments.model.SearchState
 import com.applicaster.xray.ui.utility.format
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.xray_fragment_event_log_entry.view.*
 import java.util.*
 
 
@@ -73,13 +72,13 @@ class EventRecyclerViewAdapter(
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         // cache synthetics
-        private val time: TextView = view.time
-        private val message: TextView = view.message
-        private val details: TextView = view.lbl_details
-        private val subsystem: TextView = view.lbl_subsystem
-        private val category: TextView = view.lbl_category
-        private val colorTag: View = view.view_color_tag
-        private val actions: LinearLayout = view.cnt_actions
+        private val time: TextView = view.findViewById(R.id.time)
+        private val message: TextView = view.findViewById(R.id.message)
+        private val details: TextView = view.findViewById(R.id.lbl_details)
+        private val subsystem: TextView = view.findViewById(R.id.lbl_subsystem)
+        private val category: TextView = view.findViewById(R.id.lbl_category)
+        private val colorTag: View = view.findViewById(R.id.view_color_tag)
+        private val actions: LinearLayout = view.findViewById(R.id.cnt_actions)
 
         private var event: Event? = null
 
@@ -119,7 +118,7 @@ class EventRecyclerViewAdapter(
             }
         }
 
-        override fun toString(): String = super.toString() + " '" + view.message.text + "'"
+        override fun toString(): String = "${super.toString()} '${event?.message}'"
 
         fun bind(item: Event) {
             event = item
