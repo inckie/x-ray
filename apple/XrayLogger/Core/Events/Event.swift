@@ -49,7 +49,8 @@ import Foundation
         super.init()
     }
 
-    public func toDictionary(shouldIncludeContext: Bool = true) -> [String: Any] {
+    public func toDictionary(shouldIncludeData includeData: Bool = true,
+                             shouldIncludeContext includeContext: Bool = true) -> [String: Any] {
         var dictionary: [String: Any] = [
             CodingKeys.category.rawValue: category,
             CodingKeys.subsystem.rawValue: subsystem,
@@ -57,11 +58,11 @@ import Foundation
             CodingKeys.level.rawValue: level.rawValue,
             CodingKeys.message.rawValue: message]
 
-        if let data = data {
+        if let data = data, includeData == true {
             dictionary[CodingKeys.data.rawValue] = data
         }
 
-        if let context = context, shouldIncludeContext == true {
+        if let context = context, includeContext == true {
             dictionary[CodingKeys.context.rawValue] = context
         }
         return dictionary
@@ -96,8 +97,16 @@ import Foundation
         return data?[CodingKeys.statusCode.rawValue] as? String
     }
 
-    public func toJSONString(options opt: JSONSerialization.WritingOptions = []) -> String? {
-        let jsonData = toDictionary()
-        return JSONHelper.convertObjectToJSONString(object: jsonData, options: opt)
+    public func toJSONString(options opt: JSONSerialization.WritingOptions = [],
+                             shouldIncludeData includeData: Bool = true,
+                             shouldIncludeContext includeContext: Bool = true,
+                             shouldContainValuesOnly valuesOnly: Bool = false) -> String? {
+        let jsonData = toDictionary(shouldIncludeData: includeData,
+                                    shouldIncludeContext: includeContext)
+        var object: Any = jsonData
+        if valuesOnly {
+            object = Array(jsonData.values)
+        }
+        return JSONHelper.convertObjectToJSONString(object: object, options: opt)
     }
 }
