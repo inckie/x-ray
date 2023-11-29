@@ -16,13 +16,6 @@ public class LoggerFiltersViewController: UIViewController {
     @IBOutlet var txtMessage: UITextField!
     @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
 
-    public enum FilterType: String {
-        case subsystem
-        case category
-        case message
-        case any
-    }
-
     var applyFilters: (([FilterType: String]) -> Void)?
     var keyboardHeightChanged: ((CGFloat) -> Void)?
 

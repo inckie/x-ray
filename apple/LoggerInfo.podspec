@@ -17,15 +17,25 @@ Pod::Spec.new do |s|
   s.license = 'Appache 2.0'
   s.author = { 'a.kononenko@applicaster.com' => 'a.kononenko@applicaster.com' }
   s.source = { git: 'git@github.com:applicaster/x-ray.git', tag: version }
-
-  s.ios.resources = [
-    'Extensions/LoggerNavigationController/**/*.xib',
-    'Extensions/LoggerNavigationController/**/*.png'
-  ]
-  s.ios.source_files = 'Extensions/LoggerNavigationController/**/*.{swift}'
-  s.tvos.source_files = 'Extensions/LoggerNavigationController/dummy.swift'
+  s.default_subspec = 'Default'
 
   s.ios.dependency 'XrayLogger'
   s.ios.dependency 'Reporter'
-  s.ios.dependency 'AccordionSwift', '2.0.5'
+
+  s.subspec 'Base' do |c|
+    c.ios.source_files = 'Base/**/*.{swift}'
+    c.tvos.source_files = ''
+  end
+
+  s.subspec 'Default' do |c|
+    c.ios.resources = [
+      'Extensions/LoggerNavigationController/**/*.xib',
+      'Extensions/LoggerNavigationController/**/*.png'
+    ]
+    c.ios.source_files = 'Extensions/LoggerNavigationController/**/*.{swift}'
+    c.tvos.source_files = 'Extensions/LoggerNavigationController/dummy.swift'
+
+    c.dependency 'LoggerInfo/Base'
+    c.ios.dependency 'AccordionSwift', '2.0.5'
+  end
 end

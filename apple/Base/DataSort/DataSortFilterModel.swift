@@ -14,10 +14,10 @@ enum DataSortFilterModelKeys: String {
 }
 
 public struct DataSortFilterModel: Equatable {
-    let type: LoggerFiltersViewController.FilterType
+    let type: FilterType
     var filterText: String?
 
-    public init(type: LoggerFiltersViewController.FilterType,
+    public init(type: FilterType,
          filterText: String? = nil,
          isEnabled: Bool) {
         self.type = type
@@ -26,7 +26,7 @@ public struct DataSortFilterModel: Equatable {
 
     init?(data: [String: Any]) {
         guard let rawType = data[DataSortFilterModelKeys.type.rawValue] as? String,
-              let type = LoggerFiltersViewController.FilterType(rawValue: rawType) else {
+              let type = FilterType(rawValue: rawType) else {
             return nil
         }
 

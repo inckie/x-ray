@@ -37,7 +37,7 @@ public class LoggerViewControllerBase: UIViewController {
     var filteredDataSourceByType: [Event] = []
 
     var filterModels: [DataSortFilterModel] {
-        LoggerFiltersViewController.filters.map({ (key: LoggerFiltersViewController.FilterType, value: String) in
+        LoggerFiltersViewController.filters.map({ (key: FilterType, value: String) in
             DataSortFilterModel(type: key, filterText: value, isEnabled: true)
         })
     }
