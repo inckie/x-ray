@@ -16,6 +16,7 @@
     "apple/Extensions",
     "apple/*.podspec",
     "apple/ReactNative",
-    "apple/XrayLogger"
+    "apple/XrayLogger",
+    "apple/Base"
   ]
 }
