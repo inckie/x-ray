@@ -24,6 +24,22 @@ extension String {
         let parentSubsystem = String(self[..<lastSeparatorIndex])
         return parentSubsystem
     }
+    
+    public var currentChildSubsystem: String {
+        guard let lastSeparatorIndex = self.lastIndex(of: "/") else {
+            return self
+        }
+
+        let currentChildSubsystem = String(self[self.index(after: lastSeparatorIndex)...])
+        return currentChildSubsystem
+    }
+    
+    public var subsystemWithoutAppBundlePrefix: String {
+        guard let firstSeparatorIndex = self.firstIndex(of: "/") else {
+            return self
+        }
+        return String(self[self.index(after: firstSeparatorIndex)...])
+    }
 
 //    func isSubsystemPathCorrupeted() -> Bool {
 //        let regexLiteral = "^(?:[.\\/\\\\ ](?![.\\/\\\\\\n])|[^<>:\"|?*.\\/\\\\ \\n])+$"

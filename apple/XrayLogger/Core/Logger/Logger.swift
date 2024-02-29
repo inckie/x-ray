@@ -19,8 +19,9 @@ public class Logger: NSObject {
     weak var parent: Logger?
 
     public var context: [String: Any] = [:]
+    public var eventsBaseData = [String: Any]()
     var messageFormatter: MessageFormatterProtocol?
-
+    
     init(subsystem: String,
          parent: Logger?) {
         self.subsystem = subsystem
@@ -239,11 +240,8 @@ public class Logger: NSObject {
                               function: String,
                               line: Int,
                               includeCallStackSymbols: Bool = false) -> [String: Any]? {
-        guard let data = data else {
-            return nil
-        }
 
-        var newData = data
+        var newData = eventsBaseData.merging(data ?? [:]) { (_, new) in new }
         newData["location"] = ["file": file,
                                "function": function,
                                "line": line]

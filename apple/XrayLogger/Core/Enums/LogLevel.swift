@@ -38,11 +38,11 @@ public enum LogLevel: NSInteger, CaseIterable {
         case .verbose, .undefined:
             return UIColor(red: 0 / 255, green: 153 / 255, blue: 153 / 255, alpha: 1)
         case .debug:
-            return UIColor(red: 0 / 255, green: 76 / 255, blue: 153 / 255, alpha: 1)
-        case .info:
-            return UIColor(red: 153 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
-        case .warning:
             return UIColor(red: 153 / 255, green: 76 / 255, blue: 0 / 255, alpha: 1)
+        case .info:
+            return UIColor(red: 0 / 255, green: 76 / 255, blue: 153 / 255, alpha: 1)
+        case .warning:
+            return UIColor(red: 153 / 255, green: 153 / 255, blue: 0 / 255, alpha: 1)
         case .error:
             return UIColor(red: 153 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
         }

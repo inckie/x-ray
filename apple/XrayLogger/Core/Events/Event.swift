@@ -14,7 +14,7 @@ import Foundation
     public let timestamp: Int64
     public let level: LogLevel
     public let message: String
-    public let data: [String: Any]?
+    public var data: [String: Any]?
     public let context: [String: Any]?
     public let exception: NSException?
 
@@ -43,10 +43,25 @@ import Foundation
         self.timestamp = timestamp
         self.level = level
         self.message = message
-        self.data = data
         self.context = context
         self.exception = exception
         super.init()
+        self.data = data
+    }
+    
+    public init(message: String,
+                subsystem: String = "",
+                data: [String: Any]? = nil,
+                basedOnEvent event: Event) {
+        self.message = message
+        self.category = event.category
+        self.subsystem = subsystem
+        self.timestamp = event.timestamp
+        self.level = event.level
+        self.context = event.context
+        self.exception = event.exception
+        super.init()
+        self.data = data
     }
 
     public func toDictionary(shouldIncludeData includeData: Bool = true,
@@ -74,7 +89,7 @@ import Foundation
             retValue = value
         } else if let value = networkRequestUuidString {
             retValue = value
-        }
+        } 
         return retValue
     }
 
@@ -90,7 +105,7 @@ import Foundation
     }
 
     public var isNetworkRequest: Bool {
-        return subsystem == "network_requests"
+        return subsystem.currentChildSubsystem == "network_requests"
     }
 
     public var networkRequestStatusCode: String? {

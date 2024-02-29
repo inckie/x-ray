@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/x-ray",
-  "version": "0.6.12",
+  "version": "0.6.19",
   "description": "Applicaster X-Ray Logger",
   "peerDependencies": {
     "react": "16.11.0",
