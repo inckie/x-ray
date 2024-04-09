@@ -32,7 +32,9 @@ public class EventBuilder: NSObject {
                           data: newData,
                           context: context,
                           exception: exception)
-        Xray.sharedInstance.submit(event: event)
+        Task {
+            Xray.sharedInstance.submit(event: event)
+        }
     }
 
     private class func formatMessage(messageFormatter: MessageFormatterProtocol?,
