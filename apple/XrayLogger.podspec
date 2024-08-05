@@ -6,9 +6,9 @@ Pod::Spec.new do |s|
   s.name = 'XrayLogger'
   s.version = version
   s.summary = 'Applicaster Logger'
-  s.ios.deployment_target = '12.0'
-  s.tvos.deployment_target = '12.0'
-  s.swift_versions = '5.1'
+  s.ios.deployment_target = '14.0'
+  s.tvos.deployment_target = '14.0'
+  s.swift_versions = '5.5'
   s.description = <<-DESC
   'Applicaster Logger'
   DESC

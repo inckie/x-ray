@@ -6,9 +6,9 @@ Pod::Spec.new do |s|
   s.name = 'Reporter'
   s.version = version
   s.summary = 'Logger Reporter'
-  s.ios.deployment_target = '12.0'
-  s.tvos.deployment_target = '12.0'
-  s.swift_versions = '5.1'
+  s.ios.deployment_target = '14.0'
+  s.tvos.deployment_target = '14.0'
+  s.swift_versions = '5.5'
   s.description = <<-DESC
   'Applicaster Logger'
   DESC
