@@ -15,7 +15,6 @@ import java.util.Set;
 
 public class Core {
 
-    private static Core instance;
     // LinkedHashMap retains key order
     private final LinkedHashMap<String, ISink> sinks = new LinkedHashMap<>();
 
@@ -105,16 +104,13 @@ public class Core {
         }
     }
 
+    private static final class InstanceHolder {
+        static final Core instance = new Core();
+    }
+
     @NonNull
     public static Core get() {
-        if (null == instance) {
-            synchronized (Core.class) {
-                if (null == instance) {
-                    instance = new Core();
-                }
-            }
-        }
-        return instance;
+        return InstanceHolder.instance;
     }
 
     public void reset() {

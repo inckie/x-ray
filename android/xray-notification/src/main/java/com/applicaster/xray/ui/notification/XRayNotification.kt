@@ -9,7 +9,9 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.applicaster.xray.core.Core
 import com.applicaster.xray.core.LogLevel
 
@@ -19,6 +21,7 @@ object XRayNotification {
     private const val ERROR_COUNTER_SINK_NAME = "error_counter_sink"
     private const val CHANNEL_ID = "xray.notification"
     private val CHANNEL_NAME: CharSequence = "X Ray logging"
+    private const val TAG = "XRayNotification"
 
     private var currentNotificationId = -1
     private var channelCreated = false
@@ -32,6 +35,16 @@ object XRayNotification {
         pi: PendingIntent? = null,
         actions: Map<String, PendingIntent>? = null
     ) {
+        // Check POST_NOTIFICATIONS permission. Its up to application to grant it before initializing the module.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) !=
+                android.content.pm.PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.e(TAG, "Notification permission not granted")
+                return
+            }
+        }
+
         if (-1 != currentNotificationId) {
             hide(context)
         }

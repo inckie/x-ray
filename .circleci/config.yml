@@ -6,11 +6,11 @@ references:
     shell: /bin/bash --login
     resource_class: medium
     docker:
-      - image: circleci/android:api-29-node
+      - image: cimg/android:2024.11.1-node
     environment: &environment
-      REACT_NATIVE_VERSION: 0.62.2
+      REACT_NATIVE_VERSION: 0.68.6
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx6144M -XX:MaxPermSize=1024m -Xms512m -XX:+HeapDumpOnOutOfMemoryError"'
+      GRADLE_OPTS: ''
 
 version: 2
 jobs:

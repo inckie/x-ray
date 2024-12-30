@@ -1,9 +1,6 @@
 package com.applicaster.xray.example
 
 import android.app.Application
-import android.app.PendingIntent
-import android.content.Intent
-import android.os.Build
 import com.applicaster.xray.android.contexts.ThreadContext
 import com.applicaster.xray.android.routing.DefaultSinkFilter
 import com.applicaster.xray.android.sinks.ADBSink
@@ -12,12 +9,9 @@ import com.applicaster.xray.core.Core
 import com.applicaster.xray.core.LogLevel
 import com.applicaster.xray.core.Logger
 import com.applicaster.xray.crashreporter.Reporting
-import com.applicaster.xray.crashreporter.SendActivity
 import com.applicaster.xray.example.sinks.ElasticSink
-import com.applicaster.xray.ui.sinks.InMemoryLogSink
-import com.applicaster.xray.example.ui.MainActivity
 import com.applicaster.xray.formatters.message.reflactionformatter.ReflectionMessageFormatter
-import com.applicaster.xray.ui.notification.XRayNotification
+import com.applicaster.xray.ui.sinks.InMemoryLogSink
 
 class App : Application() {
     override fun onCreate() {
@@ -49,37 +43,6 @@ class App : Application() {
         Reporting.init("crash@example.com", fileLogSink.file)
         Reporting.enableForCurrentThread(this, true)
 
-        // configure XRay notification
-
-        // add log view and report sharing buttons
-
-        val intentFlag = when {
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.S -> PendingIntent.FLAG_CANCEL_CURRENT
-            else -> PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
-        }
-
-        val shareLogIntent = SendActivity.getSendPendingIntent(this)
-        val showLogIntent = PendingIntent.getActivity(
-            this,
-            0,
-            Intent(this, MainActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_CLEAR_TASK),
-            intentFlag
-        )!!
-
-        // actions order is kept in the UI
-        val actions: HashMap<String, PendingIntent> = linkedMapOf(
-            "Send" to shareLogIntent,
-            "Show" to showLogIntent)
-
-        // here we show Notification UI with custom actions
-        XRayNotification.show(
-            this,
-            101,
-            null,
-            actions
-        )
-
         Core.get()
             .addSink("adb_sink", ADBSink())
             .addSink(
@@ -97,4 +60,5 @@ class App : Application() {
         rootLogger.setContext(ThreadContext())
         rootLogger.setFormatter(ReflectionMessageFormatter())
     }
+
 }

@@ -20,9 +20,9 @@ project.ext {
     releaseVersion = '0.0.11-alpha'
     releaseVersionCode = 1
     minSdkVersion = getExtOrDefault("minSdkVersion", 19)
-    targetSdkVersion = getExtOrDefault("targetSdkVersion", 31)
-    compileSdkVersion = getExtOrDefault("compileSdkVersion", 31)
-    buildToolsVersion = getExtOrDefault("buildToolsVersion", "31.0.0")
+    targetSdkVersion = getExtOrDefault("targetSdkVersion", 34)
+    compileSdkVersion = getExtOrDefault("compileSdkVersion", 34)
+    buildToolsVersion = getExtOrDefault("buildToolsVersion", "34.0.0")
     xrayAPI = this.&xrayAPI // https://stackoverflow.com/a/23290820
 
     xrayDependencies =[]

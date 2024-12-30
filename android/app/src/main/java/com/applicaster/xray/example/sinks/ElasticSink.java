@@ -50,11 +50,11 @@ public class ElasticSink implements ISink {
 
     @Override
     public void log(@NonNull Event event) {
-        api.send(event).enqueue(new Callback<Void>() {
+        api.send(event).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 // cant log to xray to avoid loop in current filter configuration
-                if(response.isSuccessful())
+                if (response.isSuccessful())
                     Log.d(TAG, "Sent");
                 else
                     Log.e(TAG, "Send failed: " + response.message());
